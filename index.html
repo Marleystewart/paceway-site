@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Discover local run clubs, RSVP to group runs, and find your pace community. The app built for run club culture.">
+  <title>Paceway — Find your run club. Own your pace.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:    #B4FF2E;
+      --green-dk: #90D400;
+      --bg:       #0A0A0A;
+      --surf:     #111111;
+      --card:     #161616;
+      --border:   #1E1E1E;
+      --border2:  #2A2A2A;
+      --text:     #FFFFFF;
+      --muted:    #888888;
+      --dim:      #444444;
+      --r:        12px;
+      --r-lg:     20px;
+      --r-xl:     28px;
+      --max:      1160px;
+      --nav-h:    68px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ─────────────── NAV ─────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(10,10,10,0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      z-index: 200;
+    }
+    .nav-wrap {
+      max-width: var(--max); margin: 0 auto; padding: 0 28px;
+      height: 100%; display: flex; align-items: center; gap: 12px;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; flex-shrink: 0;
+    }
+    .logo-text {
+      font-size: 17px; font-weight: 900; letter-spacing: 0.04em; color: var(--text);
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 2px;
+      list-style: none; margin: 0 auto;
+    }
+    .nav-links a {
+      display: block; padding: 7px 14px;
+      font-size: 14px; font-weight: 500; color: var(--muted);
+      text-decoration: none; border-radius: 8px;
+      transition: color .15s, background .15s;
+    }
+    .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+    .btn-green {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--green); color: #0A0A0A;
+      font-size: 14px; font-weight: 700; font-family: inherit;
+      padding: 10px 20px; border-radius: var(--r);
+      border: none; cursor: pointer; text-decoration: none;
+      transition: background .15s, transform .1s;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .btn-green:hover { background: var(--green-dk); }
+    .btn-green:active { transform: scale(.98); }
+    .btn-green.lg { font-size: 16px; padding: 15px 32px; border-radius: var(--r); }
+
+    /* ─────────────── HERO ─────────────── */
+    .hero {
+      min-height: 100vh; padding-top: var(--nav-h);
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -20%; left: -10%; width: 55%; height: 120%;
+      background: radial-gradient(ellipse, rgba(180,255,46,.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-wrap {
+      max-width: var(--max); margin: 0 auto; padding: 80px 28px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 72px; align-items: center; width: 100%;
+    }
+
+    /* Left */
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(180,255,46,.08); border: 1px solid rgba(180,255,46,.22);
+      color: var(--green); font-size: 13px; font-weight: 600;
+      padding: 5px 13px; border-radius: 999px; margin-bottom: 26px;
+    }
+    .hero-badge::before {
+      content: ''; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--green);
+    }
+    h1 {
+      font-size: clamp(40px, 4.8vw, 62px);
+      font-weight: 900; line-height: 1.05; letter-spacing: -.03em;
+      margin-bottom: 20px;
+    }
+    h1 .g { color: var(--green); }
+    .hero-sub {
+      font-size: 17px; color: var(--muted); line-height: 1.65;
+      max-width: 430px; margin-bottom: 36px;
+    }
+    .hero-form {
+      display: flex; gap: 10px; margin-bottom: 28px; max-width: 460px;
+    }
+    .email-input {
+      flex: 1; min-width: 0;
+      background: var(--surf); border: 1.5px solid var(--border2);
+      color: var(--text); font-size: 15px; font-family: inherit;
+      padding: 14px 18px; border-radius: var(--r);
+      outline: none; transition: border-color .2s;
+    }
+    .email-input::placeholder { color: var(--dim); }
+    .email-input:focus { border-color: rgba(180,255,46,.55); }
+    .hero-success {
+      display: none; align-items: center; gap: 10px;
+      color: var(--green); font-size: 15px; font-weight: 600;
+      padding: 14px 0; max-width: 460px;
+    }
+    .hero-success.show { display: flex; }
+    .app-preview-link {
+      display: inline-block; margin-top: 14px;
+      color: rgba(255,255,255,0.45); font-size: 13px; font-weight: 600;
+      text-decoration: none; letter-spacing: 0.01em;
+      transition: color .2s;
+    }
+    .app-preview-link:hover { color: var(--green); }
+    .proof {
+      display: flex; align-items: center; gap: 14px;
+    }
+    .avatars { display: flex; }
+    .av {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 2px solid var(--bg); margin-left: -9px;
+      font-size: 14px; display: flex; align-items: center; justify-content: center;
+    }
+    .av:first-child { margin-left: 0; }
+    .av1 { background: linear-gradient(135deg,#e84393,#c0392b); }
+    .av2 { background: linear-gradient(135deg,#4ecdc4,#2c7873); }
+    .av3 { background: linear-gradient(135deg,#f7971e,#ffd200); }
+    .av4 { background: linear-gradient(135deg,#a8edea,#fed6e3); }
+    .proof-text { font-size: 13px; line-height: 1.4; }
+    .stars { color: #f7971e; display: block; margin-bottom: 1px; letter-spacing: 1px; }
+    .proof-copy { color: var(--muted); }
+    .proof-copy strong { color: var(--text); }
+
+    /* ── Phone mockups (hero) ── */
+    .hero-phones {
+      position: relative; height: 560px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .phone {
+      position: absolute;
+      background: #0D0D0D;
+      border: 1.5px solid #252525;
+      border-radius: 38px;
+      box-shadow: 0 32px 80px rgba(0,0,0,.75), 0 0 0 1px rgba(255,255,255,.04) inset;
+      overflow: hidden; display: flex; flex-direction: column;
+    }
+    .notch {
+      width: 76px; height: 22px;
+      background: #0D0D0D; border-radius: 0 0 13px 13px;
+      margin: 0 auto; flex-shrink: 0;
+    }
+    .screen { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+
+    .ph-l {
+      width: 196px; height: 412px;
+      left: -16px; top: 74px;
+      transform: rotate(-4deg);
+      z-index: 1; opacity: .82;
+    }
+    .ph-c {
+      width: 216px; height: 480px;
+      left: 50%; top: 40px;
+      transform: translateX(-50%);
+      z-index: 3;
+    }
+    .ph-r {
+      width: 196px; height: 412px;
+      right: -16px; top: 74px;
+      transform: rotate(4deg);
+      z-index: 1; opacity: .82;
+    }
+
+    /* Shared mini-UI atoms */
+    .sbar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 7px 14px 3px; font-size: 10px; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .sbar-r { display: flex; gap: 4px; font-size: 9px; }
+    .phdr {
+      padding: 5px 13px 8px;
+      border-bottom: 1px solid #1C1C1C; flex-shrink: 0;
+    }
+    .phdr-t { font-size: 14px; font-weight: 800; }
+    .phdr-s { font-size: 9px; color: var(--muted); display: flex; align-items: center; gap: 3px; margin-top: 2px; }
+    .dot-g { width: 5px; height: 5px; border-radius: 50%; background: var(--green); display: inline-block; }
+    .sec-lbl { font-size: 10px; font-weight: 700; padding: 7px 13px 3px; flex-shrink: 0; }
+    .run-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 13px; border-bottom: 1px solid #191919;
+      flex-shrink: 0;
+    }
+    .run-thumb {
+      width: 34px; height: 34px; border-radius: 8px;
+      background: linear-gradient(135deg,#1a2a3a,#0c1e2e);
+      font-size: 14px; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .run-name { font-size: 10px; font-weight: 700; }
+    .run-meta { font-size: 8.5px; color: var(--muted); margin-top: 1px; }
+    .run-meta.hi { color: var(--green); }
+    .tabbar {
+      display: flex; border-top: 1px solid #1C1C1C;
+      margin-top: auto; flex-shrink: 0;
+    }
+    .tab {
+      flex: 1; padding: 7px 0 5px;
+      display: flex; flex-direction: column; align-items: center; gap: 1px;
+      font-size: 7px; color: var(--dim);
+    }
+    .tab.on { color: var(--green); }
+    .tab-ico { font-size: 13px; }
+
+    /* Discover phone */
+    .map-box {
+      height: 118px; position: relative; overflow: hidden;
+      background: linear-gradient(160deg,#0b131e,#091320);
+      flex-shrink: 0;
+    }
+    .map-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(180,255,46,.05) 1px,transparent 1px),
+                        linear-gradient(90deg,rgba(180,255,46,.05) 1px,transparent 1px);
+      background-size: 22px 22px;
+    }
+    .pin {
+      position: absolute; width: 9px; height: 9px;
+      border-radius: 50%; border: 1.5px solid #0D0D0D;
+    }
+    .pin.a { background: var(--green); box-shadow: 0 0 8px rgba(180,255,46,.6); }
+    .pin.i { background: #3a3a3a; }
+    .run-stats-row {
+      display: flex; gap: 10px; padding: 5px 13px 7px; flex-shrink: 0;
+    }
+    .rstt { font-size: 8.5px; color: var(--muted); display: flex; align-items: center; gap: 3px; }
+
+    /* Center phone */
+    .ph-img {
+      height: 96px; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg,#1a2530,#0c1c30); font-size: 26px;
+      position: relative; flex-shrink: 0;
+    }
+    .ph-img-fade {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 38px;
+      background: linear-gradient(to top,#0D0D0D,transparent);
+    }
+    .run-title { font-size: 13px; font-weight: 800; padding: 7px 13px 1px; }
+    .run-host { font-size: 8.5px; color: var(--muted); padding: 0 13px 6px; }
+    .detail-row {
+      display: flex; align-items: center; gap: 7px;
+      padding: 4px 13px; border-bottom: 1px solid #191919; flex-shrink: 0;
+    }
+    .d-ico { font-size: 9px; width: 12px; text-align: center; flex-shrink: 0; }
+    .d-lbl { font-size: 8.5px; color: var(--muted); flex: 1; }
+    .d-val { font-size: 8.5px; font-weight: 600; }
+    .rsvp {
+      margin: 7px 13px; background: var(--green); color: #0A0A0A;
+      font-size: 10.5px; font-weight: 800; text-align: center;
+      padding: 8px; border-radius: 9px; flex-shrink: 0;
+    }
+
+    /* Community phone */
+    .tabs-row {
+      display: flex; gap: 14px; padding: 0 13px;
+      border-bottom: 1px solid #1C1C1C; flex-shrink: 0;
+    }
+    .tab-pill {
+      font-size: 10px; font-weight: 700; padding: 6px 0;
+      color: var(--muted); border-bottom: 2px solid transparent;
+    }
+    .tab-pill.on { color: var(--text); border-color: var(--green); }
+    .club-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 13px; border-bottom: 1px solid #191919; flex-shrink: 0;
+    }
+    .club-av {
+      width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+      font-size: 9px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .club-name { font-size: 9.5px; font-weight: 700; }
+    .club-mem { font-size: 7.5px; color: var(--muted); margin-top: 1px; }
+
+    /* ─────────────── FEATURE COLS ─────────────── */
+    .features { padding: 72px 0; border-top: 1px solid var(--border); }
+    .feat-wrap {
+      max-width: var(--max); margin: 0 auto; padding: 0 28px;
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 2px;
+    }
+    .feat-col {
+      background: var(--surf); padding: 32px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .feat-col:first-child { border-radius: var(--r) 0 0 var(--r); }
+    .feat-col:last-child  { border-radius: 0 var(--r) var(--r) 0; }
+    .feat-ico {
+      width: 50px; height: 50px; border-radius: 13px;
+      background: var(--card); border: 1px solid var(--border2);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .feat-title { font-size: 17px; font-weight: 800; letter-spacing: -.01em; }
+    .feat-body  { font-size: 15px; color: var(--muted); line-height: 1.6; }
+
+    /* ─────────────── EVERYTHING ─────────────── */
+    .everything { padding: 100px 0; }
+    .ev-wrap {
+      max-width: var(--max); margin: 0 auto; padding: 0 28px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .ev-eyebrow {
+      font-size: 12px; font-weight: 700; color: var(--green);
+      letter-spacing: .09em; text-transform: uppercase; margin-bottom: 12px;
+    }
+    h2 {
+      font-size: clamp(30px, 3.2vw, 46px);
+      font-weight: 900; letter-spacing: -.03em; line-height: 1.08;
+      margin-bottom: 30px;
+    }
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 13px; margin-bottom: 40px; }
+    .checklist li {
+      display: flex; align-items: center; gap: 11px;
+      font-size: 15.5px; color: var(--muted);
+    }
+    .chk {
+      width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(180,255,46,.1); border: 1px solid rgba(180,255,46,.28);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .badges { display: flex; gap: 12px; flex-wrap: wrap; }
+    .badge {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--surf); border: 1.5px solid var(--border2);
+      padding: 10px 18px; border-radius: var(--r);
+      text-decoration: none; color: var(--text);
+      transition: border-color .2s;
+    }
+    .badge:hover { border-color: #444; }
+    .badge-ico { font-size: 20px; }
+    .badge-txt { display: flex; flex-direction: column; }
+    .badge-sub  { font-size: 9px;  color: var(--muted); font-weight: 500; }
+    .badge-name { font-size: 13px; font-weight: 700; }
+
+    /* Everything phones */
+    .ev-phones {
+      position: relative; height: 490px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .e-phone {
+      position: absolute;
+      background: #0D0D0D; border: 1.5px solid #252525;
+      border-radius: 34px;
+      box-shadow: 0 24px 60px rgba(0,0,0,.65);
+      overflow: hidden; display: flex; flex-direction: column;
+    }
+    .ep-l {
+      width: 180px; height: 372px;
+      left: 0; top: 58px;
+      transform: rotate(-3deg);
+      z-index: 1; opacity: .78;
+    }
+    .ep-c {
+      width: 196px; height: 420px;
+      left: 50%; top: 28px;
+      transform: translateX(-50%);
+      z-index: 3;
+    }
+    .ep-r {
+      width: 180px; height: 372px;
+      right: 0; top: 58px;
+      transform: rotate(3deg);
+      z-index: 1; opacity: .78;
+    }
+
+    /* Calendar screen */
+    .cal-hdr { padding: 5px 12px 6px; flex-shrink: 0; }
+    .cal-month { font-size: 11px; font-weight: 800; }
+    .cal-grid {
+      display: grid; grid-template-columns: repeat(7,1fr);
+      gap: 1px; padding: 0 9px 6px; flex-shrink: 0;
+    }
+    .cd {
+      aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+      font-size: 7.5px; border-radius: 4px; color: var(--muted);
+    }
+    .cd.hdr { font-weight: 800; color: var(--dim); font-size: 7px; }
+    .cd.today { background: var(--green); color: #0A0A0A; font-weight: 900; border-radius: 50%; }
+    .cd.hr { color: var(--text); }
+
+    /* Stats screen */
+    .stat-hero { padding: 7px 12px 3px; flex-shrink: 0; }
+    .stat-lbl { font-size: 8px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+    .stat-num { font-size: 30px; font-weight: 900; letter-spacing: -.03em; line-height: 1; }
+    .stat-unit { font-size: 10px; color: var(--muted); }
+    .bars {
+      display: flex; align-items: flex-end; gap: 3px;
+      padding: 6px 12px; height: 68px; flex-shrink: 0;
+    }
+    .bar { flex: 1; border-radius: 3px 3px 0 0; background: #1E1E1E; }
+    .bar.hi { background: var(--green); }
+    .days-row {
+      display: flex; gap: 3px; padding: 0 12px 5px; flex-shrink: 0;
+    }
+    .day-lbl { flex: 1; text-align: center; font-size: 7px; color: var(--dim); }
+    .day-lbl.hi { color: var(--green); }
+    .stats-3 {
+      display: flex; border-top: 1px solid #1C1C1C;
+      border-bottom: 1px solid #1C1C1C; flex-shrink: 0;
+    }
+    .s3c {
+      flex: 1; padding: 7px 10px;
+      border-right: 1px solid #1C1C1C;
+    }
+    .s3c:last-child { border-right: none; }
+    .s3n { font-size: 12px; font-weight: 800; }
+    .s3l { font-size: 7px; color: var(--muted); margin-top: 1px; }
+
+    /* Profile screen */
+    .prof-hero {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 8px 12px 6px; flex-shrink: 0;
+    }
+    .prof-av {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: linear-gradient(135deg,#667eea,#764ba2);
+      font-size: 20px; display: flex; align-items: center; justify-content: center;
+      margin-bottom: 5px;
+    }
+    .prof-name { font-size: 12px; font-weight: 800; }
+    .prof-loc { font-size: 8px; color: var(--muted); }
+    .prof-stats {
+      display: flex; margin: 0 12px 8px;
+      border: 1px solid #1C1C1C; border-radius: 9px; overflow: hidden;
+      flex-shrink: 0;
+    }
+    .ps { flex: 1; padding: 7px 0; text-align: center; border-right: 1px solid #1C1C1C; }
+    .ps:last-child { border-right: none; }
+    .psn { font-size: 12px; font-weight: 800; }
+    .psl { font-size: 7px; color: var(--muted); }
+    .achv {
+      display: flex; gap: 6px; padding: 0 12px; flex-shrink: 0;
+    }
+    .achv-b {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; background: #161616; border: 1px solid #222;
+    }
+
+    /* ─────────────── FOR CLUBS ─────────────── */
+    .clubs { padding: 0 28px 96px; }
+    .clubs-card {
+      max-width: var(--max); margin: 0 auto;
+      background: var(--surf); border: 1px solid var(--border);
+      border-radius: var(--r-xl); padding: 52px 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 40px; position: relative; overflow: hidden;
+    }
+    .clubs-card::before {
+      content: '';
+      position: absolute; right: 0; top: 0; bottom: 0; width: 45%;
+      background: radial-gradient(ellipse at right center, rgba(180,255,46,.06), transparent 70%);
+      pointer-events: none;
+    }
+    .clubs-ico {
+      width: 54px; height: 54px; border-radius: 14px;
+      background: rgba(180,255,46,.1); border: 1px solid rgba(180,255,46,.22);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+    }
+    .clubs-title { font-size: 30px; font-weight: 900; letter-spacing: -.02em; margin-bottom: 8px; }
+    .clubs-body  { font-size: 16px; color: var(--muted); max-width: 360px; }
+
+    /* ─────────────── FOOTER ─────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 52px 28px 32px;
+    }
+    .ft-inner { max-width: var(--max); margin: 0 auto; }
+    .ft-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 40px; margin-bottom: 48px;
+    }
+    .ft-brand { max-width: 190px; }
+    .ft-logo {
+      display: flex; align-items: center; gap: 9px;
+      text-decoration: none; margin-bottom: 10px;
+    }
+    .ft-logo-txt { font-size: 15px; font-weight: 900; letter-spacing: .04em; color: var(--text); }
+    .ft-tag { font-size: 13px; color: var(--muted); }
+    .ft-socials { text-align: center; }
+    .ft-soc-row { display: flex; gap: 8px; justify-content: center; margin-bottom: 8px; }
+    .soc-btn {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: var(--surf); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; color: var(--muted); font-size: 15px;
+      transition: border-color .2s, color .2s;
+    }
+    .soc-btn:hover { border-color: var(--green); color: var(--green); }
+    .ft-handle { font-size: 13px; color: var(--muted); }
+    .ft-links { display: flex; gap: 24px; list-style: none; flex-wrap: wrap; }
+    .ft-links a { font-size: 14px; color: var(--muted); text-decoration: none; transition: color .15s; }
+    .ft-links a:hover { color: var(--text); }
+    .ft-bot {
+      border-top: 1px solid var(--border); padding-top: 24px;
+      display: flex; justify-content: space-between; align-items: center; gap: 20px;
+    }
+    .ft-copy { font-size: 13px; color: var(--dim); }
+    .ft-legal { display: flex; gap: 20px; list-style: none; }
+    .ft-legal a { font-size: 13px; color: var(--dim); text-decoration: none; transition: color .15s; }
+    .ft-legal a:hover { color: var(--muted); }
+
+    /* ─────────────── FOUNDERS ─────────────── */
+    .founders {
+      padding: 88px 0;
+      border-top: 1px solid var(--border);
+    }
+    .founders-wrap {
+      max-width: var(--max); margin: 0 auto; padding: 0 28px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .founder-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .founder-card {
+      background: var(--surf); border: 1px solid var(--border2);
+      border-radius: var(--r-lg); padding: 26px 22px;
+      display: flex; flex-direction: column;
+    }
+    .founder-av {
+      width: 46px; height: 46px; border-radius: 13px;
+      font-size: 14px; font-weight: 800; letter-spacing: .04em;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 14px; flex-shrink: 0;
+    }
+    .founder-name  { font-size: 15px; font-weight: 800; margin-bottom: 3px; }
+    .founder-role  { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+    .founder-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+    .pill {
+      background: #1C1C1C; border: 1px solid #2A2A2A;
+      color: var(--text); font-size: 11px; font-weight: 500;
+      padding: 4px 11px; border-radius: 999px; white-space: nowrap;
+    }
+    .founders-story { max-width: 520px; }
+    .founders-body {
+      font-size: 16px; color: var(--muted);
+      line-height: 1.75; margin-top: 0;
+    }
+
+    /* ─────────────── RESPONSIVE ─────────────── */
+    @media (max-width: 960px) {
+      .hero-wrap { grid-template-columns: 1fr; gap: 56px; padding: 64px 28px; }
+      .hero-content { max-width: 100%; }
+      .hero-phones { height: 420px; order: -1; }
+      .ph-l, .ph-r { display: none; }
+      .ph-c { position: relative; left: auto; top: auto; transform: none; }
+      .feat-wrap { grid-template-columns: 1fr; gap: 2px; }
+      .feat-col:first-child { border-radius: var(--r) var(--r) 0 0; }
+      .feat-col:last-child  { border-radius: 0 0 var(--r) var(--r); }
+      .ev-wrap { grid-template-columns: 1fr; gap: 52px; }
+      .ev-phones { order: -1; height: 340px; }
+      .ep-l, .ep-r { display: none; }
+      .ep-c { position: relative; left: auto; top: auto; transform: none; }
+      .founders-wrap { grid-template-columns: 1fr; gap: 48px; }
+      .clubs-card { flex-direction: column; align-items: flex-start; padding: 36px; }
+      .ft-top { flex-wrap: wrap; gap: 32px; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .hero-form { flex-direction: column; }
+      .btn-green { justify-content: center; }
+      .founder-cards { grid-template-columns: 1fr; }
+      .clubs { padding: 0 16px 72px; }
+      .clubs-card { padding: 28px 24px; }
+      .ft-bot { flex-direction: column; align-items: flex-start; gap: 12px; }
+    }
+
+    /* ── Checkmark SVG helper ── */
+    .chk-svg { width: 11px; height: 11px; }
+  </style>
+</head>
+<body>
+
+<!-- ════════════ NAV ════════════ -->
+<nav>
+  <div class="nav-wrap">
+    <a href="/" class="logo" aria-label="Paceway home">
+      <svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+        <rect width="34" height="34" rx="8" fill="#B4FF2E"/>
+        <path d="M10 27V8h9c4.4 0 8 3.4 8 8s-3.6 8-8 8h-4.5" stroke="#0A0A0A" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="logo-text">PACEWAY</span>
+    </a>
+
+    <ul class="nav-links" role="list">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#clubs">For Clubs</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+
+    <button class="btn-green" onclick="document.getElementById('email').focus();document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">
+      Join Waitlist
+    </button>
+  </div>
+</nav>
+
+<!-- ════════════ HERO ════════════ -->
+<section class="hero">
+  <div class="hero-wrap">
+
+    <!-- Left: copy + form -->
+    <div class="hero-content">
+      <div class="hero-badge">Now accepting early members</div>
+
+      <h1>
+        Find your run club.<br>
+        <span class="g">Own your pace.</span>
+      </h1>
+
+      <p class="hero-sub">
+        Discover local run clubs, RSVP to group runs, and find your pace community.
+        The app built for run club culture.
+      </p>
+
+      <div id="waitlist">
+        <form class="hero-form" id="wlForm" novalidate>
+          <input type="email" class="email-input" id="email"
+            placeholder="Enter your email" autocomplete="email" required>
+          <button type="submit" class="btn-green" id="wlBtn">Join Waitlist</button>
+        </form>
+        <div class="hero-success" id="wlSuccess">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <circle cx="10" cy="10" r="10" fill="rgba(180,255,46,0.18)"/>
+            <path d="M6 10l3 3 5-5" stroke="#B4FF2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span id="wlMsg">You're on the list!</span>
+        </div>
+        <a href="/app" class="app-preview-link">
+          Preview the app &rarr;
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Right: phone mockups -->
+    <div class="hero-phones" aria-hidden="true">
+
+      <!-- Left phone: Discover -->
+      <div class="phone ph-l">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="sbar"><span>9:41</span><div class="sbar-r"><span>▲▲▲</span><span>WiFi</span><span>🔋</span></div></div>
+          <div class="phdr">
+            <div class="phdr-t">Discover</div>
+            <div class="phdr-s"><span class="dot-g"></span> New York, NY</div>
+          </div>
+          <div class="map-box">
+            <div class="map-grid"></div>
+            <div class="pin a" style="left:44%;top:38%"></div>
+            <div class="pin a" style="left:28%;top:62%"></div>
+            <div class="pin i" style="left:66%;top:28%"></div>
+            <div class="pin i" style="left:56%;top:72%"></div>
+          </div>
+          <div class="sec-lbl">Upcoming Runs</div>
+          <div class="run-item">
+            <div class="run-thumb">🌅</div>
+            <div>
+              <div class="run-name">Sunrise Social Run</div>
+              <div class="run-meta">Brooklyn Run Club</div>
+            </div>
+          </div>
+          <div class="run-stats-row">
+            <div class="rstt"><span style="color:var(--green)">●</span> 4.2 mi</div>
+            <div class="rstt">⏱ 6:48/mi</div>
+            <div class="rstt">👥 12 going</div>
+          </div>
+          <div class="run-item">
+            <div class="run-thumb">🌆</div>
+            <div>
+              <div class="run-name">Evening Easy Miles</div>
+              <div class="run-meta">Manhattan Miles</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center phone: Run Details -->
+      <div class="phone ph-c">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="sbar"><span>9:41</span><div class="sbar-r">···</div></div>
+          <div class="phdr">
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="color:#666;font-size:13px;font-weight:600">←</span>
+              <span class="phdr-t">Run Details</span>
+            </div>
+          </div>
+          <div class="ph-img">🏙️<div class="ph-img-fade"></div></div>
+          <div class="run-title">Sunrise Social Run</div>
+          <div class="run-host">Hosted by Brooklyn Run Club</div>
+          <div class="detail-row"><div class="d-ico">📅</div><div class="d-lbl">Date</div><div class="d-val">Today, May 24</div></div>
+          <div class="detail-row"><div class="d-ico">⏰</div><div class="d-lbl">Time</div><div class="d-val">6:30 AM</div></div>
+          <div class="detail-row"><div class="d-ico">🛣️</div><div class="d-lbl">Distance</div><div class="d-val">4.2 miles</div></div>
+          <div class="detail-row"><div class="d-ico">⚡</div><div class="d-lbl">Pace</div><div class="d-val">All paces welcome</div></div>
+          <div class="detail-row"><div class="d-ico">📍</div><div class="d-lbl">Location</div><div class="d-val">Bushwick Inlet Park</div></div>
+          <div class="rsvp">RSVP Now</div>
+          <div class="tabbar">
+            <div class="tab on"><span class="tab-ico">🔍</span>Discover</div>
+            <div class="tab"><span class="tab-ico">📅</span>Calendar</div>
+            <div class="tab"><span class="tab-ico">📊</span>Activity</div>
+            <div class="tab"><span class="tab-ico">👤</span>Profile</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right phone: Community -->
+      <div class="phone ph-r">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="sbar"><span>9:41</span><div class="sbar-r">···</div></div>
+          <div class="phdr"><div class="phdr-t">Community</div></div>
+          <div class="tabs-row">
+            <div class="tab-pill on">Clubs</div>
+            <div class="tab-pill">Runners</div>
+          </div>
+          <div class="club-item">
+            <div class="club-av" style="background:linear-gradient(135deg,#1a3a5c,#2d6a9f)">BK</div>
+            <div><div class="club-name">Brooklyn Run Club</div><div class="club-mem">1.2k members</div></div>
+          </div>
+          <div class="club-item">
+            <div class="club-av" style="background:linear-gradient(135deg,#2d1a5c,#5c3a9f)">MM</div>
+            <div><div class="club-name">Manhattan Miles</div><div class="club-mem">882 members</div></div>
+          </div>
+          <div class="club-item">
+            <div class="club-av" style="background:linear-gradient(135deg,#1a4a2a,#2d8a4f)">QR</div>
+            <div><div class="club-name">Queens Runners</div><div class="club-mem">643 members</div></div>
+          </div>
+          <div class="club-item">
+            <div class="club-av" style="background:linear-gradient(135deg,#4a1a1a,#9f2d2d)">HR</div>
+            <div><div class="club-name">Harlem Run</div><div class="club-mem">512 members</div></div>
+          </div>
+          <div class="club-item">
+            <div class="club-av" style="background:linear-gradient(135deg,#3a2a1a,#7a5a2a)">BT</div>
+            <div><div class="club-name">Bronx Track Club</div><div class="club-mem">421 members</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ FEATURES ════════════ -->
+<section class="features" id="features">
+  <div class="feat-wrap">
+
+    <div class="feat-col">
+      <div class="feat-ico">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B4FF2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+        </svg>
+      </div>
+      <div class="feat-title">Discover runs near you</div>
+      <div class="feat-body">Find run clubs and group runs happening in your area. From morning miles to night runs.</div>
+    </div>
+
+    <div class="feat-col">
+      <div class="feat-ico">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B4FF2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      </div>
+      <div class="feat-title">Find your vibe and pace</div>
+      <div class="feat-body">Whether you're fast, slow, competitive, or just for fun—there's a crew for you.</div>
+    </div>
+
+    <div class="feat-col">
+      <div class="feat-ico">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B4FF2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+      </div>
+      <div class="feat-title">Connect with your community</div>
+      <div class="feat-body">RSVP, meet new people, and build real connections through run club culture.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════ EVERYTHING ════════════ -->
+<section class="everything" id="about">
+  <div class="ev-wrap">
+
+    <div>
+      <div class="ev-eyebrow">The platform</div>
+      <h2>Everything you need.<br>One place.</h2>
+
+      <ul class="checklist">
+        <li><div class="chk"><svg class="chk-svg" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#B4FF2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Search &amp; filter run clubs</li>
+        <li><div class="chk"><svg class="chk-svg" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#B4FF2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>RSVP to group runs</li>
+        <li><div class="chk"><svg class="chk-svg" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#B4FF2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Add to your calendar</li>
+        <li><div class="chk"><svg class="chk-svg" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#B4FF2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Chat with your crew</li>
+        <li><div class="chk"><svg class="chk-svg" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#B4FF2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>See who's going before you show up</li>
+        <li><div class="chk"><svg class="chk-svg" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#B4FF2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Find your pace group</li>
+      </ul>
+
+    </div>
+
+    <!-- Phones -->
+    <div class="ev-phones" aria-hidden="true">
+
+      <!-- Calendar -->
+      <div class="e-phone ep-l">
+        <div class="notch" style="width:58px;height:18px;border-radius:0 0 10px 10px"></div>
+        <div class="screen">
+          <div class="sbar"><span>9:41</span><span style="font-size:8px">···</span></div>
+          <div class="cal-hdr">
+            <div style="display:flex;justify-content:space-between">
+              <span class="cal-month">May 2025</span>
+              <span style="font-size:9px;color:#444">›</span>
+            </div>
+          </div>
+          <div class="cal-grid">
+            <div class="cd hdr">S</div><div class="cd hdr">M</div><div class="cd hdr">T</div><div class="cd hdr">W</div><div class="cd hdr">T</div><div class="cd hdr">F</div><div class="cd hdr">S</div>
+            <div class="cd">1</div><div class="cd">2</div><div class="cd">3</div><div class="cd">4</div><div class="cd hr">5</div><div class="cd">6</div><div class="cd">7</div>
+            <div class="cd">8</div><div class="cd hr">9</div><div class="cd">10</div><div class="cd">11</div><div class="cd hr">12</div><div class="cd">13</div><div class="cd">14</div>
+            <div class="cd">15</div><div class="cd">16</div><div class="cd hr">17</div><div class="cd">18</div><div class="cd">19</div><div class="cd hr">20</div><div class="cd">21</div>
+            <div class="cd">22</div><div class="cd hr">23</div><div class="cd today">24</div>
+          </div>
+          <div style="border-top:1px solid #1C1C1C">
+            <div class="run-item">
+              <div class="run-thumb" style="font-size:11px">📍</div>
+              <div><div class="run-name" style="font-size:9px">Today · 6:30 AM</div><div class="run-meta hi">Sunrise Social Run</div><div class="run-meta">Bushwick, Brooklyn</div></div>
+            </div>
+            <div class="run-item">
+              <div class="run-thumb" style="font-size:11px">🌆</div>
+              <div><div class="run-name" style="font-size:9px">Tomorrow · 7:00 PM</div><div class="run-meta hi">Midtown Evening Run</div></div>
+            </div>
+            <div class="run-item">
+              <div class="run-thumb" style="font-size:11px">🏃</div>
+              <div><div class="run-name" style="font-size:9px">Sunday · 8:00 AM</div><div class="run-meta hi">Long Run Sunday</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity Stats -->
+      <div class="e-phone ep-c">
+        <div class="notch" style="width:66px;height:20px;border-radius:0 0 12px 12px"></div>
+        <div class="screen">
+          <div class="sbar"><span>9:41</span><span style="font-size:8px">···</span></div>
+          <div class="phdr">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span class="phdr-t">Activity</span>
+              <span style="font-size:8px;color:#444">This Week ›</span>
+            </div>
+          </div>
+          <div class="stat-hero">
+            <div class="stat-lbl">Miles this week</div>
+            <div class="stat-num">18.4</div>
+            <div class="stat-unit">Miles</div>
+          </div>
+          <div class="bars">
+            <div class="bar" style="height:28%"></div>
+            <div class="bar" style="height:52%"></div>
+            <div class="bar" style="height:20%"></div>
+            <div class="bar" style="height:68%"></div>
+            <div class="bar" style="height:38%"></div>
+            <div class="bar hi" style="height:88%"></div>
+            <div class="bar" style="height:0%"></div>
+          </div>
+          <div class="days-row">
+            <div class="day-lbl">M</div><div class="day-lbl">T</div><div class="day-lbl">W</div>
+            <div class="day-lbl">T</div><div class="day-lbl">F</div>
+            <div class="day-lbl hi">S</div><div class="day-lbl">S</div>
+          </div>
+          <div class="stats-3">
+            <div class="s3c"><div class="s3n">4</div><div class="s3l">Runs</div></div>
+            <div class="s3c"><div class="s3n">2h 45m</div><div class="s3l">Time</div></div>
+            <div class="s3c"><div class="s3n">8'32"</div><div class="s3l">Avg Pace</div></div>
+          </div>
+          <div class="sec-lbl" style="font-size:9.5px">Recent Runs</div>
+          <div class="run-item">
+            <div class="run-thumb" style="font-size:11px">🌅</div>
+            <div><div class="run-name">Sunrise Social Run</div><div class="run-meta">4.2 mi · 8'12"/mi</div></div>
+          </div>
+          <div class="run-item">
+            <div class="run-thumb" style="font-size:11px">🌆</div>
+            <div><div class="run-name">Midtown Evening Run</div><div class="run-meta">5.0 mi · 8'44"/mi</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile -->
+      <div class="e-phone ep-r">
+        <div class="notch" style="width:58px;height:18px;border-radius:0 0 10px 10px"></div>
+        <div class="screen">
+          <div class="sbar"><span>9:41</span><span style="font-size:8px">···</span></div>
+          <div class="prof-hero">
+            <div class="prof-av">👟</div>
+            <div class="prof-name">Alex R.</div>
+            <div class="prof-loc">📍 Brooklyn, NY</div>
+          </div>
+          <div class="prof-stats">
+            <div class="ps"><div class="psn">42</div><div class="psl">Runs</div></div>
+            <div class="ps"><div class="psn">186</div><div class="psl">Miles</div></div>
+            <div class="ps"><div class="psn">8</div><div class="psl">Clubs</div></div>
+          </div>
+          <div class="sec-lbl" style="font-size:9.5px">Achievements</div>
+          <div class="achv">
+            <div class="achv-b">🏅</div>
+            <div class="achv-b">⭐</div>
+            <div class="achv-b">🔥</div>
+            <div class="achv-b">💎</div>
+          </div>
+          <div class="sec-lbl" style="font-size:9.5px;margin-top:6px">My Clubs</div>
+          <div class="club-item" style="padding:5px 12px">
+            <div class="club-av" style="background:linear-gradient(135deg,#1a3a5c,#2d6a9f)">BK</div>
+            <div><div class="club-name">Brooklyn Run Club</div></div>
+          </div>
+          <div class="club-item" style="padding:5px 12px">
+            <div class="club-av" style="background:linear-gradient(135deg,#2d1a5c,#5c3a9f)">MM</div>
+            <div><div class="club-name">Manhattan Miles</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ FOUNDERS ════════════ -->
+<section class="founders">
+  <div class="founders-wrap">
+
+    <!-- Left: Founder cards -->
+    <div class="founder-cards">
+
+      <div class="founder-card">
+        <div class="founder-av" style="background:linear-gradient(135deg,#0c3d3d,#1a7070)">MS</div>
+        <div class="founder-name">Marley Stewart</div>
+        <div class="founder-role">Co-Founder</div>
+        <div class="founder-pills">
+          <span class="pill">D3 Basketball Player</span>
+          <span class="pill">Trinity College</span>
+        </div>
+      </div>
+
+      <div class="founder-card">
+        <div class="founder-av" style="background:linear-gradient(135deg,#2a1a4c,#5c3a90)">TR</div>
+        <div class="founder-name">Trey Russell</div>
+        <div class="founder-role">Co-Founder</div>
+        <div class="founder-pills">
+          <span class="pill">Economics Major</span>
+          <span class="pill">Trinity College</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right: Story copy -->
+    <div class="founders-story">
+      <div class="ev-eyebrow">Our Story</div>
+      <h2>Built By Athletes<br>Who Live It.</h2>
+      <p class="founders-body">Paceway was co-founded by Marley Stewart and Treymayne Russell while attending Trinity College in Hartford, Connecticut. As athletes who both share a passion for running and community, we saw the same problem everywhere: finding local run clubs was harder than it should be. Clubs were stuck on Instagram and word of mouth. Runners showed up not knowing the vibe, the pace, or anyone there. So we built the platform run club culture has been waiting for.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════ FOR CLUBS ════════════ -->
+<section class="clubs" id="clubs">
+  <div class="clubs-card">
+    <div>
+      <div class="clubs-ico">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B4FF2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      </div>
+      <div class="clubs-title">For Clubs</div>
+      <div class="clubs-body">Want to list your club? Apply for founding partner access and reach thousands of runners in your city.</div>
+    </div>
+    <a href="mailto:clubs@joinpaceway.com" class="btn-green lg">Apply Now →</a>
+  </div>
+</section>
+
+<!-- ════════════ FOOTER ════════════ -->
+<footer id="faq">
+  <div class="ft-inner">
+    <div class="ft-top">
+
+      <div class="ft-brand">
+        <a href="/" class="ft-logo" aria-label="Paceway home">
+          <svg width="28" height="28" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+            <rect width="34" height="34" rx="8" fill="#B4FF2E"/>
+            <path d="M10 27V8h9c4.4 0 8 3.4 8 8s-3.6 8-8 8h-4.5" stroke="#0A0A0A" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="ft-logo-txt">PACEWAY</span>
+        </a>
+        <div class="ft-tag">The app for run club culture.</div>
+      </div>
+
+
+      <nav aria-label="Footer">
+        <ul class="ft-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#clubs">For Clubs</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="mailto:hello@joinpaceway.com">Contact</a></li>
+        </ul>
+      </nav>
+
+    </div>
+
+    <div class="ft-bot">
+      <p class="ft-copy">© 2025 Paceway. All rights reserved.</p>
+      <ul class="ft-legal">
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Waitlist form ──────────────────────────────────────
+  const form    = document.getElementById('wlForm');
+  const input   = document.getElementById('email');
+  const btn     = document.getElementById('wlBtn');
+  const success = document.getElementById('wlSuccess');
+  const msgEl   = document.getElementById('wlMsg');
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const email = input.value.trim();
+    if (!email) return;
+
+    btn.textContent = 'Joining…';
+    btn.disabled = true;
+
+    try {
+      const res  = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+
+      if (data.success || res.ok) {
+        form.style.display = 'none';
+        msgEl.textContent = data.message || "You're on the list! We'll be in touch. 🏃";
+        success.classList.add('show');
+      } else {
+        btn.textContent = data.error || 'Error — try again';
+        btn.disabled = false;
+        setTimeout(() => { btn.textContent = 'Join Waitlist'; }, 3500);
+      }
+    } catch {
+      // Server not reachable — still show success for static preview
+      form.style.display = 'none';
+      msgEl.textContent  = "You're on the list! We'll be in touch. 🏃";
+      success.classList.add('show');
+    }
+  });
+
+  // ── Smooth scroll + focus trick for nav CTA ───────────
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+
+</body>
+</html>

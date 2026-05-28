@@ -1,0 +1,5 @@
+node_modules/
+waitlist.json
+.env
+.env.local
+*.log
