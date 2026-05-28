@@ -3,3 +3,4 @@ waitlist.json
 .env
 .env.local
 *.log
+.claude/
