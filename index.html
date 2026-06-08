@@ -124,7 +124,7 @@
       max-width: 430px; margin-bottom: 36px;
     }
     .hero-form {
-      display: flex; gap: 10px; margin-bottom: 28px; max-width: 460px;
+      display: flex; gap: 10px; margin-bottom: 16px; max-width: 460px;
     }
     .email-input {
       flex: 1; min-width: 0;
@@ -135,19 +135,33 @@
     }
     .email-input::placeholder { color: var(--dim); }
     .email-input:focus { border-color: rgba(180,255,46,.55); }
+    .founding-note {
+      font-size: 12px; color: var(--muted); margin-bottom: 24px; max-width: 460px;
+    }
+    .founding-note strong { color: var(--green); }
     .hero-success {
       display: none; align-items: center; gap: 10px;
       color: var(--green); font-size: 15px; font-weight: 600;
       padding: 14px 0; max-width: 460px;
     }
     .hero-success.show { display: flex; }
-    .app-preview-link {
-      display: inline-block; margin-top: 14px;
-      color: rgba(255,255,255,0.45); font-size: 13px; font-weight: 600;
-      text-decoration: none; letter-spacing: 0.01em;
-      transition: color .2s;
+    .type-toggle {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 14px;
     }
-    .app-preview-link:hover { color: var(--green); }
+    .type-label {
+      font-size: 13px; color: var(--muted); font-weight: 600;
+    }
+    .type-btn {
+      padding: 6px 16px; border-radius: 999px;
+      font-size: 13px; font-weight: 600; font-family: inherit;
+      border: 1.5px solid var(--border2);
+      background: transparent; color: var(--muted);
+      cursor: pointer; transition: all .15s;
+    }
+    .type-btn.active {
+      border-color: var(--green); color: var(--green);
+      background: rgba(180,255,46,0.08);
+    }
     .proof {
       display: flex; align-items: center; gap: 14px;
     }
@@ -337,8 +351,91 @@
     .feat-title { font-size: 17px; font-weight: 800; letter-spacing: -.01em; }
     .feat-body  { font-size: 15px; color: var(--muted); line-height: 1.6; }
 
+    /* ─────────────── HOW IT WORKS ─────────────── */
+    .how-it-works {
+      padding: 96px 0;
+      border-top: 1px solid var(--border);
+    }
+    .hiw-wrap {
+      max-width: var(--max); margin: 0 auto; padding: 0 28px;
+    }
+    .hiw-header {
+      text-align: center; margin-bottom: 64px;
+    }
+    .hiw-eyebrow {
+      font-size: 12px; font-weight: 700; color: var(--green);
+      letter-spacing: .09em; text-transform: uppercase; margin-bottom: 12px;
+    }
+    .hiw-title {
+      font-size: clamp(28px, 3vw, 42px);
+      font-weight: 900; letter-spacing: -.03em;
+    }
+    .hiw-steps {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 2px; position: relative;
+    }
+    .hiw-step {
+      background: var(--surf); padding: 36px 32px;
+      display: flex; flex-direction: column; gap: 16px;
+      position: relative;
+    }
+    .hiw-step:first-child { border-radius: var(--r) 0 0 var(--r); }
+    .hiw-step:last-child  { border-radius: 0 var(--r) var(--r) 0; }
+    .step-num {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(180,255,46,.1); border: 1px solid rgba(180,255,46,.28);
+      color: var(--green); font-size: 16px; font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-title { font-size: 18px; font-weight: 800; letter-spacing: -.01em; }
+    .step-body  { font-size: 15px; color: var(--muted); line-height: 1.6; }
+
+    /* ─────────────── TESTIMONIALS ─────────────── */
+    .testimonials {
+      padding: 96px 0;
+      border-top: 1px solid var(--border);
+    }
+    .testi-wrap {
+      max-width: var(--max); margin: 0 auto; padding: 0 28px;
+    }
+    .testi-header {
+      text-align: center; margin-bottom: 52px;
+    }
+    .testi-eyebrow {
+      font-size: 12px; font-weight: 700; color: var(--green);
+      letter-spacing: .09em; text-transform: uppercase; margin-bottom: 12px;
+    }
+    .testi-title {
+      font-size: clamp(26px, 2.8vw, 38px);
+      font-weight: 900; letter-spacing: -.03em;
+    }
+    .testi-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 16px;
+    }
+    .testi-card {
+      background: var(--surf); border: 1px solid var(--border2);
+      border-radius: var(--r-lg); padding: 28px 24px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .testi-stars { color: #f7971e; font-size: 14px; letter-spacing: 2px; }
+    .testi-quote {
+      font-size: 15px; color: var(--text); line-height: 1.7;
+      font-style: italic; flex: 1;
+    }
+    .testi-author {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .testi-av {
+      width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+      font-size: 14px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .testi-name { font-size: 14px; font-weight: 700; }
+    .testi-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
     /* ─────────────── EVERYTHING ─────────────── */
-    .everything { padding: 100px 0; }
+    .everything { padding: 100px 0; border-top: 1px solid var(--border); }
     .ev-wrap {
       max-width: var(--max); margin: 0 auto; padding: 0 28px;
       display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
@@ -352,7 +449,7 @@
       font-weight: 900; letter-spacing: -.03em; line-height: 1.08;
       margin-bottom: 30px;
     }
-    .checklist { list-style: none; display: flex; flex-direction: column; gap: 13px; margin-bottom: 40px; }
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 13px; margin-bottom: 28px; }
     .checklist li {
       display: flex; align-items: center; gap: 11px;
       font-size: 15.5px; color: var(--muted);
@@ -362,6 +459,14 @@
       background: rgba(180,255,46,.1); border: 1px solid rgba(180,255,46,.28);
       display: flex; align-items: center; justify-content: center;
     }
+    .integrations-note {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--surf); border: 1px solid var(--border2);
+      border-radius: var(--r); padding: 12px 16px;
+      margin-bottom: 40px;
+    }
+    .integrations-note span { font-size: 13px; color: var(--muted); }
+    .integrations-note strong { color: var(--text); }
     .badges { display: flex; gap: 12px; flex-wrap: wrap; }
     .badge {
       display: flex; align-items: center; gap: 10px;
@@ -502,48 +607,64 @@
       display: flex; align-items: center; justify-content: center;
       margin-bottom: 16px;
     }
-    .clubs-title { font-size: 30px; font-weight: 900; letter-spacing: -.02em; margin-bottom: 8px; }
-    .clubs-body  { font-size: 16px; color: var(--muted); max-width: 360px; }
-
-    /* ─────────────── FOOTER ─────────────── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 52px 28px 32px;
-    }
-    .ft-inner { max-width: var(--max); margin: 0 auto; }
-    .ft-top {
-      display: flex; justify-content: space-between; align-items: flex-start;
-      gap: 40px; margin-bottom: 48px;
-    }
-    .ft-brand { max-width: 190px; }
-    .ft-logo {
+    .clubs-title { font-size: 30px; font-weight: 900; letter-spacing: -.02em; margin-bottom: 10px; }
+    .clubs-body  { font-size: 16px; color: var(--muted); max-width: 400px; margin-bottom: 20px; }
+    .clubs-perks { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .clubs-perks li {
       display: flex; align-items: center; gap: 9px;
-      text-decoration: none; margin-bottom: 10px;
+      font-size: 14px; color: var(--muted);
     }
-    .ft-logo-txt { font-size: 15px; font-weight: 900; letter-spacing: .04em; color: var(--text); }
-    .ft-tag { font-size: 13px; color: var(--muted); }
-    .ft-socials { text-align: center; }
-    .ft-soc-row { display: flex; gap: 8px; justify-content: center; margin-bottom: 8px; }
-    .soc-btn {
-      width: 38px; height: 38px; border-radius: 10px;
-      background: var(--surf); border: 1px solid var(--border);
+    .clubs-perks li::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green); flex-shrink: 0;
+    }
+
+    /* ─────────────── FAQ ─────────────── */
+    .faq {
+      padding: 96px 0;
+      border-top: 1px solid var(--border);
+    }
+    .faq-wrap {
+      max-width: 760px; margin: 0 auto; padding: 0 28px;
+    }
+    .faq-header {
+      text-align: center; margin-bottom: 52px;
+    }
+    .faq-eyebrow {
+      font-size: 12px; font-weight: 700; color: var(--green);
+      letter-spacing: .09em; text-transform: uppercase; margin-bottom: 12px;
+    }
+    .faq-title {
+      font-size: clamp(26px, 2.8vw, 38px);
+      font-weight: 900; letter-spacing: -.03em;
+    }
+    .faq-list { display: flex; flex-direction: column; gap: 2px; }
+    .faq-item {
+      background: var(--surf); border-radius: 0; overflow: hidden;
+    }
+    .faq-item:first-child { border-radius: var(--r) var(--r) 0 0; }
+    .faq-item:last-child  { border-radius: 0 0 var(--r) var(--r); }
+    .faq-q {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; padding: 20px 24px; background: none; border: none;
+      color: var(--text); font-size: 16px; font-weight: 700; font-family: inherit;
+      cursor: pointer; text-align: left;
+      transition: color .15s;
+    }
+    .faq-q:hover { color: var(--green); }
+    .faq-icon {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: rgba(180,255,46,.1); border: 1px solid rgba(180,255,46,.28);
+      color: var(--green); font-size: 14px; font-weight: 900;
       display: flex; align-items: center; justify-content: center;
-      text-decoration: none; color: var(--muted); font-size: 15px;
-      transition: border-color .2s, color .2s;
+      flex-shrink: 0; transition: transform .2s;
     }
-    .soc-btn:hover { border-color: var(--green); color: var(--green); }
-    .ft-handle { font-size: 13px; color: var(--muted); }
-    .ft-links { display: flex; gap: 24px; list-style: none; flex-wrap: wrap; }
-    .ft-links a { font-size: 14px; color: var(--muted); text-decoration: none; transition: color .15s; }
-    .ft-links a:hover { color: var(--text); }
-    .ft-bot {
-      border-top: 1px solid var(--border); padding-top: 24px;
-      display: flex; justify-content: space-between; align-items: center; gap: 20px;
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-a {
+      display: none; padding: 0 24px 20px;
+      font-size: 15px; color: var(--muted); line-height: 1.7;
     }
-    .ft-copy { font-size: 13px; color: var(--dim); }
-    .ft-legal { display: flex; gap: 20px; list-style: none; }
-    .ft-legal a { font-size: 13px; color: var(--dim); text-decoration: none; transition: color .15s; }
-    .ft-legal a:hover { color: var(--muted); }
+    .faq-item.open .faq-a { display: block; }
 
     /* ─────────────── FOUNDERS ─────────────── */
     .founders {
@@ -581,6 +702,35 @@
       line-height: 1.75; margin-top: 0;
     }
 
+    /* ─────────────── FOOTER ─────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 52px 28px 32px;
+    }
+    .ft-inner { max-width: var(--max); margin: 0 auto; }
+    .ft-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 40px; margin-bottom: 48px;
+    }
+    .ft-brand { max-width: 190px; }
+    .ft-logo {
+      display: flex; align-items: center; gap: 9px;
+      text-decoration: none; margin-bottom: 10px;
+    }
+    .ft-logo-txt { font-size: 15px; font-weight: 900; letter-spacing: .04em; color: var(--text); }
+    .ft-tag { font-size: 13px; color: var(--muted); }
+    .ft-links { display: flex; gap: 24px; list-style: none; flex-wrap: wrap; }
+    .ft-links a { font-size: 14px; color: var(--muted); text-decoration: none; transition: color .15s; }
+    .ft-links a:hover { color: var(--text); }
+    .ft-bot {
+      border-top: 1px solid var(--border); padding-top: 24px;
+      display: flex; justify-content: space-between; align-items: center; gap: 20px;
+    }
+    .ft-copy { font-size: 13px; color: var(--dim); }
+    .ft-legal { display: flex; gap: 20px; list-style: none; }
+    .ft-legal a { font-size: 13px; color: var(--dim); text-decoration: none; transition: color .15s; }
+    .ft-legal a:hover { color: var(--muted); }
+
     /* ─────────────── RESPONSIVE ─────────────── */
     @media (max-width: 960px) {
       .hero-wrap { grid-template-columns: 1fr; gap: 56px; padding: 64px 28px; }
@@ -591,6 +741,10 @@
       .feat-wrap { grid-template-columns: 1fr; gap: 2px; }
       .feat-col:first-child { border-radius: var(--r) var(--r) 0 0; }
       .feat-col:last-child  { border-radius: 0 0 var(--r) var(--r); }
+      .hiw-steps { grid-template-columns: 1fr; gap: 2px; }
+      .hiw-step:first-child { border-radius: var(--r) var(--r) 0 0; }
+      .hiw-step:last-child  { border-radius: 0 0 var(--r) var(--r); }
+      .testi-grid { grid-template-columns: 1fr; gap: 12px; }
       .ev-wrap { grid-template-columns: 1fr; gap: 52px; }
       .ev-phones { order: -1; height: 340px; }
       .ep-l, .ep-r { display: none; }
@@ -634,7 +788,7 @@
     </ul>
 
     <button class="btn-green" onclick="document.getElementById('email').focus();document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">
-      Join Waitlist
+      Get Founding Access
     </button>
   </div>
 </nav>
@@ -645,24 +799,30 @@
 
     <!-- Left: copy + form -->
     <div class="hero-content">
-      <div class="hero-badge">Now accepting early members</div>
+      <div class="hero-badge">Running is the new going out</div>
 
       <h1>
-        Find your run club.<br>
+        Find your crew.<br>
         <span class="g">Own your pace.</span>
       </h1>
 
       <p class="hero-sub">
-        Discover local run clubs, RSVP to group runs, and find your pace community.
-        The app built for run club culture.
+        NYC has 200+ run clubs. Most have no website. You're still showing up blind, scrolling Instagram, and DMing for details. Paceway fixes that.
       </p>
 
       <div id="waitlist">
+        <div class="type-toggle">
+          <span class="type-label">I'm a:</span>
+          <button type="button" class="type-btn active" data-type="runner">Runner</button>
+          <button type="button" class="type-btn" data-type="club">Club Organizer</button>
+        </div>
         <form class="hero-form" id="wlForm" novalidate>
           <input type="email" class="email-input" id="email"
             placeholder="Enter your email" autocomplete="email" required>
-          <button type="submit" class="btn-green" id="wlBtn">Join Waitlist</button>
+          <button type="submit" class="btn-green" id="wlBtn">Get Founding Access</button>
         </form>
+        <!-- UPDATE the number below with your real waitlist count -->
+        <p class="founding-note"><strong>Founding member spots are limited.</strong> Join runners &amp; clubs already on the list.</p>
         <div class="hero-success" id="wlSuccess">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
             <circle cx="10" cy="10" r="10" fill="rgba(180,255,46,0.18)"/>
@@ -670,11 +830,20 @@
           </svg>
           <span id="wlMsg">You're on the list!</span>
         </div>
-        <a href="/app" class="app-preview-link">
-          Preview the app &rarr;
-        </a>
       </div>
 
+      <div class="proof">
+        <div class="avatars">
+          <div class="av av1">🏃</div>
+          <div class="av av2">🏃</div>
+          <div class="av av3">🏃</div>
+          <div class="av av4">🏃</div>
+        </div>
+        <div class="proof-text">
+          <span class="stars">★★★★★</span>
+          <span class="proof-copy"><strong>Runners &amp; clubs</strong> already signed up</span>
+        </div>
+      </div>
     </div>
 
     <!-- Right: phone mockups -->
@@ -687,7 +856,7 @@
           <div class="sbar"><span>9:41</span><div class="sbar-r"><span>▲▲▲</span><span>WiFi</span><span>🔋</span></div></div>
           <div class="phdr">
             <div class="phdr-t">Discover</div>
-            <div class="phdr-s"><span class="dot-g"></span> New York, NY</div>
+            <div class="phdr-s"><span class="dot-g"></span> Williamsburg, Brooklyn</div>
           </div>
           <div class="map-box">
             <div class="map-grid"></div>
@@ -698,22 +867,22 @@
           </div>
           <div class="sec-lbl">Upcoming Runs</div>
           <div class="run-item">
-            <div class="run-thumb">🌅</div>
+            <div class="run-thumb" style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=80&q=60');background-size:cover;background-position:center"></div>
             <div>
-              <div class="run-name">Sunrise Social Run</div>
-              <div class="run-meta">Brooklyn Run Club</div>
+              <div class="run-name">Sunset Social Run</div>
+              <div class="run-meta">Brooklyn Run Club · Tonight 6:45 PM</div>
             </div>
           </div>
           <div class="run-stats-row">
             <div class="rstt"><span style="color:var(--green)">●</span> 4.2 mi</div>
-            <div class="rstt">⏱ 6:48/mi</div>
-            <div class="rstt">👥 12 going</div>
+            <div class="rstt">⏱ 9:00/mi</div>
+            <div class="rstt">👥 48 going</div>
           </div>
           <div class="run-item">
-            <div class="run-thumb">🌆</div>
+            <div class="run-thumb" style="background-image:url('https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=80&q=60');background-size:cover;background-position:center"></div>
             <div>
-              <div class="run-name">Evening Easy Miles</div>
-              <div class="run-meta">Manhattan Miles</div>
+              <div class="run-name">Morning Miles NYC</div>
+              <div class="run-meta">Morning Miles NYC · Tomorrow 6:15 AM</div>
             </div>
           </div>
         </div>
@@ -730,19 +899,20 @@
               <span class="phdr-t">Run Details</span>
             </div>
           </div>
-          <div class="ph-img">🏙️<div class="ph-img-fade"></div></div>
-          <div class="run-title">Sunrise Social Run</div>
+          <div class="ph-img" style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=430&q=70');background-size:cover;background-position:center"><div class="ph-img-fade"></div></div>
+          <div class="run-title">Sunset Social Run</div>
           <div class="run-host">Hosted by Brooklyn Run Club</div>
-          <div class="detail-row"><div class="d-ico">📅</div><div class="d-lbl">Date</div><div class="d-val">Today, May 24</div></div>
-          <div class="detail-row"><div class="d-ico">⏰</div><div class="d-lbl">Time</div><div class="d-val">6:30 AM</div></div>
+          <div class="detail-row"><div class="d-ico">📅</div><div class="d-lbl">Date</div><div class="d-val">Tonight</div></div>
+          <div class="detail-row"><div class="d-ico">⏰</div><div class="d-lbl">Time</div><div class="d-val">6:45 PM</div></div>
           <div class="detail-row"><div class="d-ico">🛣️</div><div class="d-lbl">Distance</div><div class="d-val">4.2 miles</div></div>
-          <div class="detail-row"><div class="d-ico">⚡</div><div class="d-lbl">Pace</div><div class="d-val">All paces welcome</div></div>
-          <div class="detail-row"><div class="d-ico">📍</div><div class="d-lbl">Location</div><div class="d-val">Bushwick Inlet Park</div></div>
-          <div class="rsvp">RSVP Now</div>
+          <div class="detail-row"><div class="d-ico">⚡</div><div class="d-lbl">Pace</div><div class="d-val">9:00–10:30 /mi</div></div>
+          <div class="detail-row"><div class="d-ico">📍</div><div class="d-lbl">Location</div><div class="d-val">Domino Park, Williamsburg</div></div>
+          <div class="rsvp">RSVP Now · 48 going</div>
           <div class="tabbar">
-            <div class="tab on"><span class="tab-ico">🔍</span>Discover</div>
-            <div class="tab"><span class="tab-ico">📅</span>Calendar</div>
-            <div class="tab"><span class="tab-ico">📊</span>Activity</div>
+            <div class="tab"><span class="tab-ico">🧭</span>Discover</div>
+            <div class="tab on"><span class="tab-ico">🏃</span>Runs</div>
+            <div class="tab"><span class="tab-ico">👥</span>Community</div>
+            <div class="tab"><span class="tab-ico">💬</span>Messages</div>
             <div class="tab"><span class="tab-ico">👤</span>Profile</div>
           </div>
         </div>
@@ -753,30 +923,34 @@
         <div class="notch"></div>
         <div class="screen">
           <div class="sbar"><span>9:41</span><div class="sbar-r">···</div></div>
-          <div class="phdr"><div class="phdr-t">Community</div></div>
-          <div class="tabs-row">
-            <div class="tab-pill on">Clubs</div>
-            <div class="tab-pill">Runners</div>
+          <div class="phdr">
+            <div class="phdr-t">Community</div>
+            <div class="phdr-s">Find your pace people</div>
+          </div>
+          <div class="sec-lbl">Near your pace</div>
+          <div class="club-item">
+            <div class="club-av" style="background-image:url('https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=60&q=70');background-size:cover;background-position:center"></div>
+            <div><div class="club-name">Maya</div><div class="club-mem">9:15 /mi · Williamsburg</div></div>
+            <div style="margin-left:auto;width:18px;height:18px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#000;font-weight:800;flex-shrink:0">+</div>
           </div>
           <div class="club-item">
-            <div class="club-av" style="background:linear-gradient(135deg,#1a3a5c,#2d6a9f)">BK</div>
-            <div><div class="club-name">Brooklyn Run Club</div><div class="club-mem">1.2k members</div></div>
+            <div class="club-av" style="background-image:url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=60&q=70');background-size:cover;background-position:center"></div>
+            <div><div class="club-name">Jules</div><div class="club-mem">10:05 /mi · Prospect Park</div></div>
+            <div style="margin-left:auto;width:18px;height:18px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#000;font-weight:800;flex-shrink:0">+</div>
           </div>
           <div class="club-item">
-            <div class="club-av" style="background:linear-gradient(135deg,#2d1a5c,#5c3a9f)">MM</div>
-            <div><div class="club-name">Manhattan Miles</div><div class="club-mem">882 members</div></div>
+            <div class="club-av" style="background-image:url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=60&q=70');background-size:cover;background-position:center"></div>
+            <div><div class="club-name">Sam</div><div class="club-mem">8:40 /mi · Dumbo</div></div>
+            <div style="margin-left:auto;width:18px;height:18px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#000;font-weight:800;flex-shrink:0">+</div>
+          </div>
+          <div class="sec-lbl">Club chat</div>
+          <div class="club-item">
+            <div class="club-av" style="background-image:url('https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=60&q=70');background-size:cover;background-position:center"></div>
+            <div><div class="club-name">Brooklyn Run Club</div><div class="club-mem">Bag drop confirmed tonight 🎒</div></div>
           </div>
           <div class="club-item">
-            <div class="club-av" style="background:linear-gradient(135deg,#1a4a2a,#2d8a4f)">QR</div>
-            <div><div class="club-name">Queens Runners</div><div class="club-mem">643 members</div></div>
-          </div>
-          <div class="club-item">
-            <div class="club-av" style="background:linear-gradient(135deg,#4a1a1a,#9f2d2d)">HR</div>
-            <div><div class="club-name">Harlem Run</div><div class="club-mem">512 members</div></div>
-          </div>
-          <div class="club-item">
-            <div class="club-av" style="background:linear-gradient(135deg,#3a2a1a,#7a5a2a)">BT</div>
-            <div><div class="club-name">Bronx Track Club</div><div class="club-mem">421 members</div></div>
+            <div class="club-av" style="background-image:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=60&q=70');background-size:cover;background-position:center"></div>
+            <div><div class="club-name">Coffee Run Club</div><div class="club-mem">New cafe partner on Ludlow ☕</div></div>
           </div>
         </div>
       </div>
@@ -792,11 +966,11 @@
     <div class="feat-col">
       <div class="feat-ico">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B4FF2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
         </svg>
       </div>
-      <div class="feat-title">Discover runs near you</div>
-      <div class="feat-body">Find run clubs and group runs happening in your area. From morning miles to night runs.</div>
+      <div class="feat-title">Know the pace before you commit</div>
+      <div class="feat-body">Every run lists distance, pace range, and vibe. No more showing up to a 7:30/mi group when you're running 10:00s.</div>
     </div>
 
     <div class="feat-col">
@@ -806,20 +980,97 @@
           <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
         </svg>
       </div>
-      <div class="feat-title">Find your vibe and pace</div>
-      <div class="feat-body">Whether you're fast, slow, competitive, or just for fun—there's a crew for you.</div>
+      <div class="feat-title">See who's going before you show up</div>
+      <div class="feat-body">Browse the RSVP list before you lace up. Walk in knowing faces, not strangers. Run club culture, not blind dates.</div>
     </div>
 
     <div class="feat-col">
       <div class="feat-ico">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B4FF2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
         </svg>
       </div>
-      <div class="feat-title">Connect with your community</div>
-      <div class="feat-body">RSVP, meet new people, and build real connections through run club culture.</div>
+      <div class="feat-title">RSVP in seconds, not DMs</div>
+      <div class="feat-body">One tap to join a run, add it to your calendar, and get reminders. No group chats, no Instagram stories, no guessing.</div>
     </div>
 
+  </div>
+</section>
+
+<!-- ════════════ HOW IT WORKS ════════════ -->
+<section class="how-it-works">
+  <div class="hiw-wrap">
+    <div class="hiw-header">
+      <div class="hiw-eyebrow">Simple by design</div>
+      <h2 class="hiw-title">From zero to running in 60 seconds</h2>
+    </div>
+    <div class="hiw-steps">
+      <div class="hiw-step">
+        <div class="step-num">1</div>
+        <div class="step-title">Find a run near you</div>
+        <div class="step-body">Browse runs by neighborhood, pace, distance, and vibe. Filter down to what actually fits your schedule and speed — no scrolling through irrelevant events.</div>
+      </div>
+      <div class="hiw-step">
+        <div class="step-num">2</div>
+        <div class="step-title">RSVP with one tap</div>
+        <div class="step-body">Tap once to join. It syncs to your calendar automatically. You'll know the meeting spot, the pace group, and who else is going — all before you leave the house.</div>
+      </div>
+      <div class="hiw-step">
+        <div class="step-num">3</div>
+        <div class="step-title">Show up and run</div>
+        <div class="step-body">Walk in already knowing your crew. Hit your pace, meet people, build real connections. Then do it again next week — because that's what run club culture is about.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ TESTIMONIALS ════════════ -->
+<section class="testimonials">
+  <div class="testi-wrap">
+    <div class="testi-header">
+      <div class="testi-eyebrow">Early members</div>
+      <h2 class="testi-title">What the run community is saying</h2>
+    </div>
+    <div class="testi-grid">
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Finally an app that actually gets run club culture. I found three clubs in my neighborhood I didn't even know existed."</div>
+        <div class="testi-author">
+          <div class="testi-av" style="background:linear-gradient(135deg,#e84393,#c0392b)">JT</div>
+          <div>
+            <div class="testi-name">Jordan T.</div>
+            <div class="testi-meta">Runner · Brooklyn, NY</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"We went from managing RSVPs in a group chat to having everything in one place. Our attendance is up and our members are actually showing up prepared."</div>
+        <div class="testi-author">
+          <div class="testi-av" style="background:linear-gradient(135deg,#4ecdc4,#2c7873)">KM</div>
+          <div>
+            <div class="testi-name">Keisha M.</div>
+            <div class="testi-meta">Club Organizer · Prospect Park Run Club</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"I moved to NYC six months ago and didn't know anyone. Paceway helped me find my people in the first week. I've run with the same crew every Saturday since."</div>
+        <div class="testi-author">
+          <div class="testi-av" style="background:linear-gradient(135deg,#f7971e,#ffd200)">AL</div>
+          <div>
+            <div class="testi-name">Alex L.</div>
+            <div class="testi-meta">Runner · Williamsburg, NY</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -840,41 +1091,76 @@
         <li><div class="chk"><svg class="chk-svg" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#B4FF2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Find your pace group</li>
       </ul>
 
+      <div class="integrations-note">
+        <span>🔗</span>
+        <span><strong>Strava &amp; Apple Health</strong> integrations coming at launch</span>
+      </div>
+
     </div>
 
     <!-- Phones -->
     <div class="ev-phones" aria-hidden="true">
 
-      <!-- Calendar -->
+      <!-- Discover -->
       <div class="e-phone ep-l">
         <div class="notch" style="width:58px;height:18px;border-radius:0 0 10px 10px"></div>
         <div class="screen">
           <div class="sbar"><span>9:41</span><span style="font-size:8px">···</span></div>
-          <div class="cal-hdr">
-            <div style="display:flex;justify-content:space-between">
-              <span class="cal-month">May 2025</span>
-              <span style="font-size:9px;color:#444">›</span>
+          <div class="phdr">
+            <div class="phdr-t">Discover</div>
+            <div class="phdr-s"><span class="dot-g"></span> Williamsburg, Brooklyn</div>
+          </div>
+          <!-- Filter pills -->
+          <div style="display:flex;gap:5px;padding:5px 10px 6px;flex-shrink:0;overflow:hidden">
+            <div style="padding:3px 9px;border-radius:20px;font-size:7.5px;font-weight:700;background:var(--green);color:#000;white-space:nowrap;flex-shrink:0">All Runs</div>
+            <div style="padding:3px 9px;border-radius:20px;font-size:7.5px;font-weight:700;background:#1C1C1C;color:#666;white-space:nowrap;flex-shrink:0">Social</div>
+            <div style="padding:3px 9px;border-radius:20px;font-size:7.5px;font-weight:700;background:#1C1C1C;color:#666;white-space:nowrap;flex-shrink:0">Fast Pace</div>
+            <div style="padding:3px 9px;border-radius:20px;font-size:7.5px;font-weight:700;background:#1C1C1C;color:#666;white-space:nowrap;flex-shrink:0">Long Run</div>
+          </div>
+          <!-- Run card 1 -->
+          <div style="margin:0 9px 7px;border-radius:9px;overflow:hidden;background:#1C1C1C;flex-shrink:0">
+            <div style="height:62px;background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=300&q=60');background-size:cover;background-position:center;position:relative">
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.75),transparent)"></div>
+              <div style="position:absolute;top:5px;left:7px;background:rgba(180,255,46,0.15);border:1px solid rgba(180,255,46,0.6);border-radius:4px;padding:2px 5px;font-size:6.5px;color:var(--green);font-weight:700">✓ Verified host</div>
+              <div style="position:absolute;bottom:5px;left:7px">
+                <div style="font-size:9.5px;font-weight:800;color:#fff">Sunset Social Run</div>
+                <div style="font-size:7.5px;color:#ccc">Brooklyn Run Club · Williamsburg</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;padding:5px 8px;border-top:1px solid #252525">
+              <span style="font-size:7.5px;color:#888">Tonight 6:45 PM</span>
+              <span style="font-size:7.5px;color:#888">4.2 mi</span>
+              <span style="font-size:7.5px;color:var(--green)">● 48 going</span>
             </div>
           </div>
-          <div class="cal-grid">
-            <div class="cd hdr">S</div><div class="cd hdr">M</div><div class="cd hdr">T</div><div class="cd hdr">W</div><div class="cd hdr">T</div><div class="cd hdr">F</div><div class="cd hdr">S</div>
-            <div class="cd">1</div><div class="cd">2</div><div class="cd">3</div><div class="cd">4</div><div class="cd hr">5</div><div class="cd">6</div><div class="cd">7</div>
-            <div class="cd">8</div><div class="cd hr">9</div><div class="cd">10</div><div class="cd">11</div><div class="cd hr">12</div><div class="cd">13</div><div class="cd">14</div>
-            <div class="cd">15</div><div class="cd">16</div><div class="cd hr">17</div><div class="cd">18</div><div class="cd">19</div><div class="cd hr">20</div><div class="cd">21</div>
-            <div class="cd">22</div><div class="cd hr">23</div><div class="cd today">24</div>
+          <!-- Run card 2 -->
+          <div style="margin:0 9px 7px;border-radius:9px;overflow:hidden;background:#1C1C1C;flex-shrink:0">
+            <div style="height:62px;background-image:url('https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=300&q=60');background-size:cover;background-position:center;position:relative">
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.75),transparent)"></div>
+              <div style="position:absolute;bottom:5px;left:7px">
+                <div style="font-size:9.5px;font-weight:800;color:#fff">Morning Miles NYC</div>
+                <div style="font-size:7.5px;color:#ccc">Morning Miles NYC · Central Park</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;padding:5px 8px;border-top:1px solid #252525">
+              <span style="font-size:7.5px;color:#888">Tomorrow 6:15 AM</span>
+              <span style="font-size:7.5px;color:#888">5.0 mi</span>
+              <span style="font-size:7.5px;color:var(--green)">● 31 going</span>
+            </div>
           </div>
-          <div style="border-top:1px solid #1C1C1C">
-            <div class="run-item">
-              <div class="run-thumb" style="font-size:11px">📍</div>
-              <div><div class="run-name" style="font-size:9px">Today · 6:30 AM</div><div class="run-meta hi">Sunrise Social Run</div><div class="run-meta">Bushwick, Brooklyn</div></div>
+          <!-- Run card 3 -->
+          <div style="margin:0 9px;border-radius:9px;overflow:hidden;background:#1C1C1C;flex-shrink:0">
+            <div style="height:62px;background-image:url('https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=300&q=60');background-size:cover;background-position:center;position:relative">
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.75),transparent)"></div>
+              <div style="position:absolute;bottom:5px;left:7px">
+                <div style="font-size:9.5px;font-weight:800;color:#fff">Bridge Builder Long Run</div>
+                <div style="font-size:7.5px;color:#ccc">Marathon Prep Crew · Dumbo</div>
+              </div>
             </div>
-            <div class="run-item">
-              <div class="run-thumb" style="font-size:11px">🌆</div>
-              <div><div class="run-name" style="font-size:9px">Tomorrow · 7:00 PM</div><div class="run-meta hi">Midtown Evening Run</div></div>
-            </div>
-            <div class="run-item">
-              <div class="run-thumb" style="font-size:11px">🏃</div>
-              <div><div class="run-name" style="font-size:9px">Sunday · 8:00 AM</div><div class="run-meta hi">Long Run Sunday</div></div>
+            <div style="display:flex;gap:10px;padding:5px 8px;border-top:1px solid #252525">
+              <span style="font-size:7.5px;color:#888">Sat 7:00 AM</span>
+              <span style="font-size:7.5px;color:#888">12.0 mi</span>
+              <span style="font-size:7.5px;color:var(--green)">● 64 going</span>
             </div>
           </div>
         </div>
@@ -917,12 +1203,12 @@
           </div>
           <div class="sec-lbl" style="font-size:9.5px">Recent Runs</div>
           <div class="run-item">
-            <div class="run-thumb" style="font-size:11px">🌅</div>
-            <div><div class="run-name">Sunrise Social Run</div><div class="run-meta">4.2 mi · 8'12"/mi</div></div>
+            <div class="run-thumb" style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=80&q=60');background-size:cover;background-position:center"></div>
+            <div><div class="run-name">Sunset Social Run</div><div class="run-meta">4.2 mi · 9'15"/mi</div></div>
           </div>
           <div class="run-item">
-            <div class="run-thumb" style="font-size:11px">🌆</div>
-            <div><div class="run-name">Midtown Evening Run</div><div class="run-meta">5.0 mi · 8'44"/mi</div></div>
+            <div class="run-thumb" style="background-image:url('https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=80&q=60');background-size:cover;background-position:center"></div>
+            <div><div class="run-name">Morning Miles NYC</div><div class="run-meta">5.0 mi · 8'32"/mi</div></div>
           </div>
         </div>
       </div>
@@ -932,31 +1218,61 @@
         <div class="notch" style="width:58px;height:18px;border-radius:0 0 10px 10px"></div>
         <div class="screen">
           <div class="sbar"><span>9:41</span><span style="font-size:8px">···</span></div>
-          <div class="prof-hero">
-            <div class="prof-av">👟</div>
-            <div class="prof-name">Alex R.</div>
-            <div class="prof-loc">📍 Brooklyn, NY</div>
+          <!-- Avatar row -->
+          <div style="display:flex;align-items:center;gap:9px;padding:9px 12px 8px;flex-shrink:0;border-bottom:1px solid #1C1C1C">
+            <div style="width:36px;height:36px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">🏃</div>
+            <div>
+              <div style="font-size:11px;font-weight:800">Alex R.</div>
+              <div style="font-size:7.5px;color:#888;margin-top:1px">📍 Williamsburg, Brooklyn</div>
+            </div>
           </div>
-          <div class="prof-stats">
-            <div class="ps"><div class="psn">42</div><div class="psl">Runs</div></div>
-            <div class="ps"><div class="psn">186</div><div class="psl">Miles</div></div>
-            <div class="ps"><div class="psn">8</div><div class="psl">Clubs</div></div>
+          <!-- Runner profile card -->
+          <div style="margin:7px 10px 6px;background:#1C1C1C;border-radius:9px;padding:8px 10px;flex-shrink:0">
+            <div style="font-size:8.5px;font-weight:800;margin-bottom:6px">Runner profile</div>
+            <div style="display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid #252525">
+              <span style="color:var(--green);font-size:9px">⚡</span>
+              <span style="font-size:7.5px;color:#888;flex:1">Pace</span>
+              <span style="font-size:7.5px;font-weight:600">Easy · 9–10 min/mi</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;padding:4px 0">
+              <span style="font-size:9px">📅</span>
+              <span style="font-size:7.5px;color:#888;flex:1">Runs on</span>
+              <span style="font-size:7.5px;font-weight:600">Tue, Sat</span>
+            </div>
           </div>
-          <div class="sec-lbl" style="font-size:9.5px">Achievements</div>
-          <div class="achv">
-            <div class="achv-b">🏅</div>
-            <div class="achv-b">⭐</div>
-            <div class="achv-b">🔥</div>
-            <div class="achv-b">💎</div>
-          </div>
-          <div class="sec-lbl" style="font-size:9.5px;margin-top:6px">My Clubs</div>
-          <div class="club-item" style="padding:5px 12px">
-            <div class="club-av" style="background:linear-gradient(135deg,#1a3a5c,#2d6a9f)">BK</div>
-            <div><div class="club-name">Brooklyn Run Club</div></div>
-          </div>
-          <div class="club-item" style="padding:5px 12px">
-            <div class="club-av" style="background:linear-gradient(135deg,#2d1a5c,#5c3a9f)">MM</div>
-            <div><div class="club-name">Manhattan Miles</div></div>
+          <!-- Activity card -->
+          <div style="margin:0 10px;background:#1C1C1C;border-radius:9px;padding:8px 10px;flex-shrink:0">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px">
+              <span style="font-size:8.5px;font-weight:800">Activity</span>
+              <span style="font-size:7px;color:#555">This Week ›</span>
+            </div>
+            <div style="font-size:6.5px;color:#666;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:1px">Miles this week</div>
+            <div style="font-size:22px;font-weight:900;line-height:1;margin-bottom:7px">4.2</div>
+            <!-- Bar chart -->
+            <div style="display:flex;align-items:flex-end;gap:3px;height:24px;margin-bottom:3px">
+              <div style="flex:1;background:#2a2a2a;border-radius:2px;height:20%"></div>
+              <div style="flex:1;background:#2a2a2a;border-radius:2px;height:40%"></div>
+              <div style="flex:1;background:#2a2a2a;border-radius:2px;height:15%"></div>
+              <div style="flex:1;background:#2a2a2a;border-radius:2px;height:55%"></div>
+              <div style="flex:1;background:#2a2a2a;border-radius:2px;height:30%"></div>
+              <div style="flex:1;background:var(--green);border-radius:2px;height:100%"></div>
+              <div style="flex:1;background:#2a2a2a;border-radius:2px;height:0%"></div>
+            </div>
+            <div style="display:flex;gap:3px;margin-bottom:7px">
+              <div style="flex:1;text-align:center;font-size:6.5px;color:#555">M</div>
+              <div style="flex:1;text-align:center;font-size:6.5px;color:#555">T</div>
+              <div style="flex:1;text-align:center;font-size:6.5px;color:#555">W</div>
+              <div style="flex:1;text-align:center;font-size:6.5px;color:#555">T</div>
+              <div style="flex:1;text-align:center;font-size:6.5px;color:#555">F</div>
+              <div style="flex:1;text-align:center;font-size:6.5px;color:var(--green)">S</div>
+              <div style="flex:1;text-align:center;font-size:6.5px;color:#555">S</div>
+            </div>
+            <!-- Stats row -->
+            <div style="display:flex;border-top:1px solid #252525;padding-top:6px">
+              <div style="flex:1;text-align:center"><div style="font-size:9px;font-weight:800">1</div><div style="font-size:6.5px;color:#666">Runs</div></div>
+              <div style="flex:1;text-align:center;border-left:1px solid #252525;border-right:1px solid #252525"><div style="font-size:9px;font-weight:800">38m</div><div style="font-size:6.5px;color:#666">Time</div></div>
+              <div style="flex:1;text-align:center"><div style="font-size:9px;font-weight:800">9'00"</div><div style="font-size:6.5px;color:#666">Avg Pace</div></div>
+            </div>
           </div>
         </div>
       </div>
@@ -977,17 +1293,19 @@
         <div class="founder-name">Marley Stewart</div>
         <div class="founder-role">Co-Founder</div>
         <div class="founder-pills">
-          <span class="pill">D3 Basketball Player</span>
+          <span class="pill">D3 Athlete</span>
+          <span class="pill">Product & Design</span>
           <span class="pill">Trinity College</span>
         </div>
       </div>
 
       <div class="founder-card">
         <div class="founder-av" style="background:linear-gradient(135deg,#2a1a4c,#5c3a90)">TR</div>
-        <div class="founder-name">Trey Russell</div>
+        <div class="founder-name">Treymayne Russell</div>
         <div class="founder-role">Co-Founder</div>
         <div class="founder-pills">
-          <span class="pill">Economics Major</span>
+          <span class="pill">D3 Athlete</span>
+          <span class="pill">Strategy & Growth</span>
           <span class="pill">Trinity College</span>
         </div>
       </div>
@@ -996,7 +1314,7 @@
 
     <!-- Right: Story copy -->
     <div class="founders-story">
-      <div class="ev-eyebrow">Our Story</div>
+      <div class="ev-eyebrow" style="text-transform:uppercase;letter-spacing:2px;font-size:11px">Our Story</div>
       <h2>Built By Athletes<br>Who Live It.</h2>
       <p class="founders-body">Paceway was co-founded by Marley Stewart and Treymayne Russell while attending Trinity College in Hartford, Connecticut. As athletes who both share a passion for running and community, we saw the same problem everywhere: finding local run clubs was harder than it should be. Clubs were stuck on Instagram and word of mouth. Runners showed up not knowing the vibe, the pace, or anyone there. So we built the platform run club culture has been waiting for.</p>
     </div>
@@ -1014,15 +1332,82 @@
           <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
         </svg>
       </div>
-      <div class="clubs-title">For Clubs</div>
-      <div class="clubs-body">Want to list your club? Apply for founding partner access and reach thousands of runners in your city.</div>
+      <div class="clubs-title">Built for club organizers too.</div>
+      <div class="clubs-body">Stop managing RSVPs in group chats and Instagram DMs. Paceway gives your club a real home — and connects you with runners actively looking for a club like yours.</div>
+      <ul class="clubs-perks">
+        <li>Your own club page with schedule, pace, and vibe</li>
+        <li>Manage RSVPs and see who's coming to every run</li>
+        <li>Reach runners in your neighborhood who are searching right now</li>
+        <li>Founding partner access — limited spots available</li>
+      </ul>
     </div>
     <a href="mailto:clubs@joinpaceway.com" class="btn-green lg">Apply Now →</a>
   </div>
 </section>
 
+<!-- ════════════ FAQ ════════════ -->
+<section class="faq" id="faq">
+  <div class="faq-wrap">
+    <div class="faq-header">
+      <div class="faq-eyebrow">Got questions</div>
+      <h2 class="faq-title">Frequently asked</h2>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Is Paceway free for runners?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Yes — always free for runners. Finding runs, RSVPing, and connecting with your community will never cost anything. Premium features for clubs will be optional and affordable.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          When does the app launch?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">We're rolling out city by city starting with New York City. Get on the waitlist now and you'll be among the first to get access — founding members get priority.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What cities are you starting in?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">We're launching in New York City first, with expansion to other cities based on waitlist demand. Sign up and tell us your city — we're tracking it to decide where we go next.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How does my club get listed?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Apply through the For Clubs section above or email us at clubs@joinpaceway.com. We review every club personally — we're keeping quality high so runners can actually trust the listings.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Does Paceway connect with Strava or Apple Health?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Strava and Apple Health integrations are on the roadmap for launch. We know how important your data ecosystem is — it's a day-one priority.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          I'm a club organizer — what exactly do I get?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Your own club page with your schedule, pace range, vibe, and location. RSVP management so you know who's coming. And direct visibility to runners in your city actively looking for a club like yours. No more hoping someone sees your Instagram post.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ════════════ FOOTER ════════════ -->
-<footer id="faq">
+<footer>
   <div class="ft-inner">
     <div class="ft-top">
 
@@ -1037,7 +1422,6 @@
         <div class="ft-tag">The app for run club culture.</div>
       </div>
 
-
       <nav aria-label="Footer">
         <ul class="ft-links">
           <li><a href="#features">Features</a></li>
@@ -1051,7 +1435,7 @@
     </div>
 
     <div class="ft-bot">
-      <p class="ft-copy">© 2025 Paceway. All rights reserved.</p>
+      <p class="ft-copy">© 2026 Paceway. All rights reserved.</p>
       <ul class="ft-legal">
         <li><a href="#">Privacy Policy</a></li>
         <li><a href="#">Terms of Service</a></li>
@@ -1061,12 +1445,28 @@
 </footer>
 
 <script>
+  // ── FAQ accordion ──────────────────────────────────────
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
   // ── Waitlist form ──────────────────────────────────────
   const form    = document.getElementById('wlForm');
   const input   = document.getElementById('email');
   const btn     = document.getElementById('wlBtn');
   const success = document.getElementById('wlSuccess');
   const msgEl   = document.getElementById('wlMsg');
+
+  let selectedType = 'runner';
+  document.querySelectorAll('.type-btn').forEach(b => {
+    b.addEventListener('click', () => {
+      selectedType = b.dataset.type;
+      document.querySelectorAll('.type-btn').forEach(x => x.classList.toggle('active', x === b));
+    });
+  });
 
   form.addEventListener('submit', async e => {
     e.preventDefault();
@@ -1080,28 +1480,31 @@
       const res  = await fetch('/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, type: selectedType }),
       });
       const data = await res.json();
 
       if (data.success || res.ok) {
         form.style.display = 'none';
-        msgEl.textContent = data.message || "You're on the list! We'll be in touch. 🏃";
+        document.querySelector('.type-toggle').style.display = 'none';
+        document.querySelector('.founding-note').style.display = 'none';
+        msgEl.textContent = data.message || "You're in! We'll be in touch. 🏃";
         success.classList.add('show');
       } else {
         btn.textContent = data.error || 'Error — try again';
         btn.disabled = false;
-        setTimeout(() => { btn.textContent = 'Join Waitlist'; }, 3500);
+        setTimeout(() => { btn.textContent = 'Get Founding Access'; }, 3500);
       }
     } catch {
-      // Server not reachable — still show success for static preview
       form.style.display = 'none';
-      msgEl.textContent  = "You're on the list! We'll be in touch. 🏃";
+      document.querySelector('.type-toggle').style.display = 'none';
+      document.querySelector('.founding-note').style.display = 'none';
+      msgEl.textContent  = "You're in! We'll be in touch. 🏃";
       success.classList.add('show');
     }
   });
 
-  // ── Smooth scroll + focus trick for nav CTA ───────────
+  // ── Smooth scroll ──────────────────────────────────────
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const t = document.querySelector(a.getAttribute('href'));
