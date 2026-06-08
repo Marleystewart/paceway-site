@@ -391,49 +391,6 @@
     .step-title { font-size: 18px; font-weight: 800; letter-spacing: -.01em; }
     .step-body  { font-size: 15px; color: var(--muted); line-height: 1.6; }
 
-    /* ─────────────── TESTIMONIALS ─────────────── */
-    .testimonials {
-      padding: 96px 0;
-      border-top: 1px solid var(--border);
-    }
-    .testi-wrap {
-      max-width: var(--max); margin: 0 auto; padding: 0 28px;
-    }
-    .testi-header {
-      text-align: center; margin-bottom: 52px;
-    }
-    .testi-eyebrow {
-      font-size: 12px; font-weight: 700; color: var(--green);
-      letter-spacing: .09em; text-transform: uppercase; margin-bottom: 12px;
-    }
-    .testi-title {
-      font-size: clamp(26px, 2.8vw, 38px);
-      font-weight: 900; letter-spacing: -.03em;
-    }
-    .testi-grid {
-      display: grid; grid-template-columns: repeat(3,1fr); gap: 16px;
-    }
-    .testi-card {
-      background: var(--surf); border: 1px solid var(--border2);
-      border-radius: var(--r-lg); padding: 28px 24px;
-      display: flex; flex-direction: column; gap: 16px;
-    }
-    .testi-stars { color: #f7971e; font-size: 14px; letter-spacing: 2px; }
-    .testi-quote {
-      font-size: 15px; color: var(--text); line-height: 1.7;
-      font-style: italic; flex: 1;
-    }
-    .testi-author {
-      display: flex; align-items: center; gap: 12px;
-    }
-    .testi-av {
-      width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
-      font-size: 14px; font-weight: 800;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .testi-name { font-size: 14px; font-weight: 700; }
-    .testi-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
-
     /* ─────────────── EVERYTHING ─────────────── */
     .everything { padding: 100px 0; border-top: 1px solid var(--border); }
     .ev-wrap {
@@ -459,14 +416,6 @@
       background: rgba(180,255,46,.1); border: 1px solid rgba(180,255,46,.28);
       display: flex; align-items: center; justify-content: center;
     }
-    .integrations-note {
-      display: flex; align-items: center; gap: 10px;
-      background: var(--surf); border: 1px solid var(--border2);
-      border-radius: var(--r); padding: 12px 16px;
-      margin-bottom: 40px;
-    }
-    .integrations-note span { font-size: 13px; color: var(--muted); }
-    .integrations-note strong { color: var(--text); }
     .badges { display: flex; gap: 12px; flex-wrap: wrap; }
     .badge {
       display: flex; align-items: center; gap: 10px;
@@ -1025,55 +974,6 @@
   </div>
 </section>
 
-<!-- ════════════ TESTIMONIALS ════════════ -->
-<section class="testimonials">
-  <div class="testi-wrap">
-    <div class="testi-header">
-      <div class="testi-eyebrow">Early members</div>
-      <h2 class="testi-title">What the run community is saying</h2>
-    </div>
-    <div class="testi-grid">
-
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"Finally an app that actually gets run club culture. I found three clubs in my neighborhood I didn't even know existed."</div>
-        <div class="testi-author">
-          <div class="testi-av" style="background:linear-gradient(135deg,#e84393,#c0392b)">JT</div>
-          <div>
-            <div class="testi-name">Jordan T.</div>
-            <div class="testi-meta">Runner · Brooklyn, NY</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"We went from managing RSVPs in a group chat to having everything in one place. Our attendance is up and our members are actually showing up prepared."</div>
-        <div class="testi-author">
-          <div class="testi-av" style="background:linear-gradient(135deg,#4ecdc4,#2c7873)">KM</div>
-          <div>
-            <div class="testi-name">Keisha M.</div>
-            <div class="testi-meta">Club Organizer · Prospect Park Run Club</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"I moved to NYC six months ago and didn't know anyone. Paceway helped me find my people in the first week. I've run with the same crew every Saturday since."</div>
-        <div class="testi-author">
-          <div class="testi-av" style="background:linear-gradient(135deg,#f7971e,#ffd200)">AL</div>
-          <div>
-            <div class="testi-name">Alex L.</div>
-            <div class="testi-meta">Runner · Williamsburg, NY</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
 <!-- ════════════ EVERYTHING ════════════ -->
 <section class="everything" id="about">
   <div class="ev-wrap">
@@ -1090,11 +990,6 @@
         <li><div class="chk"><svg class="chk-svg" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#B4FF2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>See who's going before you show up</li>
         <li><div class="chk"><svg class="chk-svg" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#B4FF2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Find your pace group</li>
       </ul>
-
-      <div class="integrations-note">
-        <span>🔗</span>
-        <span><strong>Strava &amp; Apple Health</strong> integrations coming at launch</span>
-      </div>
 
     </div>
 
