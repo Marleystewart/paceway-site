@@ -682,33 +682,93 @@
 
     /* ─────────────── RESPONSIVE ─────────────── */
     @media (max-width: 960px) {
-      .hero-wrap { grid-template-columns: 1fr; gap: 56px; padding: 64px 28px; }
+      /* Hero */
+      .hero-wrap { grid-template-columns: 1fr; gap: 40px; padding: 56px 24px 64px; }
       .hero-content { max-width: 100%; }
-      .hero-phones { height: 420px; order: -1; }
+      .hero-phones { height: auto; order: -1; display: flex; justify-content: center; padding: 8px 0 4px; }
       .ph-l, .ph-r { display: none; }
-      .ph-c { position: relative; left: auto; top: auto; transform: none; }
+      .ph-c {
+        position: relative; left: auto; top: auto; transform: none;
+        width: 200px; height: 444px; margin: 0 auto;
+      }
+      /* Features */
       .feat-wrap { grid-template-columns: 1fr; gap: 2px; }
       .feat-col:first-child { border-radius: var(--r) var(--r) 0 0; }
       .feat-col:last-child  { border-radius: 0 0 var(--r) var(--r); }
+      /* How it works */
       .hiw-steps { grid-template-columns: 1fr; gap: 2px; }
       .hiw-step:first-child { border-radius: var(--r) var(--r) 0 0; }
       .hiw-step:last-child  { border-radius: 0 0 var(--r) var(--r); }
-      .testi-grid { grid-template-columns: 1fr; gap: 12px; }
-      .ev-wrap { grid-template-columns: 1fr; gap: 52px; }
-      .ev-phones { order: -1; height: 340px; }
+      /* Everything */
+      .ev-wrap { grid-template-columns: 1fr; gap: 40px; }
+      .ev-phones { order: -1; height: auto; display: flex; justify-content: center; padding: 8px 0; }
       .ep-l, .ep-r { display: none; }
-      .ep-c { position: relative; left: auto; top: auto; transform: none; }
+      .ep-c {
+        position: relative; left: auto; top: auto; transform: none;
+        width: 190px; height: 410px; margin: 0 auto;
+      }
+      /* Founders */
       .founders-wrap { grid-template-columns: 1fr; gap: 48px; }
+      /* Clubs */
       .clubs-card { flex-direction: column; align-items: flex-start; padding: 36px; }
+      /* Footer */
       .ft-top { flex-wrap: wrap; gap: 32px; }
     }
+
     @media (max-width: 600px) {
+      /* Nav */
       .nav-links { display: none; }
+      .btn-green { font-size: 13px; padding: 9px 16px; }
+
+      /* Hero */
+      .hero-wrap { padding: 36px 20px 56px; gap: 32px; }
+      h1 { font-size: clamp(34px, 9vw, 44px); }
+      .hero-sub { font-size: 15px; }
+      .hero-badge { font-size: 12px; }
       .hero-form { flex-direction: column; }
       .btn-green { justify-content: center; }
+      .ph-c { width: 176px; height: 390px; }
+      .proof { gap: 10px; }
+
+      /* Sections */
+      .features { padding: 52px 0; }
+      .feat-col { padding: 24px 20px; }
+      .feat-title { font-size: 16px; }
+      .feat-body { font-size: 14px; }
+
+      .how-it-works { padding: 64px 0; }
+      .hiw-wrap { padding: 0 20px; }
+      .hiw-title { font-size: clamp(24px, 7vw, 34px); }
+      .hiw-step { padding: 28px 22px; }
+      .step-title { font-size: 16px; }
+      .step-body { font-size: 14px; }
+
+      .everything { padding: 64px 0; }
+      .ev-wrap { padding: 0 20px; }
+      .ep-c { width: 168px; height: 365px; }
+      h2 { font-size: clamp(26px, 7.5vw, 38px); }
+      .checklist li { font-size: 14px; }
+
+      .founders { padding: 64px 0; }
+      .founders-wrap { padding: 0 20px; }
       .founder-cards { grid-template-columns: 1fr; }
-      .clubs { padding: 0 16px 72px; }
+      .founders-body { font-size: 15px; }
+
+      .clubs { padding: 0 16px 64px; }
       .clubs-card { padding: 28px 24px; }
+      .clubs-title { font-size: 24px; }
+      .clubs-body { font-size: 15px; }
+      .clubs-perks li { font-size: 13px; }
+
+      .faq { padding: 64px 0; }
+      .faq-wrap { padding: 0 20px; }
+      .faq-q { font-size: 14px; padding: 16px 18px; }
+      .faq-a { font-size: 14px; padding: 0 18px 16px; }
+      .faq-header { margin-bottom: 36px; }
+
+      footer { padding: 40px 20px 28px; }
+      .ft-top { gap: 24px; margin-bottom: 32px; }
+      .ft-links { gap: 16px; }
       .ft-bot { flex-direction: column; align-items: flex-start; gap: 12px; }
     }
 
