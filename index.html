@@ -685,7 +685,21 @@
       /* Hero */
       .hero-wrap { grid-template-columns: 1fr; gap: 40px; padding: 56px 24px 64px; }
       .hero-content { max-width: 100%; }
-      .hero-phones { display: none; }
+      .hero-phones {
+        order: -1;
+        height: 320px;
+        position: relative;
+        overflow: hidden;
+        display: flex; align-items: flex-start; justify-content: center;
+      }
+      .ph-l, .ph-r { display: none; }
+      .ph-c {
+        position: absolute !important;
+        left: 50% !important;
+        top: 0 !important;
+        transform: translateX(-50%) scale(0.65) !important;
+        transform-origin: top center !important;
+      }
       /* Features */
       .feat-wrap { grid-template-columns: 1fr; gap: 2px; }
       .feat-col:first-child { border-radius: var(--r) var(--r) 0 0; }
@@ -696,7 +710,21 @@
       .hiw-step:last-child  { border-radius: 0 0 var(--r) var(--r); }
       /* Everything */
       .ev-wrap { grid-template-columns: 1fr; gap: 40px; }
-      .ev-phones { display: none; }
+      .ev-phones {
+        order: -1;
+        height: 270px;
+        position: relative;
+        overflow: hidden;
+        display: flex; align-items: flex-start; justify-content: center;
+      }
+      .ep-l, .ep-r { display: none; }
+      .ep-c {
+        position: absolute !important;
+        left: 50% !important;
+        top: 0 !important;
+        transform: translateX(-50%) scale(0.62) !important;
+        transform-origin: top center !important;
+      }
       /* Founders */
       .founders-wrap { grid-template-columns: 1fr; gap: 48px; }
       /* Clubs */
@@ -708,7 +736,9 @@
     @media (max-width: 600px) {
       /* Nav */
       .nav-links { display: none; }
-      .btn-green { font-size: 13px; padding: 9px 16px; }
+      .nav-cta-text { display: none; }
+      .nav-cta-short { display: inline; }
+      .btn-green { font-size: 13px; padding: 9px 14px; }
 
       /* Hero */
       .hero-wrap { padding: 36px 20px 56px; gap: 32px; }
@@ -791,7 +821,8 @@
     </ul>
 
     <button class="btn-green" onclick="document.getElementById('email').focus();document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">
-      Get Founding Access
+      <span class="nav-cta-text">Get Founding Access</span>
+      <span class="nav-cta-short" style="display:none">Join →</span>
     </button>
   </div>
 </nav>
