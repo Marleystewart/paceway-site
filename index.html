@@ -685,11 +685,20 @@
       /* Hero */
       .hero-wrap { grid-template-columns: 1fr; gap: 40px; padding: 56px 24px 64px; }
       .hero-content { max-width: 100%; }
-      .hero-phones { height: auto; order: -1; display: flex; justify-content: center; padding: 8px 0 4px; }
+      .hero-phones {
+        order: -1;
+        height: 300px;
+        position: relative;
+        overflow: hidden;
+        display: flex; align-items: flex-start; justify-content: center;
+      }
       .ph-l, .ph-r { display: none; }
       .ph-c {
-        position: relative; left: auto; top: auto; transform: none;
-        width: 200px; height: 444px; margin: 0 auto;
+        position: absolute !important;
+        left: 50% !important;
+        top: 0 !important;
+        transform: translateX(-50%) scale(0.68) !important;
+        transform-origin: top center !important;
       }
       /* Features */
       .feat-wrap { grid-template-columns: 1fr; gap: 2px; }
@@ -701,11 +710,20 @@
       .hiw-step:last-child  { border-radius: 0 0 var(--r) var(--r); }
       /* Everything */
       .ev-wrap { grid-template-columns: 1fr; gap: 40px; }
-      .ev-phones { order: -1; height: auto; display: flex; justify-content: center; padding: 8px 0; }
+      .ev-phones {
+        order: -1;
+        height: 260px;
+        position: relative;
+        overflow: hidden;
+        display: flex; align-items: flex-start; justify-content: center;
+      }
       .ep-l, .ep-r { display: none; }
       .ep-c {
-        position: relative; left: auto; top: auto; transform: none;
-        width: 190px; height: 410px; margin: 0 auto;
+        position: absolute !important;
+        left: 50% !important;
+        top: 0 !important;
+        transform: translateX(-50%) scale(0.64) !important;
+        transform-origin: top center !important;
       }
       /* Founders */
       .founders-wrap { grid-template-columns: 1fr; gap: 48px; }
@@ -727,15 +745,17 @@
       .hero-badge { font-size: 12px; }
       .hero-form { flex-direction: column; }
       .btn-green { justify-content: center; }
-      .ph-c { width: 176px; height: 390px; }
+      .hero-phones { height: 270px; }
+      .ph-c { transform: translateX(-50%) scale(0.6) !important; }
       .proof { gap: 10px; }
 
-      /* Sections */
+      /* Features */
       .features { padding: 52px 0; }
       .feat-col { padding: 24px 20px; }
       .feat-title { font-size: 16px; }
       .feat-body { font-size: 14px; }
 
+      /* How it works */
       .how-it-works { padding: 64px 0; }
       .hiw-wrap { padding: 0 20px; }
       .hiw-title { font-size: clamp(24px, 7vw, 34px); }
@@ -743,29 +763,35 @@
       .step-title { font-size: 16px; }
       .step-body { font-size: 14px; }
 
+      /* Everything */
       .everything { padding: 64px 0; }
       .ev-wrap { padding: 0 20px; }
-      .ep-c { width: 168px; height: 365px; }
+      .ev-phones { height: 230px; }
+      .ep-c { transform: translateX(-50%) scale(0.56) !important; }
       h2 { font-size: clamp(26px, 7.5vw, 38px); }
       .checklist li { font-size: 14px; }
 
+      /* Founders */
       .founders { padding: 64px 0; }
       .founders-wrap { padding: 0 20px; }
       .founder-cards { grid-template-columns: 1fr; }
       .founders-body { font-size: 15px; }
 
+      /* Clubs */
       .clubs { padding: 0 16px 64px; }
       .clubs-card { padding: 28px 24px; }
       .clubs-title { font-size: 24px; }
       .clubs-body { font-size: 15px; }
       .clubs-perks li { font-size: 13px; }
 
+      /* FAQ */
       .faq { padding: 64px 0; }
       .faq-wrap { padding: 0 20px; }
       .faq-q { font-size: 14px; padding: 16px 18px; }
       .faq-a { font-size: 14px; padding: 0 18px 16px; }
       .faq-header { margin-bottom: 36px; }
 
+      /* Footer */
       footer { padding: 40px 20px 28px; }
       .ft-top { gap: 24px; margin-bottom: 32px; }
       .ft-links { gap: 16px; }
