@@ -43,44 +43,67 @@
     nav {
       position: fixed; top: 0; left: 0; right: 0;
       height: var(--nav-h);
-      background: rgba(10,10,10,0.88);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
+      background: rgba(8,8,8,0.92);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.03), 0 8px 40px rgba(0,0,0,0.55);
       z-index: 200;
     }
     .nav-wrap {
-      max-width: var(--max); margin: 0 auto; padding: 0 28px;
-      height: 100%; display: flex; align-items: center; gap: 12px;
+      max-width: var(--max); margin: 0 auto; padding: 0 32px;
+      height: 100%; display: flex; align-items: center;
+      justify-content: space-between; gap: 16px;
     }
     .logo {
-      display: flex; align-items: center; gap: 10px;
+      display: flex; align-items: center; gap: 11px;
       text-decoration: none; flex-shrink: 0;
     }
+    .logo:hover .logo-text { color: var(--green); }
     .logo-text {
-      font-size: 17px; font-weight: 900; letter-spacing: 0.04em; color: var(--text);
+      font-size: 18px; font-weight: 900; letter-spacing: 0.06em; color: var(--text);
+      transition: color .15s;
     }
-    .nav-links {
+    .nav-center {
       display: flex; align-items: center; gap: 2px;
-      list-style: none; margin: 0 auto;
+      list-style: none;
+      position: absolute; left: 50%; transform: translateX(-50%);
     }
-    .nav-links a {
-      display: block; padding: 7px 14px;
-      font-size: 14px; font-weight: 500; color: var(--muted);
+    .nav-center a {
+      display: block; padding: 8px 15px;
+      font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.55);
       text-decoration: none; border-radius: 8px;
-      transition: color .15s, background .15s;
+      transition: color .12s, background .12s;
+      letter-spacing: 0.01em;
     }
-    .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+    .nav-center a:hover { color: #fff; background: rgba(255,255,255,0.06); }
+    .nav-actions {
+      display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+    }
+    .nav-ghost {
+      display: inline-flex; align-items: center;
+      padding: 8px 14px; border-radius: var(--r);
+      font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.45);
+      text-decoration: none; background: none; border: none;
+      font-family: inherit; cursor: pointer;
+      transition: color .12s;
+    }
+    .nav-ghost:hover { color: rgba(255,255,255,0.85); }
     .btn-green {
       display: inline-flex; align-items: center; gap: 6px;
       background: var(--green); color: #0A0A0A;
-      font-size: 14px; font-weight: 700; font-family: inherit;
-      padding: 10px 20px; border-radius: var(--r);
+      font-size: 14px; font-weight: 800; font-family: inherit;
+      padding: 10px 22px; border-radius: var(--r);
       border: none; cursor: pointer; text-decoration: none;
-      transition: background .15s, transform .1s;
+      transition: background .15s, transform .1s, box-shadow .15s;
       white-space: nowrap; flex-shrink: 0;
+      box-shadow: 0 2px 12px rgba(180,255,46,0.2);
+      letter-spacing: 0.01em;
     }
-    .btn-green:hover { background: var(--green-dk); }
+    .btn-green:hover {
+      background: var(--green-dk);
+      box-shadow: 0 4px 20px rgba(180,255,46,0.32);
+    }
     .btn-green:active { transform: scale(.98); }
     .btn-green.lg { font-size: 16px; padding: 15px 32px; border-radius: var(--r); }
 
@@ -683,8 +706,8 @@
 
     /* ─────────────── RESPONSIVE ─────────────── */
     @media (max-width: 960px) {
-      /* Nav — hide links, keep logo + button balanced */
-      .nav-links { display: none !important; }
+      /* Nav — hide center links, keep logo + CTA */
+      .nav-center { display: none !important; }
       .nav-wrap { justify-content: space-between; }
       .nav-cta-text { display: none !important; }
       .nav-cta-short { display: inline !important; }
@@ -816,17 +839,19 @@
       <span class="logo-text">PACEWAY</span>
     </a>
 
-    <ul class="nav-links" role="list">
+    <ul class="nav-center" role="list">
       <li><a href="#features">Features</a></li>
       <li><a href="#clubs">For Clubs</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
 
-    <button class="btn-green" onclick="document.getElementById('email').focus();document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">
-      <span class="nav-cta-text">Get Founding Access</span>
-      <span class="nav-cta-short" style="display:none">Join →</span>
-    </button>
+    <div class="nav-actions">
+      <button class="btn-green" onclick="document.getElementById('email').focus();document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">
+        <span class="nav-cta-text">Get Founding Access</span>
+        <span class="nav-cta-short" style="display:none">Join →</span>
+      </button>
+    </div>
   </div>
 </nav>
 

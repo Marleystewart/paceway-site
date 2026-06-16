@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paceway — 12-Month Startup Plan</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green: #B4FF2E;
+    --bg: #0A0A0A;
+    --surface: #111;
+    --surface2: #1A1A1A;
+    --border: #222;
+    --muted: #888;
+    --text: #F0F0F0;
+  }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; font-size: 14px; line-height: 1.6; }
+  .layout { display: flex; min-height: 100vh; }
+
+  /* Sidebar */
+  .sidebar { width: 240px; min-width: 240px; background: var(--surface); border-right: 1px solid var(--border); padding: 24px 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+  .sidebar-logo { padding: 0 20px 20px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  .sidebar-logo .name { font-size: 16px; font-weight: 700; color: var(--green); }
+  .sidebar-logo .sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .sidebar nav a { display: block; padding: 8px 20px; font-size: 12px; color: var(--muted); text-decoration: none; transition: all .15s; border-left: 2px solid transparent; }
+  .sidebar nav a:hover { color: var(--text); background: var(--surface2); }
+  .sidebar nav a.active { color: var(--green); border-left-color: var(--green); background: rgba(180,255,46,0.05); }
+  .sidebar nav .section-label { padding: 16px 20px 6px; font-size: 10px; font-weight: 700; color: #444; text-transform: uppercase; letter-spacing: .08em; }
+
+  /* Main */
+  .main { flex: 1; padding: 48px 60px; max-width: 900px; }
+  .hero { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+  .hero h1 { font-size: 36px; font-weight: 800; color: var(--green); letter-spacing: -.02em; }
+  .hero .meta { display: flex; gap: 16px; margin-top: 10px; flex-wrap: wrap; }
+  .badge { background: var(--surface2); border: 1px solid var(--border); padding: 4px 10px; border-radius: 999px; font-size: 11px; color: var(--muted); }
+  .badge span { color: var(--text); }
+
+  h2 { font-size: 22px; font-weight: 700; color: var(--text); margin: 48px 0 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+  h2:first-child { border-top: none; margin-top: 0; }
+  h3 { font-size: 15px; font-weight: 700; color: var(--green); margin: 28px 0 10px; }
+  h4 { font-size: 13px; font-weight: 600; color: var(--text); margin: 20px 0 8px; }
+  p { color: #ccc; margin-bottom: 12px; line-height: 1.7; }
+  ul { padding-left: 20px; margin-bottom: 12px; }
+  li { color: #ccc; margin-bottom: 6px; line-height: 1.6; }
+  strong { color: var(--text); }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; margin: 16px 0 24px; border-radius: 8px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--surface2); padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; border-bottom: 1px solid var(--border); }
+  td { padding: 10px 14px; border-bottom: 1px solid #1a1a1a; color: #ccc; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,.02); }
+  td strong { color: var(--green); }
+
+  /* Month cards */
+  .month-grid { display: grid; gap: 16px; margin: 16px 0; }
+  .month-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; }
+  .month-card .month-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .month-num { background: var(--green); color: #000; font-weight: 800; font-size: 11px; padding: 3px 10px; border-radius: 999px; }
+  .month-title { font-weight: 700; font-size: 15px; color: var(--text); }
+  .month-date { font-size: 12px; color: var(--muted); margin-left: auto; }
+  .month-card .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+  .tag { font-size: 11px; padding: 3px 8px; border-radius: 4px; background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
+  .month-card ul { margin: 0; }
+  .month-card li { font-size: 13px; }
+
+  /* Callout boxes */
+  .callout { background: rgba(180,255,46,0.06); border: 1px solid rgba(180,255,46,0.2); border-radius: 8px; padding: 16px 20px; margin: 20px 0; }
+  .callout .callout-title { font-size: 12px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
+  .callout p { color: #ccc; margin: 0; font-size: 13px; }
+
+  .warning { background: rgba(255,160,0,0.06); border-color: rgba(255,160,0,0.25); }
+  .warning .callout-title { color: #FFA500; }
+
+  /* KPI row */
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin: 16px 0; }
+  .kpi-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; text-align: center; }
+  .kpi-card .kpi-val { font-size: 24px; font-weight: 800; color: var(--green); }
+  .kpi-card .kpi-label { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* Scenario pills */
+  .scenarios { display: flex; gap: 12px; margin: 16px 0; flex-wrap: wrap; }
+  .scenario { flex: 1; min-width: 140px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .scenario .s-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
+  .scenario.conservative .s-label { color: var(--muted); }
+  .scenario.realistic .s-label { color: #60a5fa; }
+  .scenario.aggressive .s-label { color: var(--green); }
+  .scenario .s-val { font-size: 22px; font-weight: 800; color: var(--text); }
+  .scenario .s-sub { font-size: 11px; color: var(--muted); }
+
+  .divider { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+  /* Risk table */
+  .risk-low { color: #4ade80; font-weight: 600; }
+  .risk-med { color: #fbbf24; font-weight: 600; }
+  .risk-high { color: #f87171; font-weight: 600; }
+
+  /* Script box */
+  .script { background: var(--surface2); border: 1px solid var(--border); border-left: 3px solid var(--green); border-radius: 6px; padding: 16px 20px; margin: 12px 0; font-size: 13px; color: #ccc; line-height: 1.7; white-space: pre-wrap; font-family: inherit; }
+
+  /* Action items */
+  .action-list { list-style: none; padding: 0; }
+  .action-list li { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .action-list li:last-child { border-bottom: none; }
+  .action-num { background: var(--green); color: #000; font-weight: 800; font-size: 12px; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .action-text strong { color: var(--text); display: block; font-size: 13px; }
+  .action-text span { font-size: 12px; color: var(--muted); }
+
+  /* This week */
+  .week-grid { display: grid; gap: 10px; margin: 16px 0; }
+  .week-row { display: flex; gap: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; align-items: flex-start; }
+  .week-day { font-weight: 700; color: var(--green); min-width: 80px; font-size: 12px; padding-top: 2px; }
+  .week-tasks { font-size: 13px; color: #ccc; }
+
+  /* Print button */
+  .print-btn { position: fixed; bottom: 28px; right: 28px; background: var(--green); color: #000; font-weight: 800; font-size: 13px; padding: 12px 20px; border-radius: 999px; border: none; cursor: pointer; z-index: 999; box-shadow: 0 4px 20px rgba(180,255,46,0.4); display: flex; align-items: center; gap: 8px; }
+  .print-btn:hover { opacity: .85; }
+
+  @media (max-width: 768px) {
+    .layout { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: static; }
+    .main { padding: 24px 20px; }
+  }
+
+  @media print {
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { background: #0A0A0A !important; }
+    .sidebar { display: none; }
+    .print-btn { display: none; }
+    .main { padding: 24px 32px; max-width: 100%; }
+    h2 { page-break-before: always; }
+    h2:first-child { page-break-before: avoid; }
+    .month-card, .table-wrap, .callout { page-break-inside: avoid; }
+    .week-grid, .action-list { page-break-inside: avoid; }
+    @page { margin: 0.5in; size: A4; }
+  }
+</style>
+</head>
+<body>
+<button class="print-btn" onclick="window.print()">⬇ Save as PDF</button>
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="name">⬤ Paceway</div>
+      <div class="sub">12-Month Operating Plan</div>
+    </div>
+    <nav>
+      <div class="section-label">Overview</div>
+      <a href="#exec" class="active">Executive Summary</a>
+      <a href="#timeline">Timeline Roadmap</a>
+
+      <div class="section-label">Business</div>
+      <a href="#financial">Financial Plan</a>
+      <a href="#legal">Legal + Formation</a>
+      <a href="#branding">Branding</a>
+      <a href="#product">Product Roadmap</a>
+
+      <div class="section-label">Growth</div>
+      <a href="#marketing">Marketing + Growth</a>
+      <a href="#launch">Launch Strategy</a>
+      <a href="#sales">Sales Strategy</a>
+
+      <div class="section-label">Scale</div>
+      <a href="#operations">Operations</a>
+      <a href="#scaling">Scaling + Acquisition</a>
+      <a href="#risks">Risk Analysis</a>
+
+      <div class="section-label">Dashboard</div>
+      <a href="#kpis">KPI Dashboard</a>
+      <a href="#action">Action Plan</a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
+
+    <!-- Hero -->
+    <div class="hero">
+      <h1>Paceway</h1>
+      <p style="color:var(--muted);margin-top:6px;font-size:15px;">12-Month Startup Operating Plan · May 2026</p>
+      <div class="meta">
+        <div class="badge">Stage: <span>MVP Live</span></div>
+        <div class="badge">Budget: <span>$50 start · $100/mo</span></div>
+        <div class="badge">Model: <span>Marketplace + Subscription</span></div>
+        <div class="badge">Target: <span>Strava-acquirable in 3–5 yrs</span></div>
+      </div>
+    </div>
+
+    <!-- 1. Executive Summary -->
+    <section id="exec">
+      <h2>1. Executive Summary</h2>
+
+      <div class="callout">
+        <div class="callout-title">Mission</div>
+        <p>Help every runner find their people. Paceway turns "I want to start running with a group" into a 60-second discovery experience — and turns scattered Instagram run clubs into discoverable, joinable communities.</p>
+      </div>
+
+      <div class="callout">
+        <div class="callout-title">Vision</div>
+        <p>By 2031, no one in a major running city should ever ask "are there any run clubs near me?" Paceway is the default answer — the way Yelp answered "where should we eat?" and Strava answered "did that run count?"</p>
+      </div>
+
+      <h3>Core Value Proposition</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Audience</th><th>Current Pain</th><th>Paceway Fix</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Runner (18–35)</strong></td><td>Run clubs feel cliquey, hidden on Instagram, unclear pace/vibe</td><td>Discover by pace + vibe + day, RSVP in 1 tap, show up confident</td></tr>
+            <tr><td><strong>Club Organizer</strong></td><td>Stuck at 50 IG followers, no growth lever, hard to manage RSVPs</td><td>Get discovered by nearby runners, manage runs in one place, build legitimacy</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Competitive Advantages</h3>
+      <ul>
+        <li><strong>Founder credibility</strong> — Marley is embedded in run culture. Strava is a database, Meetup is a graveyard, IG is a feed. None are run-club-native.</li>
+        <li><strong>Vibe-first UX</strong> — pace + social tone + post-run hang info, which no competitor surfaces.</li>
+        <li><strong>Two-sided network with low-cost supply</strong> — ~3,000+ active US run clubs; landing 200 wins the category.</li>
+        <li><strong>Timing</strong> — the run-club boom (NYT, Vogue, "running is the new going out") is mid-curve, not late.</li>
+      </ul>
+
+      <h3>Market Size</h3>
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-val">60M</div><div class="kpi-label">US Runners (TAM)</div></div>
+        <div class="kpi-card"><div class="kpi-val">18M</div><div class="kpi-label">Urban 18–35 Runners (SAM)</div></div>
+        <div class="kpi-card"><div class="kpi-val">50k</div><div class="kpi-label">Year 1 Reachable (SOM)</div></div>
+        <div class="kpi-card"><div class="kpi-val">3,000+</div><div class="kpi-label">Active US Run Clubs</div></div>
+      </div>
+
+      <h3>Monetization</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Tier</th><th>Price</th><th>Who</th><th>Key Features</th></tr></thead>
+          <tbody>
+            <tr><td>Runner Free</td><td>$0</td><td>All runners</td><td>Discovery, RSVP, basic filters</td></tr>
+            <tr><td><strong>Runner Pro</strong></td><td>$7.99/mo</td><td>Power runners</td><td>Multi-city, saved clubs, post-run social, advanced filters</td></tr>
+            <tr><td><strong>Club Pro</strong></td><td>$29/mo</td><td>Organizers</td><td>Analytics, member CRM, featured placement, RSVP controls, branded page</td></tr>
+            <tr><td>Founding Club Pro</td><td>$19/mo locked</td><td>First 50 clubs</td><td>All Club Pro features, price locked forever</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- 2. Timeline -->
+    <section id="timeline">
+      <h2>2. 12-Month Timeline Roadmap</h2>
+
+      <div class="month-grid">
+
+        <div class="month-card">
+          <div class="month-header">
+            <div class="month-num">M1</div>
+            <div class="month-title">Founding Clubs — Brooklyn + Manhattan</div>
+            <div class="month-date">June 2026</div>
+          </div>
+          <div class="tags">
+            <span class="tag">5 clubs</span><span class="tag">150 runners</span><span class="tag">$40 budget</span>
+          </div>
+          <ul>
+            <li>Attend 4 group runs/week in-person wearing Paceway shirt</li>
+            <li>Build Notion CRM of 30 NYC target clubs</li>
+            <li>Send 100 personalized DMs to club organizers</li>
+            <li>Hand-build first event for each founding club</li>
+            <li>Order stickers + Printful shirt ($36 combined)</li>
+          </ul>
+        </div>
+
+        <div class="month-card">
+          <div class="month-header">
+            <div class="month-num">M2</div>
+            <div class="month-title">Cold Start Engine</div>
+            <div class="month-date">July 2026</div>
+          </div>
+          <div class="tags">
+            <span class="tag">15 clubs</span><span class="tag">500 runners</span><span class="tag">Strava OAuth</span>
+          </div>
+          <ul>
+            <li>Ship Strava login + pace inference</li>
+            <li>Build club share-card generator (PNG for IG stories)</li>
+            <li>Launch "NYC Run Club Weekly" Beehiiv newsletter</li>
+            <li>Host first "Paceway Long Run" co-branded event</li>
+          </ul>
+        </div>
+
+        <div class="month-card">
+          <div class="month-header">
+            <div class="month-num">M3</div>
+            <div class="month-title">Brooklyn Density + Founder Content</div>
+            <div class="month-date">August 2026</div>
+          </div>
+          <div class="tags">
+            <span class="tag">25 clubs</span><span class="tag">1,200 runners</span><span class="tag">TikTok launch</span>
+          </div>
+          <ul>
+            <li>Target 80% of active Brooklyn clubs on Paceway</li>
+            <li>Post 1 TikTok/day — "found this run club" POV series</li>
+            <li>Weekly Brooklyn Run Club Report newsletter</li>
+            <li>Wednesday 8pm founder office hours (open Zoom)</li>
+          </ul>
+        </div>
+
+        <div class="month-card">
+          <div class="month-header">
+            <div class="month-num">M4</div>
+            <div class="month-title">Soft Monetization Test</div>
+            <div class="month-date">September 2026</div>
+          </div>
+          <div class="tags">
+            <span class="tag">35 clubs</span><span class="tag">1,800 runners</span><span class="tag">$95 MRR</span>
+          </div>
+          <ul>
+            <li>Offer Founding Club Pro at $19/mo to first 5 committed clubs</li>
+            <li>Track willingness-to-pay without hard paywall</li>
+            <li>Ship Club Pro analytics dashboard (MVP)</li>
+            <li>Incorporate Delaware C-Corp via Stripe Atlas ($500)</li>
+          </ul>
+        </div>
+
+        <div class="month-card">
+          <div class="month-header">
+            <div class="month-num">M5</div>
+            <div class="month-title">City #2: Boston</div>
+            <div class="month-date">October 2026</div>
+          </div>
+          <div class="tags">
+            <span class="tag">50 clubs</span><span class="tag">2,500 runners</span><span class="tag">Boston launch</span>
+          </div>
+          <ul>
+            <li>One weekend trip: Tracksmith Trackhouse, Heartbreak RC, November Project</li>
+            <li>Recruit 1 unpaid Boston city captain</li>
+            <li>Ship native iOS app (if web only)</li>
+          </ul>
+        </div>
+
+        <div class="month-card">
+          <div class="month-header">
+            <div class="month-num">M6</div>
+            <div class="month-title">Retention + Product Depth</div>
+            <div class="month-date">November 2026</div>
+          </div>
+          <div class="tags">
+            <span class="tag">60 clubs</span><span class="tag">3,500 runners</span><span class="tag">WAU 44%</span>
+          </div>
+          <ul>
+            <li>Fix retention before scaling further — target 4-week retention 35%</li>
+            <li>Ship post-run vibe rating, push notifications, friends graph</li>
+            <li>NPS survey after 3rd RSVP</li>
+          </ul>
+        </div>
+
+        <div class="month-card">
+          <div class="month-header">
+            <div class="month-num">M7</div>
+            <div class="month-title">LA Expansion + Year-End Content</div>
+            <div class="month-date">December 2026</div>
+          </div>
+          <div class="tags">
+            <span class="tag">70 clubs</span><span class="tag">4,500 runners</span><span class="tag">$400 MRR</span>
+          </div>
+          <ul>
+            <li>Launch LA — target Koreatown RC, Blacklist LA, WeHo Runners</li>
+            <li>Capture marathon season content (CIM, Houston Marathon prep)</li>
+            <li>Ship "Run Club Wrapped" year-end recap per club</li>
+          </ul>
+        </div>
+
+        <div class="month-card">
+          <div class="month-header">
+            <div class="month-num">M8</div>
+            <div class="month-title">New Year Runner Surge</div>
+            <div class="month-date">January 2027</div>
+          </div>
+          <div class="tags">
+            <span class="tag">85 clubs</span><span class="tag">8,000 runners</span><span class="tag">$900 MRR</span>
+          </div>
+          <ul>
+            <li>Ride #FirstRunBack January campaign</li>
+            <li>Test TikTok Spark Ads — $50 cap, only boost organic hits</li>
+            <li>Newsletter "New Year Run Club Guide" — push to 3k+ subscribers</li>
+          </ul>
+        </div>
+
+        <div class="month-card">
+          <div class="month-header">
+            <div class="month-num">M9</div>
+            <div class="month-title">Club Pro Public Launch</div>
+            <div class="month-date">February 2027</div>
+          </div>
+          <div class="tags">
+            <span class="tag">100 clubs</span><span class="tag">$1,500 MRR</span><span class="tag">Trademark filed</span>
+          </div>
+          <ul>
+            <li>Open Club Pro to all — file USPTO trademark ($250)</li>
+            <li>Soft-launch Runner Pro paywall with 3 friction triggers</li>
+            <li>Launch SF + Bay Area via city captain</li>
+          </ul>
+        </div>
+
+        <div class="month-card">
+          <div class="month-header">
+            <div class="month-num">M10</div>
+            <div class="month-title">Investor Storytelling Prep</div>
+            <div class="month-date">March 2027</div>
+          </div>
+          <div class="tags">
+            <span class="tag">115 clubs</span><span class="tag">$2,000 MRR</span><span class="tag">Data room</span>
+          </div>
+          <ul>
+            <li>Build DocSend data room — not raising yet, but ready</li>
+            <li>Log 10 warm investor intros (Slow Ventures, Pace Capital, Long Journey)</li>
+            <li>Expand to Austin + Chicago via city captains</li>
+          </ul>
+        </div>
+
+        <div class="month-card">
+          <div class="month-header">
+            <div class="month-num">M11</div>
+            <div class="month-title">Brand Moment — Spring Marathon Season</div>
+            <div class="month-date">April 2027</div>
+          </div>
+          <div class="tags">
+            <span class="tag">125 clubs</span><span class="tag">$2,700 MRR</span><span class="tag">Press push</span>
+          </div>
+          <ul>
+            <li>Capitalize on Boston/London/NYC Half energy</li>
+            <li>Target 1 tier-1 press hit: NYT Styles, The Cut, Outside, Runner's World</li>
+            <li>Strava partnership exploratory call</li>
+          </ul>
+        </div>
+
+        <div class="month-card">
+          <div class="month-header">
+            <div class="month-num">M12</div>
+            <div class="month-title">Seed Decision Point</div>
+            <div class="month-date">May 2027</div>
+          </div>
+          <div class="tags">
+            <span class="tag">135 clubs</span><span class="tag">20k runners</span><span class="tag">$3.2k MRR</span>
+          </div>
+          <ul>
+            <li>Raise $750k–$1.5M pre-seed IF: MRR >$3k + retention >35% + 3+ cities + WAU >5k</li>
+            <li>Otherwise: bootstrap to $5k MRR, raise from position of strength</li>
+            <li>Explore Strava/Nike strategic conversations</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- 3. Financial -->
+    <section id="financial">
+      <h2>3. Financial Plan</h2>
+
+      <h3>Starting Budget Breakdown ($50)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Item</th><th>Cost</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>Sticker Mule first order (300 stickers)</td><td>$19</td><td>Guerrilla acquisition at every run</td></tr>
+            <tr><td>Printful sample shirt</td><td>$17</td><td>Wear at every run</td></tr>
+            <tr><td>Domain renewal buffer</td><td>$14</td><td>joinpaceway.com security</td></tr>
+            <tr><td><strong>Total</strong></td><td><strong>$50</strong></td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Monthly Operating Budget ($100/mo)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Category</th><th>Cost</th><th>Tool</th></tr></thead>
+          <tbody>
+            <tr><td>Hosting, analytics, email, design, CRM</td><td>$0</td><td>Vercel, PostHog, Beehiiv, Figma, Notion (all free)</td></tr>
+            <tr><td>Stickers refill</td><td>$25</td><td>Sticker Mule</td></tr>
+            <tr><td>Shirts refill</td><td>$25</td><td>Printful</td></tr>
+            <tr><td>Transit to runs</td><td>$20</td><td>Subway/MetroCard</td></tr>
+            <tr><td>Coffee meetings with organizers</td><td>$20</td><td>Bribe key organizers</td></tr>
+            <tr><td>Buffer</td><td>$10</td><td>Miscellaneous</td></tr>
+            <tr><td><strong>Total</strong></td><td><strong>$100</strong></td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Revenue Projections (Month-by-Month)</h3>
+      <div class="scenarios">
+        <div class="scenario conservative">
+          <div class="s-label">Conservative</div>
+          <div class="s-val">$16.8k</div>
+          <div class="s-sub">Y1 ARR exit</div>
+        </div>
+        <div class="scenario realistic">
+          <div class="s-label">Realistic</div>
+          <div class="s-val">$38.4k</div>
+          <div class="s-sub">Y1 ARR exit</div>
+        </div>
+        <div class="scenario aggressive">
+          <div class="s-label">Aggressive</div>
+          <div class="s-val">$126k</div>
+          <div class="s-sub">Y1 ARR exit</div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Month</th><th>Conservative</th><th>Realistic</th><th>Aggressive</th></tr></thead>
+          <tbody>
+            <tr><td>M1–M3</td><td>$0</td><td>$0</td><td>$0–$100</td></tr>
+            <tr><td>M4</td><td>$0</td><td>$95</td><td>$250</td></tr>
+            <tr><td>M5</td><td>$0</td><td>$190</td><td>$500</td></tr>
+            <tr><td>M6</td><td>$0</td><td>$285</td><td>$800</td></tr>
+            <tr><td>M7</td><td>$150</td><td>$400</td><td>$1,200</td></tr>
+            <tr><td>M8</td><td>$300</td><td>$900</td><td>$2,000</td></tr>
+            <tr><td>M9</td><td>$500</td><td>$1,500</td><td>$3,500</td></tr>
+            <tr><td>M10</td><td>$750</td><td>$2,000</td><td>$5,200</td></tr>
+            <tr><td>M11</td><td>$1,000</td><td>$2,700</td><td>$7,500</td></tr>
+            <tr><td>M12</td><td><strong>$1,400</strong></td><td><strong>$3,200</strong></td><td><strong>$10,500</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>CAC + LTV Estimates</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Channel</th><th>CAC</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>In-person at runs</td><td>~$0.50</td><td>Highest conversion; capped by Marley's time</td></tr>
+            <tr><td>TikTok organic</td><td>$0 (time)</td><td>Highest long-term leverage</td></tr>
+            <tr><td>Club-driven invites (viral)</td><td>$0.20</td><td>Best channel — k-factor ~0.4</td></tr>
+            <tr><td>TikTok Spark Ads (M8+)</td><td>$3–$7 target</td><td>Test at $50/mo cap</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Persona</th><th>ARPU</th><th>Avg Retention</th><th>LTV</th></tr></thead>
+          <tbody>
+            <tr><td>Runner Pro</td><td>$7.99/mo</td><td>8 months</td><td>$64</td></tr>
+            <tr><td>Club Pro</td><td>$29/mo</td><td>18 months</td><td><strong>$522</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout warning">
+        <div class="callout-title">Break-Even</div>
+        <p>Monthly costs = $100. Break-even MRR = $100. Hit in Month 4 (realistic). Founder-salary break-even (~$4k/mo) = ~Month 14. Run lean, delay salary until post-seed.</p>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- 4. Legal -->
+    <section id="legal">
+      <h2>4. Legal + Business Formation</h2>
+
+      <h3>LLC vs C-Corp</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Factor</th><th>LLC</th><th>C-Corp (Delaware)</th></tr></thead>
+          <tbody>
+            <tr><td>Cost to form</td><td>$50–$300</td><td>$0–$500 via Stripe Atlas</td></tr>
+            <tr><td>VC compatibility</td><td>Poor — must convert later</td><td>Required for institutional money</td></tr>
+            <tr><td>Acquisition readiness</td><td>Awkward</td><td>Standard — what Strava/Nike will require</td></tr>
+            <tr><td>Stock options</td><td>Awkward</td><td>Standard 409A + ISO options</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">
+        <div class="callout-title">Recommendation: Delaware C-Corp via Stripe Atlas — defer to Month 6</div>
+        <p>Don't spend $500 before revenue. Operate as sole prop with clean Stripe/bank separation until Month 6. Then incorporate, issue 10M founder shares (4yr vest / 1yr cliff), file 83(b) within 30 days.</p>
+      </div>
+
+      <h3>Legal Timeline + Costs</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Month</th><th>Action</th><th>Cost</th></tr></thead>
+          <tbody>
+            <tr><td>M1 (this week)</td><td>Privacy Policy + ToS via Termly (location + health-adjacent data)</td><td>$0</td></tr>
+            <tr><td>M1 (this week)</td><td>Liability waiver checkbox at first RSVP — "Paceway is not the organizer"</td><td>$0</td></tr>
+            <tr><td>M6</td><td>Delaware C-Corp via Stripe Atlas + Mercury bank account</td><td>$500</td></tr>
+            <tr><td>M6</td><td>IP Assignment Agreement (all founder work assigned to corp)</td><td>$0 (Clerky template)</td></tr>
+            <tr><td>M9</td><td>USPTO trademark: "Paceway" — Class 9, 41, 42</td><td>$250/class</td></tr>
+            <tr><td>M12</td><td>Pre-seed legal counsel (Cooley GO templates)</td><td>$0–$2k</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout warning">
+        <div class="callout-title">Critical Legal Risk</div>
+        <p>Paceway handles <strong>location + health-adjacent data</strong>. Insert "runs at your own risk" indemnity at RSVP. One injury lawsuit kills the company. Add $1M general liability insurance (~$600/yr) once MRR &gt; $1k.</p>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- 5. Branding -->
+    <section id="branding">
+      <h2>5. Branding Strategy</h2>
+
+      <h3>Positioning Statement</h3>
+      <p style="font-style:italic;color:var(--green);font-size:15px;">"Paceway is where runners find their pack. For the 18-to-35 runner who's tired of running alone but intimidated by run-club Instagram, Paceway shows you the vibe before you show up."</p>
+
+      <h3>Tone of Voice</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Attribute</th><th>Do This</th><th>Not This</th></tr></thead>
+          <tbody>
+            <tr><td>Energy</td><td>Hype but grounded, run-culture insider</td><td>Corporate "wellness" speak</td></tr>
+            <tr><td>Inclusivity</td><td>"All paces" front and center</td><td>Elitist sub-7 talk</td></tr>
+            <tr><td>Humor</td><td>Runner inside jokes (Strava kudos, post-run beer, easy-day pace)</td><td>Generic motivational quotes</td></tr>
+            <tr><td>Aesthetic references</td><td>Bandit Running, Tracksmith, Satisfy</td><td>Nike (too big), Lululemon (too glossy)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Content Pillars</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Pillar</th><th>% of Content</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Club Spotlights</strong></td><td>30%</td><td>"Meet Resident Runners — 6am Tuesdays, all paces, post-run espresso at Devoción"</td></tr>
+            <tr><td><strong>Vibe Check</strong></td><td>25%</td><td>POV videos: what does a typical Wednesday Pilsner Pacers run look like?</td></tr>
+            <tr><td><strong>Runner Stories</strong></td><td>20%</td><td>"I moved to NYC, joined 3 clubs in 2 weeks via Paceway, now I have a friend group"</td></tr>
+            <tr><td><strong>Run Culture</strong></td><td>15%</td><td>Race calendar, gear reviews, NYC Marathon Week coverage</td></tr>
+            <tr><td><strong>Product Updates</strong></td><td>10%</td><td>Build-in-public, new features, founder journey</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Viral Marketing Ideas</h3>
+      <ul>
+        <li><strong>Run Club Bingo</strong> — sharable card ("Has a coach, post-run coffee, themed kits, sub-7 group") → users tag their club → viral on IG stories</li>
+        <li><strong>The Vibe Tier List</strong> — TikTok series ranking every NYC club by vibe. Controversy = reach.</li>
+        <li><strong>Mile Marker Drops</strong> — chalk Paceway QR codes on Prospect Park / Central Park loops. Cost: $5 sidewalk chalk.</li>
+        <li><strong>Founder Race-Day Bib</strong> — wear "joinpaceway.com" on every race bib Marley runs. Free impressions at every finish line.</li>
+        <li><strong>Run Club Wrapped</strong> — Spotify-style year-end recap per club ("You ran 412 miles together, drank 89 espressos together")</li>
+        <li><strong>#FirstRunBack Campaign</strong> — January, target lapsed runners returning post-holidays</li>
+      </ul>
+    </section>
+
+    <hr class="divider">
+
+    <!-- 6. Product -->
+    <section id="product">
+      <h2>6. Product Development Plan</h2>
+
+      <h3>Feature Priority (RICE-ranked)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Feature</th><th>Priority</th><th>Timeline</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>Strava OAuth + pace inference</td><td><strong>P0</strong></td><td>M2</td><td>Kills signup friction, adds credibility</td></tr>
+            <tr><td>Club share-card generator (PNG for IG)</td><td><strong>P0</strong></td><td>M2</td><td>Turns every club into a distribution channel</td></tr>
+            <tr><td>Push notifications ("your club runs tomorrow")</td><td><strong>P0</strong></td><td>M3</td><td>Core retention lever</td></tr>
+            <tr><td>Map view (clubs near me)</td><td><strong>P0</strong></td><td>M3</td><td>Discovery UX foundation</td></tr>
+            <tr><td>Club Pro analytics dashboard</td><td><strong>P1</strong></td><td>M4</td><td>Monetization unlock for clubs</td></tr>
+            <tr><td>Post-run vibe rating</td><td><strong>P1</strong></td><td>M6</td><td>Feedback loop + retention signal</td></tr>
+            <tr><td>Friends/follow runner graph</td><td><strong>P1</strong></td><td>M6</td><td>Social layer, reduces churn</td></tr>
+            <tr><td>Native iOS app</td><td><strong>P1</strong></td><td>M5–6</td><td>Push notifs + home screen presence</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>What NOT to Build in Year 1</h3>
+      <ul>
+        <li>❌ Generic event marketplace (yoga, hiking) — stay obsessive about running</li>
+        <li>❌ Training plans — Strava/Runna own this, you'd lose</li>
+        <li>❌ Chat/DMs — moderation nightmare, no differentiation</li>
+        <li>❌ Paid race registration — RunSignup owns it</li>
+        <li>❌ Android — defer until post-seed (running demo skews iOS)</li>
+      </ul>
+
+      <h3>Free Tool Stack</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Layer</th><th>Tool</th><th>Cost</th></tr></thead>
+          <tbody>
+            <tr><td>Code repo</td><td>GitHub</td><td>Free</td></tr>
+            <tr><td>Hosting</td><td>Vercel</td><td>Free</td></tr>
+            <tr><td>Backend / DB</td><td>Supabase</td><td>Free</td></tr>
+            <tr><td>Push notifications</td><td>OneSignal</td><td>Free &lt;10k</td></tr>
+            <tr><td>Analytics</td><td>PostHog + Mixpanel</td><td>Free</td></tr>
+            <tr><td>Email</td><td>Resend + Beehiiv</td><td>Free</td></tr>
+            <tr><td>Mobile subs</td><td>RevenueCat</td><td>Free &lt;$10k MTR</td></tr>
+            <tr><td>Payments</td><td>Stripe</td><td>2.9% + 30¢</td></tr>
+            <tr><td>Design</td><td>Figma</td><td>Free</td></tr>
+            <tr><td>Incorporation</td><td>Stripe Atlas</td><td>$500 (M6)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- 7. Marketing -->
+    <section id="marketing">
+      <h2>7. Marketing + Growth Strategy</h2>
+
+      <h3>In-Person Run Attendance (Highest ROI Channel)</h3>
+      <div class="callout">
+        <div class="callout-title">Rule: Marley attends 4 group runs per week, every week, for 12 months.</div>
+        <p>Don't pitch the first run — just run and listen. Second run: ask organizer for 15 min on Zoom. Bring 50 stickers every time. This is the unscalable work YC tells you to do.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Day</th><th>Run</th><th>Goal</th></tr></thead>
+          <tbody>
+            <tr><td>Tue 6:30am</td><td>Resident Runners (Williamsburg)</td><td>Founding club #1</td></tr>
+            <tr><td>Wed 7pm</td><td>Pilsner Pacers (Greenpoint)</td><td>Founding club #2</td></tr>
+            <tr><td>Thu 7pm</td><td>Endorphins / Bridge Runners</td><td>NYC anchor clubs</td></tr>
+            <tr><td>Sat 8am</td><td>Brooklyn Track Club / NorthBK</td><td>Big club anchor</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>TikTok + Instagram Content Plan</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Format</th><th>Frequency</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td>"Found this run club" POV</td><td>3x/week TikTok</td><td>30s clip showing up to a club, vibe shot, tag club</td></tr>
+            <tr><td>Club spotlight reel</td><td>1x/week IG</td><td>60s edit of a specific club's run</td></tr>
+            <tr><td>Founder build-in-public</td><td>2x/week IG</td><td>"How I'm trying to get 100 NYC run clubs on Paceway"</td></tr>
+            <tr><td>Run culture meme</td><td>1x/week</td><td>"Strava kudos hierarchy," easy-day pace meme</td></tr>
+            <tr><td>RSVP screen recording</td><td>1x/week</td><td>"Here's how I joined 3 clubs this week with Paceway"</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>SEO Strategy — "Run Clubs in [City]"</h3>
+      <ul>
+        <li>Build programmatic city + neighborhood pages (Brooklyn, Williamsburg, Boston Common, etc.)</li>
+        <li>Each page lists 5–15 clubs with Schema.org Event structured data</li>
+        <li>Target queries: "run clubs in brooklyn," "nyc run clubs by pace," "beginner run clubs nyc," "free run clubs near me"</li>
+        <li>Use Beehiiv newsletter back-issues as fresh content</li>
+        <li>Realistic timeline: first-page rankings for 1–2 city queries by Month 8–10</li>
+      </ul>
+    </section>
+
+    <hr class="divider">
+
+    <!-- 8. Launch -->
+    <section id="launch">
+      <h2>8. Launch Strategy</h2>
+
+      <h3>First 10 Clubs Target List (NYC)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Club</th><th>Why First</th><th>Channel</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Resident Runners</td><td>Mid-size, vibey, approachable founder</td><td>In-person Tuesday</td></tr>
+            <tr><td>2</td><td>Pilsner Pacers</td><td>Post-run social = perfect Paceway vibe</td><td>In-person Wednesday</td></tr>
+            <tr><td>3</td><td>Endorphins</td><td>Brooklyn women-led, undercovered</td><td>DM via founder</td></tr>
+            <tr><td>4</td><td>LES Run Club</td><td>LES density, IG-savvy</td><td>DM</td></tr>
+            <tr><td>5</td><td>NorthBK Running Club</td><td>Greenpoint, growth-minded</td><td>In-person</td></tr>
+            <tr><td>6</td><td>Bridge Runners</td><td>Status — having them legitimizes Paceway</td><td>Warm intro via Resident</td></tr>
+            <tr><td>7</td><td>Old Man Run Club</td><td>Cult brand, would love discovery</td><td>DM</td></tr>
+            <tr><td>8</td><td>She Runs This Town NYC</td><td>Female-led, big community angle</td><td>DM</td></tr>
+            <tr><td>9</td><td>Black Men Run NYC</td><td>Mission-aligned, growth angle</td><td>DM</td></tr>
+            <tr><td>10</td><td>Queens Distance Runners</td><td>Queens gap in coverage</td><td>DM + show up</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>City Expansion Order</h3>
+      <div class="callout warning">
+        <div class="callout-title">Rule: Win Brooklyn before you touch anything else.</div>
+        <p>Network effects are hyper-local. A user opening Paceway in Tulsa with 0 clubs is permanently lost. Concentrate to win category mindshare before expanding.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Order</th><th>City</th><th>Why</th><th>Month</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>NYC (Brooklyn first)</td><td>Marley's base, density, run-club epicenter</td><td>M1–4</td></tr>
+            <tr><td>2</td><td>Boston</td><td>Tight scene, BAA halo, trainable from NYC</td><td>M5–6</td></tr>
+            <tr><td>3</td><td>LA</td><td>Largest market</td><td>M7–8</td></tr>
+            <tr><td>4</td><td>SF + Bay</td><td>Tech overlap = press + funding</td><td>M9</td></tr>
+            <tr><td>5</td><td>Austin, Chicago, DC</td><td>Via city captains (unpaid)</td><td>M10–12</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- 9. Ops -->
+    <section id="operations">
+      <h2>9. Operations Plan</h2>
+
+      <h3>Weekly Schedule (Solo Founder + Day Job)</h3>
+      <div class="week-grid">
+        <div class="week-row"><div class="week-day">Mon</div><div class="week-tasks">Morning: 30m DMs. Evening: 2h product/dev.</div></div>
+        <div class="week-row"><div class="week-day">Tue</div><div class="week-tasks">6:30am run with Resident Runners. Evening: 2h outreach + demo calls.</div></div>
+        <div class="week-row"><div class="week-day">Wed</div><div class="week-tasks">7pm run with Pilsner Pacers. 9pm: demo calls + founder office hours (open Zoom).</div></div>
+        <div class="week-row"><div class="week-day">Thu</div><div class="week-tasks">7pm run with Endorphins. Draft newsletter. Evening: outreach replies.</div></div>
+        <div class="week-row"><div class="week-day">Fri</div><div class="week-tasks">6–10pm: Ship features. Non-negotiable: ship something every Friday.</div></div>
+        <div class="week-row"><div class="week-day">Sat</div><div class="week-tasks">8am run with Brooklyn Track Club. Batch TikTok content. Send newsletter.</div></div>
+        <div class="week-row"><div class="week-day">Sun</div><div class="week-tasks">4pm: Plan week + content batch. 3h product/dev. Full rest in morning.</div></div>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- 10. Sales -->
+    <section id="sales">
+      <h2>10. Sales Strategy</h2>
+
+      <h3>Cold DM Script — Club Organizers</h3>
+      <div class="script">Hey [name] — I run with [nearby club] sometimes and love what you've built with [club name].
+
+I'm building Paceway (joinpaceway.com) — basically lets runners discover your club by pace + vibe + day, and RSVP in 1 tap. Stops you having to repost your run info 4x a week on stories.
+
+Free for founding clubs, takes 5 min to set up — I'll literally build your first event for you.
+
+Open to a 15-min Zoom this week?</div>
+
+      <h3>Follow-up Sequence</h3>
+      <div class="script">Day 3 (no reply): No worries — quick Loom of the org dashboard in case it's easier: [link]. Built it cause I was tired of guessing pace before showing up. lmk!
+
+Day 10: Last ping I promise — adding [nearby club] this week, figured you'd want in before Brooklyn fills up. Door's open whenever.</div>
+
+      <h3>Freemium → Paid Triggers</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>User</th><th>Trigger</th><th>Paywall Feature</th></tr></thead>
+          <tbody>
+            <tr><td>Runner</td><td>After 5th RSVP</td><td>"Save unlimited clubs" — Runner Pro</td></tr>
+            <tr><td>Runner</td><td>After clicking 2nd city</td><td>"See clubs in any city" — Runner Pro</td></tr>
+            <tr><td>Club</td><td>After 50 RSVPs received</td><td>"See who's RSVPing — analytics" — Club Pro</td></tr>
+            <tr><td>Club</td><td>After 100 followers</td><td>"Send member email blasts" — Club Pro</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout warning">
+        <div class="callout-title">When to Charge — Hard Rules</div>
+        <p><strong>Club Pro billing:</strong> Do NOT turn on before Month 4. Wait until clubs see ROI ("we got 12 new runners this month via Paceway") THEN ask.<br><br>
+        <strong>Runner Pro:</strong> Do NOT turn on before Month 9. Free runner is the acquisition flywheel — monetizing too early kills referrals.</p>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- 11. Scaling -->
+    <section id="scaling">
+      <h2>11. Scaling + Acquisition Strategy</h2>
+
+      <h3>When to Raise Seed (All Must Be True)</h3>
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-val">$3k+</div><div class="kpi-label">MRR</div></div>
+        <div class="kpi-card"><div class="kpi-val">35%+</div><div class="kpi-label">4-Week Retention</div></div>
+        <div class="kpi-card"><div class="kpi-val">3+</div><div class="kpi-label">Cities Live</div></div>
+        <div class="kpi-card"><div class="kpi-val">5k+</div><div class="kpi-label">WAU</div></div>
+      </div>
+      <p>If all four hit by Month 12: Raise $750k–$1.5M pre-seed at $7M–$10M post. If not: bootstrap to $5k MRR, raise from strength.</p>
+
+      <h3>Strava Acquisition Playbook</h3>
+      <ul>
+        <li><strong>Own the social graph Strava doesn't</strong> — Strava has workout data, Paceway has the meet-in-real-life graph. Strava tried (Strava Local, Strava Clubs) and failed. They will eventually buy.</li>
+        <li><strong>High engagement in 18–35 demo</strong> — Strava's user base is aging. Paceway owns the next generation.</li>
+        <li><strong>Real-world events</strong> — Strava is virtual; IRL events are the next frontier they can't crack organically.</li>
+        <li><strong>Never violate Strava API ToS</strong> — stay in good standing, attend their developer events, apply to Strava's startup directory.</li>
+        <li><strong>Target $50k MRR before strategic coffee</strong> — meet Strava VP of Partnerships at that milestone.</li>
+        <li><strong>Other acquirers:</strong> On Running, Nike Run Club team, lululemon, Garmin Connect, Tracksmith</li>
+      </ul>
+
+      <h3>Realistic Exit Math</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Path</th><th>ARR</th><th>Multiple</th><th>Exit Value</th></tr></thead>
+          <tbody>
+            <tr><td>Bootstrap to acquisition</td><td>$1M</td><td>15–30x</td><td>$15M–$30M</td></tr>
+            <tr><td>Raise + scale</td><td>$5M</td><td>15–30x</td><td>$75M–$150M</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- 12. Risks -->
+    <section id="risks">
+      <h2>12. Risk Analysis</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Risk</th><th>Prob</th><th>Impact</th><th>Prevention</th><th>Backup</th></tr></thead>
+          <tbody>
+            <tr><td>Cold start: empty city = bad first impression</td><td class="risk-high">High</td><td class="risk-high">Critical</td><td>1-city-at-a-time density rule; don't open city until 10 clubs ready</td><td>Pre-seed cities with founder-curated "preview clubs" before opening</td></tr>
+            <tr><td>Club churn (sign up, never use)</td><td class="risk-high">High</td><td class="risk-high">High</td><td>Hand-build first 2 events; weekly check-in; show RSVP count dashboard</td><td>Marley personally calls any club 30d dormant</td></tr>
+            <tr><td>Strava launches "Clubs 2.0"</td><td class="risk-med">Med</td><td class="risk-high">Critical</td><td>Move fast on 18–35; build IRL switching costs (member CRM, branding)</td><td>Pivot to deeper organizer SaaS; out-feature Strava on supply side</td></tr>
+            <tr><td>Runner injury at Paceway-discovered run</td><td class="risk-med">Med</td><td class="risk-high">Critical</td><td>ToS indemnity, "not the organizer" at RSVP, $1M liability insurance at MRR >$1k</td><td>Crisis-comms template ready; lawyer on retainer M9</td></tr>
+            <tr><td>Charging too early, kills supply</td><td class="risk-med">Med</td><td class="risk-high">High</td><td>Hard rules: no Club Pro before M4, no Runner Pro before M9</td><td>Refund + founding-club pricing reset</td></tr>
+            <tr><td>Founder burnout (solo + day job)</td><td class="risk-high">High</td><td class="risk-high">High</td><td>Strict schedule, 1 full day off/week, no meetings before 7am</td><td>Pause growth, optimize retention; consider raising to quit day job</td></tr>
+            <tr><td>AllTrails or Meetup enters running</td><td class="risk-low">Low</td><td class="risk-med">Med</td><td>Stay running-specific; urban running DNA they can't replicate</td><td>Double down on vibe/pace differentiation they can't copy</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- 13. KPIs -->
+    <section id="kpis">
+      <h2>13. KPI Dashboard</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Month</th><th>Clubs</th><th>Runners</th><th>WAU</th><th>RSVP Rate</th><th>MRR</th></tr></thead>
+          <tbody>
+            <tr><td>M1</td><td>5</td><td>150</td><td>50 (33%)</td><td>0.4/wk</td><td>$0</td></tr>
+            <tr><td>M2</td><td>15</td><td>500</td><td>180 (36%)</td><td>0.5/wk</td><td>$0</td></tr>
+            <tr><td>M3</td><td>25</td><td>1,200</td><td>460 (38%)</td><td>0.6/wk</td><td>$0</td></tr>
+            <tr><td>M4</td><td>35</td><td>1,800</td><td>720 (40%)</td><td>0.7/wk</td><td>$95</td></tr>
+            <tr><td>M5</td><td>50</td><td>2,500</td><td>1,050 (42%)</td><td>0.7/wk</td><td>$190</td></tr>
+            <tr><td>M6</td><td>60</td><td>3,500</td><td>1,540 (44%)</td><td>0.8/wk</td><td>$285</td></tr>
+            <tr><td>M7</td><td>70</td><td>4,500</td><td>2,070 (46%)</td><td>0.8/wk</td><td>$400</td></tr>
+            <tr><td>M8</td><td>85</td><td>8,000</td><td>3,760 (47%)</td><td>0.85/wk</td><td>$900</td></tr>
+            <tr><td>M9</td><td>100</td><td>11,000</td><td>5,280 (48%)</td><td>0.9/wk</td><td>$1,500</td></tr>
+            <tr><td>M10</td><td>115</td><td>14,000</td><td>6,860 (49%)</td><td>0.9/wk</td><td>$2,000</td></tr>
+            <tr><td>M11</td><td>125</td><td>17,500</td><td>8,750 (50%)</td><td>0.95/wk</td><td>$2,700</td></tr>
+            <tr><td>M12</td><td><strong>135</strong></td><td><strong>20,000</strong></td><td><strong>10,200 (51%)</strong></td><td><strong>1.0/wk</strong></td><td><strong>$3,200</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- 14. Action Plan -->
+    <section id="action">
+      <h2>14. Final Founder Action Plan</h2>
+
+      <h3>Top 10 Highest-ROI Actions — Next 30 Days</h3>
+      <ul class="action-list">
+        <li><div class="action-num">1</div><div class="action-text"><strong>Attend Resident Runners + Pilsner Pacers in person this week</strong><span>Highest-trust acquisition channel. Wear the shirt. Bring stickers. Don't pitch on the first run.</span></div></li>
+        <li><div class="action-num">2</div><div class="action-text"><strong>Build Notion CRM of 50 NYC clubs with IG handle + founder name</strong><span>Pipeline foundation — takes 3 hours but drives everything else.</span></div></li>
+        <li><div class="action-num">3</div><div class="action-text"><strong>Send 100 personalized DMs to club organizers using the script above</strong><span>Math: 100 DMs → 35 replies → 21 calls → 11 clubs. Do this week.</span></div></li>
+        <li><div class="action-num">4</div><div class="action-text"><strong>Ship Strava OAuth login this week</strong><span>Single highest-leverage product change — kills friction, infers pace, adds credibility.</span></div></li>
+        <li><div class="action-num">5</div><div class="action-text"><strong>Order 300 Sticker Mule stickers + Printful sample shirt ($36 total)</strong><span>Physical guerrilla kit. Wear the shirt every single run.</span></div></li>
+        <li><div class="action-num">6</div><div class="action-text"><strong>Launch "NYC Run Club Weekly" on Beehiiv (free)</strong><span>Owned audience asset that doesn't depend on algorithm. First issue this Friday.</span></div></li>
+        <li><div class="action-num">7</div><div class="action-text"><strong>Record a 3-min Loom walkthrough from an organizer's perspective</strong><span>Replaces 80% of live demo calls. Send in every DM follow-up.</span></div></li>
+        <li><div class="action-num">8</div><div class="action-text"><strong>Post 1 TikTok/day for 14 days — "found this run club" series</strong><span>Start the content engine. First 14 videos are the hardest. Just start.</span></div></li>
+        <li><div class="action-num">9</div><div class="action-text"><strong>Do 5 user interviews with Brooklyn runners ($20 Sweetgreen cards)</strong><span>Find out what's breaking before you scale anything broken.</span></div></li>
+        <li><div class="action-num">10</div><div class="action-text"><strong>Add Privacy Policy + ToS to site TODAY (Termly, free)</strong><span>You're handling location data. One complaint without it is a mess.</span></div></li>
+      </ul>
+
+      <h3>What To Do THIS WEEK</h3>
+      <div class="week-grid">
+        <div class="week-row"><div class="week-day">Wed (today)</div><div class="week-tasks">Build Notion CRM of 30 clubs. Order stickers + shirt. Set up Beehiiv. Draft Privacy Policy on Termly.</div></div>
+        <div class="week-row"><div class="week-day">Thu</div><div class="week-tasks">Send first 20 DMs. Attend Endorphins run (7pm). Hand out 10 stickers. Talk to 3 runners.</div></div>
+        <div class="week-row"><div class="week-day">Fri</div><div class="week-tasks">Ship: Strava OAuth scaffold. Record Loom demo. Post first TikTok.</div></div>
+        <div class="week-row"><div class="week-day">Sat</div><div class="week-tasks">Long run with Brooklyn Track Club. Wear Paceway shirt. Send Beehiiv issue #1.</div></div>
+        <div class="week-row"><div class="week-day">Sun</div><div class="week-tasks">Plan week 2. Batch 5 TikToks. Schedule 3 demo calls via Cal.com. Write founding-club close email template.</div></div>
+        <div class="week-row"><div class="week-day">Mon</div><div class="week-tasks">Send 25 more DMs. Ship Strava OAuth to staging. Reply to all inbound.</div></div>
+        <div class="week-row"><div class="week-day">Tue</div><div class="week-tasks">Resident Runners 6:30am. First demo call 9pm. Close first founding club by end of week.</div></div>
+      </div>
+
+      <div class="callout" style="margin-top:32px;">
+        <div class="callout-title">The Single Most Important Sentence in This Plan</div>
+        <p style="font-size:15px;font-weight:600;color:var(--text);">Win Brooklyn before you touch anything else.</p>
+        <p style="margin-top:8px;">If Marley owns 80% of active Brooklyn run clubs by Labor Day 2026, every other section of this plan compounds. If not, none of the rest matters. Go run.</p>
+      </div>
+
+      <p style="text-align:center;color:var(--muted);font-size:12px;margin-top:48px;">Generated by Claude · Paceway Operating Plan · May 2026</p>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  // Active sidebar nav on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.sidebar nav a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+    links.forEach(l => {
+      l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+</body>
+</html>

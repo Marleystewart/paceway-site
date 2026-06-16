@@ -1,0 +1,104 @@
+{
+  "ny-flyers": {
+    "name": "New York Flyers",
+    "location": "New York, NY",
+    "bio": "New York Flyers is one of NYC's largest and most welcoming running clubs — open to all abilities, all paces, all people.\n\nFrom casual group runs to race day support, we show up together. Whether you're logging your first mile or your thousandth, you've found your crew.",
+    "distance": "3–10mi",
+    "pace": "7:00–12:00",
+    "schedule": "3x/week",
+    "instagram": "nyflyers",
+    "website": "nyflyers.org",
+    "heroPhoto": "/nyf-logo.png",
+    "photos": [
+      "/nyf-1.jpg",
+      "/nyf-2.jpg",
+      "/nyf-3.jpg",
+      "/nyf-4.jpg"
+    ],
+    "events": [
+      {
+        "id": "nyf-evt-1",
+        "title": "Wednesday Group Run",
+        "day": "This Wednesday",
+        "date": "2026-06-11",
+        "time": "6:30 PM",
+        "details": "All paces welcome",
+        "location": "Central Park, New York",
+        "special": false,
+        "rsvps": []
+      },
+      {
+        "id": "nyf-evt-2",
+        "title": "Saturday Long Run",
+        "day": "This Saturday",
+        "date": "2026-06-14",
+        "time": "8:00 AM",
+        "details": "Meet at the entrance",
+        "location": "Central Park, New York",
+        "special": false,
+        "rsvps": []
+      }
+    ]
+  },
+  "pumas": {
+    "name": "Pumas Run Club",
+    "location": "New York, NY",
+    "bio": "We don't just run — we move as one. Pumas Run Club is built for the ones who show up, push the pace, and make the city their track.\n\nWhether you're chasing a PR or just trying to find your people, you belong here. No judgment, no ego — just miles, sweat, and good vibes after.",
+    "distance": "3–5mi",
+    "pace": "8:00–11:00",
+    "schedule": "Weekly",
+    "instagram": "pumasrunclub",
+    "heroPhoto": "https://images.unsplash.com/photo-1544899489-a083461b088c?w=800&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=600&q=80",
+      "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600&q=80",
+      "https://images.unsplash.com/photo-1461897104016-0b3b00cc81ee?w=600&q=80",
+      "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=600&q=80",
+      "https://images.unsplash.com/photo-1502904550040-7534597429ae?w=600&q=80",
+      "https://images.unsplash.com/photo-1513593771513-7b58b6c4af38?w=600&q=80"
+    ],
+    "events": [
+      {
+        "id": "pumas-evt-1",
+        "title": "Saturday Morning Run",
+        "day": "This Saturday",
+        "date": "2026-06-14",
+        "time": "8:00 AM",
+        "details": "Meet 7:45am, run at 8am sharp",
+        "location": "Central Park, New York",
+        "special": false,
+        "rsvps": []
+      }
+    ]
+  },
+  "rat-race": {
+    "name": "Rat Race Run Club",
+    "location": "Bergen County, NJ · Ridgewood",
+    "bio": "Rat Race Run Club is a Bergen County based social run club with a mission to provide a space for people to connect through running from all races of life...good things happen when a space is created for people to gather!\n\nWhether you are just starting your running journey, training for your Thanksgiving 5K PR, or on your way to completing your 500th run...you are welcome here. The rat race can be fun. Trust!",
+    "distance": "3mi",
+    "pace": "7:30–10",
+    "schedule": "Weekly",
+    "instagram": "ratracerunclub",
+    "heroPhoto": "/rat-race-4.jpeg",
+    "photos": [
+      "/rat-race-1.jpeg",
+      "/rat-race-2.jpeg",
+      "/rat-race-5.jpeg",
+      "/rat-race-3.jpeg",
+      "/rat-race-6.jpeg",
+      "/rat-race-7.jpeg"
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "title": "Wednesday Night Run",
+        "day": "This Wednesday",
+        "date": "2026-06-11",
+        "time": "7:00 PM",
+        "details": "Meet 7pm, run 7:15pm",
+        "location": "Ridgewood, NJ",
+        "rsvps": []
+      }
+    ]
+  }
+}

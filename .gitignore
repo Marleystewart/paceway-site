@@ -4,3 +4,6 @@ waitlist.json
 .env.local
 *.log
 .claude/
+.vercel
+
+.DS_Store
