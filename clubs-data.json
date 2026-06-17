@@ -71,6 +71,45 @@
       }
     ]
   },
+  "rcf": {
+    "name": "The Run Club Family",
+    "location": "Armstrong Stadium",
+    "bio": "The Run Club Family (RCF) is more than a run club — it's a family built on inclusion, exercise, and social connection. We move as one.\n\nWhether you're chasing a PR or just looking for community, there's a place for you here. Founded by @geremiiah, @reed_shaw22, @taj.caver2 & @n8said_, RCF brings people together one run at a time.",
+    "distance": "All",
+    "pace": "All paces",
+    "schedule": "Weekly",
+    "instagram": "runclubfamily_",
+    "heroPhoto": "https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=900&q=80",
+    "photos": [
+      "/rcf-1.png",
+      "/rcf-2.png",
+      "/rcf-3.png"
+    ],
+    "events": [
+      {
+        "id": "rcf-evt-1",
+        "title": "The MILE — Group Run",
+        "day": "This Saturday",
+        "date": "2026-06-20",
+        "time": "8:00 AM",
+        "details": "All paces welcome",
+        "location": "Armstrong Stadium",
+        "special": false,
+        "rsvps": []
+      },
+      {
+        "id": "rcf-evt-2",
+        "title": "1% Track Night",
+        "day": "This Wednesday",
+        "date": "2026-06-17",
+        "time": "6:30 PM",
+        "details": "Speed work session",
+        "location": "Track",
+        "special": true,
+        "rsvps": []
+      }
+    ]
+  },
   "rat-race": {
     "name": "Rat Race Run Club",
     "location": "Bergen County, NJ · Ridgewood",

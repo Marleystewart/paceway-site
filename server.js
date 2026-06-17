@@ -108,6 +108,15 @@ function isValidSecret(secret) {
   return secret && CLUB_SECRETS.has(secret);
 }
 
+// Where to email new-RSVP notifications, per club. Clubs without an email
+// (e.g. ones that coordinate via GroupMe) just won't get the notify email —
+// RSVPs are still saved and backed up to Google Sheets, and the runner is
+// still emailed a confirmation.
+const CLUB_NOTIFY_EMAILS = {
+  'ny-flyers': 'info@nyflyers.org',
+  'rat-race': 'ratracerunclubnj@gmail.com',
+};
+
 // ── Rate limiter ─────────────────────────────────────────────────────────────
 const rateMap = new Map();
 function isRateLimited(ip) {
@@ -252,33 +261,39 @@ app.post('/api/clubs/:slug/events/:eventId/rsvp', async (req, res) => {
     try {
       const { Resend } = require('resend');
       const resend = new Resend(process.env.RESEND_API_KEY);
-      await Promise.allSettled([
-        // Notify club
-        resend.emails.send({
+      const clubName = club.name || 'your run club';
+      const clubInsta = club.instagram;
+      const notifyEmail = CLUB_NOTIFY_EMAILS[req.params.slug];
+
+      const emails = [];
+      // Notify the club (only if we have an address for them)
+      if (notifyEmail) {
+        emails.push(resend.emails.send({
           from: 'Paceway <hello@joinpaceway.com>',
-          to: req.params.slug === 'ny-flyers' ? 'info@nyflyers.org' : 'ratracerunclubnj@gmail.com',
+          to: notifyEmail,
           subject: `New RSVP: ${name} is coming to ${event.title}`,
           html: `<div style="font-family:sans-serif;max-width:480px;padding:24px;background:#0A0A0A;color:#fff;border-radius:12px">
             <h2 style="color:#B4FF2E;margin-top:0">New RSVP 🏃</h2>
             <p style="color:#aaa"><strong style="color:#fff">${name}</strong> (${email}) just RSVPed to <strong style="color:#fff">${event.title}</strong> on ${event.day} at ${event.time}.</p>
             <p style="color:#aaa">Total RSVPs: <strong style="color:#fff">${event.rsvps.length}</strong></p>
-            <p style="color:#555;font-size:12px">View all RSVPs: joinpaceway.com/clubs/rat-race/admin</p>
+            <p style="color:#555;font-size:12px">View all RSVPs: joinpaceway.com/clubs/${req.params.slug}/admin</p>
           </div>`
-        }),
-        // Confirm to runner
-        resend.emails.send({
-          from: 'Paceway <hello@joinpaceway.com>',
-          to: email.trim(),
-          subject: `You're in for ${event.title} 🏃`,
-          html: `<div style="font-family:sans-serif;max-width:480px;padding:24px;background:#0A0A0A;color:#fff;border-radius:12px">
-            <h2 style="color:#B4FF2E;margin-top:0">You're in!</h2>
-            <p style="color:#aaa">See you at <strong style="color:#fff">${event.title}</strong> with Rat Race Run Club.</p>
-            <p style="color:#aaa">📅 ${event.day} · ${event.time}<br>📍 ${event.location}<br>👟 ${event.details}</p>
-            <p style="color:#aaa">Check their Instagram <a href="https://instagram.com/ratracerunclub" style="color:#B4FF2E">@ratracerunclub</a> for the exact meet-up spot.</p>
-            <p style="color:#555;font-size:12px">Powered by Paceway · joinpaceway.com</p>
-          </div>`
-        })
-      ]);
+        }));
+      }
+      // Confirm to runner
+      emails.push(resend.emails.send({
+        from: 'Paceway <hello@joinpaceway.com>',
+        to: email.trim(),
+        subject: `You're in for ${event.title} 🏃`,
+        html: `<div style="font-family:sans-serif;max-width:480px;padding:24px;background:#0A0A0A;color:#fff;border-radius:12px">
+          <h2 style="color:#B4FF2E;margin-top:0">You're in!</h2>
+          <p style="color:#aaa">See you at <strong style="color:#fff">${event.title}</strong> with ${clubName}.</p>
+          <p style="color:#aaa">📅 ${event.day} · ${event.time}<br>📍 ${event.location}<br>👟 ${event.details}</p>
+          ${clubInsta ? `<p style="color:#aaa">Check their Instagram <a href="https://instagram.com/${clubInsta}" style="color:#B4FF2E">@${clubInsta}</a> for the exact meet-up spot.</p>` : ''}
+          <p style="color:#555;font-size:12px">Powered by Paceway · joinpaceway.com</p>
+        </div>`
+      }));
+      await Promise.allSettled(emails);
     } catch(e) { console.warn('[resend] rsvp email failed:', e.message); }
   }
 
