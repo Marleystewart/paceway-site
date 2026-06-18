@@ -31,7 +31,7 @@ async function getSheetsClient() {
 async function appendToSheet(type, row) {
   const sheets = await getSheetsClient();
   if (!sheets || !process.env.GOOGLE_SHEET_ID) return;
-  const sheetName = type === 'club' ? 'Clubs' : type === 'rsvp' ? 'RSVPs' : 'Runners';
+  const sheetName = type === 'club' ? 'Clubs' : type === 'rsvp' ? 'RSVPs' : type === 'follower' ? 'Followers' : 'Runners';
   try {
     await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
@@ -230,11 +230,64 @@ function saveClubs(data) {
 }
 
 // ── GET club data (JSON) ──────────────────────────────────────────────────────
+// Public endpoint — strip personal data (RSVP/follower emails). The admin
+// endpoints (password-protected) are where the full lists are exposed.
 app.get('/api/clubs/:slug', (req, res) => {
   const clubs = getClubs();
   const club = clubs[req.params.slug];
   if (!club) return res.status(404).json({ error: 'Club not found' });
-  res.json(club);
+  const { followers, events, ...rest } = club;
+  res.json({
+    ...rest,
+    followerCount: (followers || []).length,
+    events: (events || []).map(({ rsvps, ...e }) => ({
+      ...e,
+      rsvps: Array((rsvps || []).length).fill(0), // preserve count, drop emails
+    })),
+  });
+});
+
+// ── Follow a club (email signup for new-event notifications) ──────────────────
+app.post('/api/clubs/:slug/follow', async (req, res) => {
+  const { email } = req.body || {};
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!email || !emailRegex.test(String(email).trim())) {
+    return res.status(400).json({ error: 'Enter a valid email' });
+  }
+  const clubs = getClubs();
+  const club = clubs[req.params.slug];
+  if (!club) return res.status(404).json({ error: 'Club not found' });
+  if (!club.followers) club.followers = [];
+
+  const normalized = email.trim().toLowerCase();
+  const already = club.followers.find(f => f.email.toLowerCase() === normalized);
+  if (already) {
+    return res.json({ success: true, message: "You're already following!", count: club.followers.length });
+  }
+  club.followers.push({ email: normalized, joinedAt: new Date().toISOString() });
+  saveClubs(clubs);
+  appendToSheet('follower', [req.params.slug, club.name, normalized, new Date().toISOString()]).catch(() => {});
+
+  // Confirmation email to the new follower
+  if (process.env.RESEND_API_KEY) {
+    try {
+      const { Resend } = require('resend');
+      const resend = new Resend(process.env.RESEND_API_KEY);
+      await resend.emails.send({
+        from: 'Paceway <hello@joinpaceway.com>',
+        to: normalized,
+        subject: `You're following ${club.name} on Paceway 🏃`,
+        html: `<div style="font-family:sans-serif;max-width:480px;padding:24px;background:#0A0A0A;color:#fff;border-radius:12px">
+          <h2 style="color:#B4FF2E;margin-top:0">You're in the loop!</h2>
+          <p style="color:#aaa">You'll get an email whenever <strong style="color:#fff">${club.name}</strong> posts a new run or event.</p>
+          ${club.instagram ? `<p style="color:#aaa">Follow them on Instagram too: <a href="https://instagram.com/${club.instagram}" style="color:#B4FF2E">@${club.instagram}</a></p>` : ''}
+          <p style="color:#555;font-size:12px">Powered by Paceway · joinpaceway.com</p>
+        </div>`
+      });
+    } catch (e) { console.warn('[follow] confirm email failed:', e.message); }
+  }
+
+  res.json({ success: true, message: "You're following! We'll email you about new events.", count: club.followers.length });
 });
 
 // ── RSVP to event ─────────────────────────────────────────────────────────────
@@ -379,7 +432,7 @@ app.delete('/api/clubs/:slug/photos', (req, res) => {
 });
 
 // ── Admin: add event ──────────────────────────────────────────────────────────
-app.post('/api/clubs/:slug/events', (req, res) => {
+app.post('/api/clubs/:slug/events', async (req, res) => {
   if (!isValidSecret(req.body.secret)) {
     return res.status(403).json({ error: 'Forbidden' });
   }
@@ -399,8 +452,41 @@ app.post('/api/clubs/:slug/events', (req, res) => {
   };
   club.events.push(newEvent);
   saveClubs(clubs);
+
+  // Notify followers about the new event (don't block the response on it)
+  notifyFollowers(req.params.slug, club, newEvent).catch(e =>
+    console.warn('[follow] notify failed:', e.message));
+
   res.json({ success: true, event: newEvent });
 });
+
+// Email all followers of a club that a new event was posted.
+async function notifyFollowers(slug, club, event) {
+  if (!process.env.RESEND_API_KEY) return;
+  const followers = (club.followers || []).map(f => f.email).filter(Boolean);
+  if (!followers.length) return;
+  const { Resend } = require('resend');
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  const profileUrl = `https://joinpaceway.com/clubs/${slug}`;
+  // Send in batches of 50 (Resend's per-message recipient cap), using bcc for privacy.
+  for (let i = 0; i < followers.length; i += 50) {
+    const batch = followers.slice(i, i + 50);
+    await resend.emails.send({
+      from: 'Paceway <hello@joinpaceway.com>',
+      to: 'hello@joinpaceway.com',
+      bcc: batch,
+      subject: `New event from ${club.name}: ${event.title}`,
+      html: `<div style="font-family:sans-serif;max-width:480px;padding:24px;background:#0A0A0A;color:#fff;border-radius:12px">
+        <h2 style="color:#B4FF2E;margin-top:0">New event from ${club.name} 🏃</h2>
+        <p style="color:#fff;font-size:16px;font-weight:600;margin-bottom:4px">${event.title}</p>
+        <p style="color:#aaa">📅 ${event.day || event.date} · ${event.time}<br>📍 ${event.location}${event.details ? `<br>👟 ${event.details}` : ''}</p>
+        <p style="margin:20px 0"><a href="${profileUrl}" style="background:#B4FF2E;color:#0A0A0A;text-decoration:none;font-weight:700;padding:11px 20px;border-radius:10px;display:inline-block">RSVP on Paceway →</a></p>
+        <p style="color:#555;font-size:12px">You're getting this because you follow ${club.name} on Paceway.</p>
+      </div>`
+    }).catch(e => console.warn('[follow] batch send failed:', e.message));
+  }
+  console.log(`[follow] notified ${followers.length} follower(s) of ${slug} about "${event.title}"`);
+}
 
 // ── Admin: edit event ─────────────────────────────────────────────────────────
 app.patch('/api/clubs/:slug/events/:eventId', (req, res) => {

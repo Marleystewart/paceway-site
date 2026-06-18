@@ -308,12 +308,54 @@ From casual group runs to race day support, we show up together. Whether you're 
   }
   updateClock(); setInterval(updateClock, 10000);
 
-  let following = false;
+  const FOLLOW_SLUG = 'ny-flyers';
   function toggleFollow() {
-    following = !following;
     const btn = document.getElementById('followBtn');
-    btn.textContent = following ? '✓ Following' : '+ Follow Club';
-    btn.classList.toggle('following', following);
+    if (btn.classList.contains('following')) return;
+    let form = document.getElementById('follow-form');
+    if (!form) {
+      form = document.createElement('div');
+      form.id = 'follow-form';
+      form.className = 'rsvp-form';
+      form.style.marginTop = '-12px';
+      form.style.marginBottom = '20px';
+      form.innerHTML = `
+        <input class="rsvp-input" id="follow-email" placeholder="Your email — get notified of new events" type="email" autocomplete="email"/>
+        <button class="rsvp-submit" onclick="submitFollow()">Notify me of new events →</button>
+        <div class="rsvp-msg" id="follow-msg"></div>`;
+      btn.closest('div').after(form);
+    }
+    form.classList.toggle('open');
+    if (form.classList.contains('open')) document.getElementById('follow-email').focus();
+  }
+  async function submitFollow() {
+    const email = document.getElementById('follow-email').value.trim();
+    const msg = document.getElementById('follow-msg');
+    const sbtn = document.querySelector('#follow-form .rsvp-submit');
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      msg.textContent = 'Enter a valid email'; msg.className = 'rsvp-msg error';
+      setTimeout(() => msg.textContent = '', 3000); return;
+    }
+    sbtn.disabled = true; sbtn.textContent = 'Saving...';
+    try {
+      const res = await fetch('/api/clubs/' + FOLLOW_SLUG + '/follow', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      const data = await res.json();
+      if (data.success) {
+        msg.textContent = data.message; msg.className = 'rsvp-msg success';
+        document.getElementById('follow-form').classList.remove('open');
+        const fbtn = document.getElementById('followBtn');
+        fbtn.textContent = '✓ Following'; fbtn.classList.add('following');
+      } else {
+        msg.textContent = data.error || 'Something went wrong'; msg.className = 'rsvp-msg error';
+        sbtn.disabled = false; sbtn.textContent = 'Notify me of new events →';
+      }
+    } catch (e) {
+      msg.textContent = 'Connection error, try again'; msg.className = 'rsvp-msg error';
+      sbtn.disabled = false; sbtn.textContent = 'Notify me of new events →';
+    }
   }
 
   async function loadEvents() {
