@@ -82,11 +82,14 @@ async function sendConfirmationEmail(email, type) {
 }
 
 // ── Init local JSON fallback ─────────────────────────────────────────────────
-if (!fs.existsSync(WAITLIST_FILE)) {
-  fs.writeFileSync(WAITLIST_FILE, JSON.stringify({ runners: [], clubs: [] }, null, 2));
-} else {
-  // Migrate old format { emails: [] } → { runners: [], clubs: [] }
-  try {
+// Wrapped in try/catch: on Vercel the filesystem is read-only, so creating or
+// migrating this file would throw at startup and crash every route (500). The
+// waitlist is also backed up to Google Sheets, so a missing file is harmless.
+try {
+  if (!fs.existsSync(WAITLIST_FILE)) {
+    fs.writeFileSync(WAITLIST_FILE, JSON.stringify({ runners: [], clubs: [] }, null, 2));
+  } else {
+    // Migrate old format { emails: [] } → { runners: [], clubs: [] }
     const data = JSON.parse(fs.readFileSync(WAITLIST_FILE, 'utf8'));
     if (data.emails && !data.runners) {
       data.runners = data.emails;
@@ -94,7 +97,9 @@ if (!fs.existsSync(WAITLIST_FILE)) {
       delete data.emails;
       fs.writeFileSync(WAITLIST_FILE, JSON.stringify(data, null, 2));
     }
-  } catch {}
+  }
+} catch (e) {
+  console.warn('[waitlist] init skipped (read-only fs):', e.message);
 }
 
 app.use(express.json());
