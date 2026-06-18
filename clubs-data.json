@@ -110,7 +110,37 @@
       }
     ]
   },
-  "rat-race": {
+    "florecitas": {
+    "name": "Florecitas Run Club",
+    "location": "Oak Lawn, IL",
+    "bio": "Florecitas Run Club is Oak Lawn's bilingual, stroller-friendly run club — where every pace belongs and no one finishes alone. ¡Hablamos Español! 🌸\n\nThree miles, all paces, all people. Bring the kids, bring the stroller, bring a friend. We run, jog, and walk together, then stick around for the good stuff after.",
+    "distance": "3mi",
+    "pace": "All paces",
+    "schedule": "Weekly",
+    "instagram": "florecitasrunclub",
+    "heroPhoto": "https://images.unsplash.com/photo-1486218119243-13883505764c?w=900&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=600&q=80",
+      "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600&q=80",
+      "https://images.unsplash.com/photo-1461897104016-0b3b00cc81ee?w=600&q=80",
+      "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=600&q=80",
+      "https://images.unsplash.com/photo-1502904550040-7534597429ae?w=600&q=80",
+      "https://images.unsplash.com/photo-1513593771513-7b58b6c4af38?w=600&q=80"
+    ],
+    "events": [
+      {
+        "id": "florecitas-evt-1",
+        "title": "Saturday Morning Run",
+        "day": "This Saturday",
+        "date": "2026-06-20",
+        "time": "8:00 AM",
+        "details": "3 miles · meet by the playground",
+        "location": "9401 Oak Park Ave, Oak Lawn, IL",
+        "special": false,
+        "rsvps": []
+      }
+    ]
+  },"rat-race": {
     "name": "Rat Race Run Club",
     "location": "Bergen County, NJ · Ridgewood",
     "bio": "Rat Race Run Club is a Bergen County based social run club with a mission to provide a space for people to connect through running from all races of life...good things happen when a space is created for people to gather!\n\nWhether you are just starting your running journey, training for your Thanksgiving 5K PR, or on your way to completing your 500th run...you are welcome here. The rat race can be fun. Trust!",
