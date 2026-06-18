@@ -824,6 +824,18 @@
 
     /* ── Checkmark SVG helper ── */
     .chk-svg { width: 11px; height: 11px; }
+
+    /* ── Scroll reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+      will-change: opacity, transform;
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
   </style>
 </head>
 <body>
@@ -1453,6 +1465,48 @@
 </footer>
 
 <script>
+  // ── Scroll reveal ──────────────────────────────────────
+  (function () {
+    // Elements that animate in as they scroll into view. Grouped so siblings
+    // stagger one after another for a polished cascade.
+    const groups = [
+      ['.features .feat-col'],
+      ['.how-it-works .hiw-header'],
+      ['.how-it-works .hiw-step'],
+      ['.everything .ev-eyebrow', '.everything .ev-title', '.everything h2'],
+      ['.everything .ev-phones'],
+      ['.founders .founder-card'],
+      ['.founders .founders-story'],
+      ['.clubs .clubs-title', '.clubs .clubs-body'],
+      ['.clubs .clubs-card', '.clubs .clubs-perks'],
+      ['.faq .faq-header'],
+      ['.faq .faq-item'],
+    ];
+
+    groups.forEach(selectors => {
+      const els = selectors.flatMap(s => Array.from(document.querySelectorAll(s)));
+      els.forEach((el, i) => {
+        el.classList.add('reveal');
+        el.style.transitionDelay = (i * 90) + 'ms';
+      });
+    });
+
+    const targets = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window) || !targets.length) {
+      targets.forEach(el => el.classList.add('in'));
+      return;
+    }
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    targets.forEach(el => io.observe(el));
+  })();
+
   // ── FAQ accordion ──────────────────────────────────────
   function toggleFaq(btn) {
     const item = btn.closest('.faq-item');
