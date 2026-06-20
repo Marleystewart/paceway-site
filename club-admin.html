@@ -168,6 +168,19 @@
       <div class="err" id="bio-err" style="margin-top:6px"></div>
     </div>
 
+    <!-- Profile Photo (avatar) -->
+    <div class="section-title" style="margin-top:24px">Profile Picture</div>
+    <div class="card">
+      <img id="avatar-preview" src="" style="width:72px;height:72px;object-fit:cover;border-radius:16px;margin-bottom:12px;display:none"/>
+      <label>Paste a photo URL to use as your profile picture (your logo or icon)</label>
+      <div style="display:flex;gap:8px;margin-top:6px">
+        <input class="input" id="avatar-url" placeholder="https://..." type="url" style="flex:1"/>
+        <button class="btn-green" style="white-space:nowrap;padding:0 16px" onclick="saveAvatar()">Save</button>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-top:8px">💡 A square image works best. Upload to Instagram or Google Photos, right-click → "Copy image address", and paste here.</div>
+      <div class="err" id="avatar-err" style="margin-top:6px"></div>
+    </div>
+
     <!-- Header Photo -->
     <div class="section-title" style="margin-top:24px">Header Photo</div>
     <div class="card">
@@ -235,6 +248,9 @@
     document.getElementById('view-profile-link').href = `/clubs/${slug}`;
     // Bio
     if (data.bio !== undefined) document.getElementById('bio-text').value = data.bio;
+    // Avatar preview
+    const avatarPreview = document.getElementById('avatar-preview');
+    if (data.avatarPhoto) { avatarPreview.src = data.avatarPhoto; avatarPreview.style.display = 'block'; }
     // Hero preview
     const heroPreview = document.getElementById('hero-preview');
     if (data.heroPhoto) { heroPreview.src = data.heroPhoto; heroPreview.style.display = 'block'; }
@@ -261,6 +277,25 @@
     if (data.success) {
       err.style.color = '#B4FF2E'; err.textContent = '✓ Bio updated! Refresh your public profile to see it.';
       setTimeout(() => { err.textContent = ''; err.style.color = '#ff6b6b'; }, 4000);
+    } else { err.style.color='#ff6b6b'; err.textContent = data.error || 'Error'; }
+  }
+
+  async function saveAvatar() {
+    const url = document.getElementById('avatar-url').value.trim();
+    const err = document.getElementById('avatar-err');
+    if (!url) return;
+    err.textContent = '';
+    const res = await fetch(`/api/clubs/${slug}/avatar`, {
+      method: 'PATCH', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ secret, url })
+    });
+    const data = await res.json();
+    if (data.success) {
+      document.getElementById('avatar-url').value = '';
+      const preview = document.getElementById('avatar-preview');
+      preview.src = url; preview.style.display = 'block';
+      err.style.color = '#B4FF2E'; err.textContent = '✓ Profile picture updated!';
+      setTimeout(() => { err.textContent = ''; err.style.color = '#ff6b6b'; }, 3000);
     } else { err.style.color='#ff6b6b'; err.textContent = data.error || 'Error'; }
   }
 

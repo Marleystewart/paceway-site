@@ -222,7 +222,7 @@
 
   <div class="content">
     <div class="club-header">
-      <div class="club-avatar">
+      <div class="club-avatar" id="club-avatar">
         <div class="club-avatar-text"><small>THE</small>RCF</div>
       </div>
       <div class="club-meta">
@@ -376,6 +376,7 @@ Whether you're chasing a PR or just looking for community, there's a place for y
       const data = await res.json();
       renderEvents(data.events || []);
       if (data.heroPhoto) document.getElementById('hero-img').src = data.heroPhoto;
+      if (data.avatarPhoto) document.getElementById('club-avatar').innerHTML = `<img src="${data.avatarPhoto}" alt="logo" style="width:100%;height:100%;object-fit:cover"/>`;
       if (data.bio) document.getElementById('bio-text').textContent = data.bio;
       renderPhotos(data.photos || []);
     } catch(e) {

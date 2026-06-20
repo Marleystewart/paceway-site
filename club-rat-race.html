@@ -226,7 +226,7 @@
   <div class="content">
     <!-- header -->
     <div class="club-header">
-      <div class="club-avatar"><div class="club-avatar-placeholder">3RC</div></div>
+      <div class="club-avatar" id="club-avatar"><div class="club-avatar-placeholder">3RC</div></div>
       <div class="club-meta">
         <div class="club-name">Rat Race Run Club</div>
         <div class="club-location">
@@ -382,6 +382,8 @@ Whether you are just starting your running journey, training for your Thanksgivi
       renderEvents(data.events || []);
       // Hero photo
       if (data.heroPhoto) document.getElementById('hero-img').src = data.heroPhoto;
+      // Profile picture
+      if (data.avatarPhoto) document.getElementById('club-avatar').innerHTML = `<img src="${data.avatarPhoto}" alt="logo" style="width:100%;height:100%;object-fit:cover"/>`;
       // Bio
       if (data.bio) document.getElementById('bio-text').textContent = data.bio;
       // Photo grid

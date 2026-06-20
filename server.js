@@ -384,6 +384,21 @@ app.patch('/api/clubs/:slug/hero', (req, res) => {
   res.json({ success: true });
 });
 
+// ── Admin: update profile pic (avatar) ────────────────────────────────────────
+app.patch('/api/clubs/:slug/avatar', (req, res) => {
+  if (!isValidSecret(req.body.secret)) {
+    return res.status(403).json({ error: 'Forbidden' });
+  }
+  const { url } = req.body;
+  if (!url) return res.status(400).json({ error: 'url required' });
+  const clubs = getClubs();
+  const club = clubs[req.params.slug];
+  if (!club) return res.status(404).json({ error: 'Club not found' });
+  club.avatarPhoto = url;
+  saveClubs(clubs);
+  res.json({ success: true });
+});
+
 // ── Admin: update bio ─────────────────────────────────────────────────────────
 app.patch('/api/clubs/:slug/bio', (req, res) => {
   if (!isValidSecret(req.body.secret)) {
