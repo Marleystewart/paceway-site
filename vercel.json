@@ -5,10 +5,11 @@
     { "src": "*.jpeg", "use": "@vercel/static" },
     { "src": "*.jpg", "use": "@vercel/static" },
     { "src": "*.png", "use": "@vercel/static" },
+    { "src": "*.svg", "use": "@vercel/static" },
     { "src": "*.html", "use": "@vercel/static" }
   ],
   "routes": [
-    { "src": "/.*\\.(jpeg|jpg|png)$", "dest": "/$0" },
+    { "src": "/.*\\.(jpeg|jpg|png|svg)$", "dest": "/$0" },
     { "src": "/(.*)", "dest": "/server.js" }
   ]
 }
