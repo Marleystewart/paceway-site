@@ -405,7 +405,7 @@ app.patch('/api/clubs/:slug/avatar', (req, res) => {
 // Vercel Blob and get a permanent URL we can save.
 app.post('/api/clubs/:slug/upload', express.raw({ type: () => true, limit: '15mb' }), async (req, res) => {
   if (!isValidSecret(req.query.secret)) return res.status(403).json({ error: 'Forbidden' });
-  if (!process.env.BLOB_READ_WRITE_TOKEN) {
+  if (!process.env.BLOB_READ_WRITE_TOKEN && !process.env.BLOB_STORE_ID) {
     return res.status(503).json({ error: 'Photo uploads aren’t turned on yet.' });
   }
   if (!req.body || !req.body.length) return res.status(400).json({ error: 'No file received' });
