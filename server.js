@@ -399,6 +399,29 @@ app.patch('/api/clubs/:slug/avatar', (req, res) => {
   res.json({ success: true });
 });
 
+// ── Admin: upload an image file → returns a public URL ────────────────────────
+// Clubs paste-from-Instagram never worked (IG blocks hotlinking + signed URLs
+// expire). This lets the admin upload a file straight from their device to
+// Vercel Blob and get a permanent URL we can save.
+app.post('/api/clubs/:slug/upload', express.raw({ type: () => true, limit: '15mb' }), async (req, res) => {
+  if (!isValidSecret(req.query.secret)) return res.status(403).json({ error: 'Forbidden' });
+  if (!process.env.BLOB_READ_WRITE_TOKEN) {
+    return res.status(503).json({ error: 'Photo uploads aren’t turned on yet.' });
+  }
+  if (!req.body || !req.body.length) return res.status(400).json({ error: 'No file received' });
+  try {
+    const { put } = require('@vercel/blob');
+    const ct = (req.headers['content-type'] || 'image/jpeg').split(';')[0];
+    const ext = (ct.split('/')[1] || 'jpg').replace('jpeg', 'jpg');
+    const name = `clubs/${req.params.slug}/${Date.now()}.${ext}`;
+    const blob = await put(name, req.body, { access: 'public', contentType: ct });
+    res.json({ success: true, url: blob.url });
+  } catch (e) {
+    console.warn('[upload] failed:', e.message);
+    res.status(500).json({ error: 'Upload failed, try again' });
+  }
+});
+
 // ── Admin: update bio ─────────────────────────────────────────────────────────
 app.patch('/api/clubs/:slug/bio', (req, res) => {
   if (!isValidSecret(req.body.secret)) {

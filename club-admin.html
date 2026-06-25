@@ -172,12 +172,16 @@
     <div class="section-title" style="margin-top:24px">Profile Picture</div>
     <div class="card">
       <img id="avatar-preview" src="" style="width:72px;height:72px;object-fit:cover;border-radius:16px;margin-bottom:12px;display:none"/>
-      <label>Paste a photo URL to use as your profile picture (your logo or icon)</label>
+      <label style="display:block;margin-bottom:6px">Upload your logo or profile picture (a square image works best)</label>
+      <label class="btn-green" style="display:inline-block;cursor:pointer;padding:11px 18px">📷 Upload from device
+        <input type="file" accept="image/*" style="display:none" onchange="uploadAndSave(this,'avatar')"/>
+      </label>
+      <div style="font-size:12px;color:var(--muted);margin-top:10px">Or paste a public image URL:</div>
       <div style="display:flex;gap:8px;margin-top:6px">
         <input class="input" id="avatar-url" placeholder="https://..." type="url" style="flex:1"/>
         <button class="btn-green" style="white-space:nowrap;padding:0 16px" onclick="saveAvatar()">Save</button>
       </div>
-      <div style="font-size:12px;color:var(--muted);margin-top:8px">💡 A square image works best. Upload to Instagram or Google Photos, right-click → "Copy image address", and paste here.</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:8px">⚠️ Instagram links don’t work here — they expire. Upload from your device instead.</div>
       <div class="err" id="avatar-err" style="margin-top:6px"></div>
     </div>
 
@@ -185,12 +189,16 @@
     <div class="section-title" style="margin-top:24px">Header Photo</div>
     <div class="card">
       <img id="hero-preview" src="" style="width:100%;height:120px;object-fit:cover;border-radius:10px;margin-bottom:12px;display:none"/>
-      <label>Paste a photo URL to use as your header image</label>
+      <label style="display:block;margin-bottom:6px">Upload your header image (a wide photo works best)</label>
+      <label class="btn-green" style="display:inline-block;cursor:pointer;padding:11px 18px">📷 Upload from device
+        <input type="file" accept="image/*" style="display:none" onchange="uploadAndSave(this,'hero')"/>
+      </label>
+      <div style="font-size:12px;color:var(--muted);margin-top:10px">Or paste a public image URL:</div>
       <div style="display:flex;gap:8px;margin-top:6px">
         <input class="input" id="hero-url" placeholder="https://..." type="url" style="flex:1"/>
         <button class="btn-green" style="white-space:nowrap;padding:0 16px" onclick="saveHero()">Save</button>
       </div>
-      <div style="font-size:12px;color:var(--muted);margin-top:8px">💡 Upload to Instagram or Google Photos, then right-click the photo → "Copy image address" and paste it here.</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:8px">⚠️ Instagram links don’t work here — they expire. Upload from your device instead.</div>
       <div class="err" id="hero-err" style="margin-top:6px"></div>
     </div>
 
@@ -198,12 +206,16 @@
     <div class="section-title" style="margin-top:24px">Profile Photos</div>
     <div class="card">
       <div id="photos-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:14px"></div>
-      <label>Add a photo</label>
+      <label style="display:block;margin-bottom:6px">Add a photo to your gallery</label>
+      <label class="btn-green" style="display:inline-block;cursor:pointer;padding:11px 18px">📷 Upload from device
+        <input type="file" accept="image/*" style="display:none" onchange="uploadAndSave(this,'photo')"/>
+      </label>
+      <div style="font-size:12px;color:var(--muted);margin-top:10px">Or paste a public image URL:</div>
       <div style="display:flex;gap:8px;margin-top:6px">
         <input class="input" id="photo-url" placeholder="https://..." type="url" style="flex:1"/>
         <button class="btn-green" style="white-space:nowrap;padding:0 16px" onclick="addPhoto()">Add</button>
       </div>
-      <div style="font-size:12px;color:var(--muted);margin-top:8px">💡 Same as above — paste any image URL. Photos show up on your public profile instantly.</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:8px">⚠️ Instagram links don’t work here — upload from your device instead. Photos show on your profile instantly.</div>
       <div class="err" id="photo-err" style="margin-top:6px"></div>
     </div>
 
@@ -278,6 +290,40 @@
       err.style.color = '#B4FF2E'; err.textContent = '✓ Bio updated! Refresh your public profile to see it.';
       setTimeout(() => { err.textContent = ''; err.style.color = '#ff6b6b'; }, 4000);
     } else { err.style.color='#ff6b6b'; err.textContent = data.error || 'Error'; }
+  }
+
+  // Upload a file from the device → get a permanent URL → save it.
+  async function uploadAndSave(input, kind) {
+    const file = input.files && input.files[0];
+    if (!file) return;
+    const errId = kind === 'avatar' ? 'avatar-err' : kind === 'hero' ? 'hero-err' : 'photo-err';
+    const err = document.getElementById(errId);
+    err.style.color = '#888'; err.textContent = 'Uploading…';
+    try {
+      const up = await fetch(`/api/clubs/${slug}/upload?secret=${encodeURIComponent(secret)}`, {
+        method: 'POST', headers: { 'Content-Type': file.type || 'image/jpeg' }, body: file
+      });
+      const data = await up.json();
+      if (!data.success) { err.style.color = '#ff6b6b'; err.textContent = data.error || 'Upload failed'; return; }
+      const url = data.url;
+      if (kind === 'avatar') {
+        await fetch(`/api/clubs/${slug}/avatar`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ secret, url }) });
+        const p = document.getElementById('avatar-preview'); p.src = url; p.style.display = 'block';
+        err.style.color = '#B4FF2E'; err.textContent = '✓ Profile picture updated!';
+      } else if (kind === 'hero') {
+        await fetch(`/api/clubs/${slug}/hero`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ secret, url }) });
+        const p = document.getElementById('hero-preview'); p.src = url; p.style.display = 'block';
+        err.style.color = '#B4FF2E'; err.textContent = '✓ Header photo updated!';
+      } else {
+        await fetch(`/api/clubs/${slug}/photos`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ secret, url }) });
+        err.style.color = '#B4FF2E'; err.textContent = '✓ Photo added!';
+        loadPhotos();
+      }
+      input.value = '';
+      setTimeout(() => { err.textContent = ''; err.style.color = '#ff6b6b'; }, 3500);
+    } catch (e) {
+      err.style.color = '#ff6b6b'; err.textContent = 'Upload failed, try again';
+    }
   }
 
   async function saveAvatar() {
