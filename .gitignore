@@ -7,3 +7,4 @@ waitlist.json
 .vercel
 
 .DS_Store
+.env*
