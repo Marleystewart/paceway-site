@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" width="1200" height="480" fill="none">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1A0A14"/>
+      <stop offset="0.55" stop-color="#120710"/>
+      <stop offset="1" stop-color="#080409"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0.16" cy="0.1" r="0.85">
+      <stop offset="0" stop-color="#FF2E8C" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#FF2E8C" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0.9" cy="0.05" r="0.85">
+      <stop offset="0" stop-color="#7A5CFF" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#7A5CFF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowC" cx="0.55" cy="1.0" r="0.7">
+      <stop offset="0" stop-color="#FF8A3D" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#FF8A3D" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="streak" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7A5CFF" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#FF2E8C" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#FF8A3D" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="bldg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2A1322"/>
+      <stop offset="1" stop-color="#0C060A"/>
+    </linearGradient>
+    <linearGradient id="title" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="0.55" stop-color="#FF2E8C"/>
+      <stop offset="1" stop-color="#FF8A3D"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="480" fill="url(#sky)"/>
+  <rect width="1200" height="480" fill="url(#glowA)"/>
+  <rect width="1200" height="480" fill="url(#glowB)"/>
+  <rect width="1200" height="480" fill="url(#glowC)"/>
+
+  <!-- motion streaks -->
+  <g opacity="0.6">
+    <rect x="110" y="120" width="430" height="2" rx="1" fill="url(#streak)"/>
+    <rect x="650" y="96" width="320" height="2" rx="1" fill="url(#streak)" opacity="0.7"/>
+    <rect x="810" y="156" width="350" height="2" rx="1" fill="url(#streak)" opacity="0.6"/>
+  </g>
+
+  <!-- Chicago skyline silhouette -->
+  <g fill="url(#bldg)">
+    <rect x="0" y="360" width="1200" height="120"/>
+    <rect x="70" y="300" width="44" height="180"/>
+    <rect x="130" y="332" width="32" height="148"/>
+    <rect x="180" y="262" width="40" height="218"/>
+    <path d="M198 262 l2 -34 l2 34 z" fill="#3A1A2E"/>
+    <rect x="240" y="318" width="30" height="162"/>
+    <rect x="290" y="286" width="52" height="194"/>
+    <rect x="360" y="240" width="46" height="240"/>
+    <path d="M383 240 l0 -34 l3 0 l0 34 z" fill="#3A1A2E"/>
+    <rect x="890" y="312" width="34" height="168"/>
+    <rect x="938" y="276" width="50" height="204"/>
+    <rect x="1000" y="300" width="36" height="180"/>
+    <rect x="1050" y="252" width="46" height="228"/>
+    <path d="M1073 252 l0 -28 l3 0 l0 28 z" fill="#3A1A2E"/>
+    <rect x="1110" y="324" width="40" height="156"/>
+  </g>
+  <!-- window dots -->
+  <g fill="#FF2E8C" opacity="0.55">
+    <rect x="368" y="262" width="4" height="4"/><rect x="384" y="262" width="4" height="4"/>
+    <rect x="368" y="284" width="4" height="4"/><rect x="390" y="296" width="4" height="4"/>
+    <rect x="1058" y="272" width="4" height="4"/><rect x="1074" y="272" width="4" height="4"/>
+    <rect x="1058" y="294" width="4" height="4"/><rect x="1082" y="314" width="4" height="4"/>
+  </g>
+
+  <!-- headline -->
+  <text x="600" y="226" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="900" font-size="76" letter-spacing="1" fill="url(#title)">FRIENDSRUNNING</text>
+  <text x="600" y="276" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="21" letter-spacing="7" fill="#FF8A3D">CHICAGO · EST. NOV 2022</text>
+</svg>

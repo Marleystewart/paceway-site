@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" width="1200" height="480" fill="none">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0E1310"/>
+      <stop offset="0.55" stop-color="#0A0F0C"/>
+      <stop offset="1" stop-color="#060807"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0.18" cy="0.1" r="0.8">
+      <stop offset="0" stop-color="#B4FF2E" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#B4FF2E" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0.9" cy="0.0" r="0.8">
+      <stop offset="0" stop-color="#7A5CFF" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#7A5CFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="streak" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2EE6C5" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#B4FF2E" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#2EE6C5" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="mtnFar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1A2A1E"/>
+      <stop offset="1" stop-color="#0C140F"/>
+    </linearGradient>
+    <linearGradient id="mtnNear" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#10180F"/>
+      <stop offset="1" stop-color="#080B07"/>
+    </linearGradient>
+    <linearGradient id="title" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="0.6" stop-color="#B4FF2E"/>
+      <stop offset="1" stop-color="#2EE6C5"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="480" fill="url(#sky)"/>
+  <rect width="1200" height="480" fill="url(#glowA)"/>
+  <rect width="1200" height="480" fill="url(#glowB)"/>
+
+  <!-- motion streaks -->
+  <g opacity="0.55">
+    <rect x="100" y="120" width="440" height="2" rx="1" fill="url(#streak)"/>
+    <rect x="660" y="96" width="320" height="2" rx="1" fill="url(#streak)" opacity="0.7"/>
+    <rect x="820" y="158" width="340" height="2" rx="1" fill="url(#streak)" opacity="0.6"/>
+  </g>
+
+  <!-- far mountains -->
+  <path d="M0 360 L160 250 L300 330 L440 230 L600 340 L760 240 L920 330 L1080 250 L1200 320 L1200 480 L0 480 Z" fill="url(#mtnFar)"/>
+  <!-- near ridge -->
+  <path d="M0 410 L180 330 L360 400 L520 320 L700 405 L880 330 L1060 400 L1200 350 L1200 480 L0 480 Z" fill="url(#mtnNear)"/>
+
+  <!-- headline -->
+  <text x="600" y="232" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="900" font-size="92" letter-spacing="4" fill="url(#title)">RUN CLUB SAB</text>
+  <text x="600" y="282" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="20" letter-spacing="5" fill="#2EE6C5">SANT ANDREU · CADA JUEVES 20:00H</text>
+</svg>

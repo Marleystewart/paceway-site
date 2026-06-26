@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" width="1200" height="480" fill="none">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1C0A03"/>
+      <stop offset="0.5" stop-color="#120602"/>
+      <stop offset="1" stop-color="#0A0402"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0.5" cy="1.05" r="0.9">
+      <stop offset="0" stop-color="#FF6A00" stop-opacity="0.6"/>
+      <stop offset="0.5" stop-color="#FF2E2E" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#FF2E2E" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0.85" cy="0.0" r="0.8">
+      <stop offset="0" stop-color="#FFB800" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#FFB800" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="streak" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFB800" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#FF6A00" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#FF2E2E" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="flame" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#FF2E2E"/>
+      <stop offset="0.5" stop-color="#FF6A00"/>
+      <stop offset="1" stop-color="#FFB800"/>
+    </linearGradient>
+    <linearGradient id="title" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="0.5" stop-color="#FF6A00"/>
+      <stop offset="1" stop-color="#FFB800"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="480" fill="url(#sky)"/>
+  <rect width="1200" height="480" fill="url(#glowB)"/>
+
+  <!-- motion streaks -->
+  <g opacity="0.55">
+    <rect x="110" y="116" width="430" height="2" rx="1" fill="url(#streak)"/>
+    <rect x="660" y="92" width="320" height="2" rx="1" fill="url(#streak)" opacity="0.7"/>
+    <rect x="820" y="152" width="340" height="2" rx="1" fill="url(#streak)" opacity="0.6"/>
+  </g>
+
+  <!-- flames along the bottom -->
+  <g fill="url(#flame)">
+    <path d="M0 480 C40 400 60 420 70 360 C95 410 110 400 120 440 C150 380 170 410 180 360 C205 420 230 405 240 445 C270 390 300 415 312 365 C340 425 360 410 372 450 L372 480 Z"/>
+    <path d="M360 480 C400 410 420 425 432 370 C460 425 485 410 495 450 C525 395 552 418 564 372 C595 430 615 412 628 452 C660 400 688 420 700 372 C730 428 752 414 764 452 L764 480 Z"/>
+    <path d="M750 480 C790 408 812 424 824 366 C852 422 878 408 888 448 C918 392 946 416 958 368 C988 426 1010 410 1022 450 C1054 398 1082 418 1094 370 C1124 426 1150 412 1164 452 L1200 480 Z"/>
+  </g>
+  <rect width="1200" height="480" fill="url(#glowA)"/>
+
+  <!-- headline -->
+  <text x="600" y="222" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="900" font-size="86" letter-spacing="3" fill="url(#title)">VAQUEROS RC</text>
+  <text x="600" y="272" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="20" letter-spacing="5" fill="#FFB800">BORN TO RUN · STAY VAQUERO</text>
+</svg>
