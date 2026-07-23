@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NYU Run Club — Paceway</title>
+  <meta name="description" content="NYU Run Club on Paceway. The official run club of NYU. All runners welcome — runs, workouts & more.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --purple: #A855F7; --accent2: #C026D3; --accent3: #57068C; --bg: #0D0D0D; --card: #1A1A1A; --border: #232323; --muted: #888; --dim: #555; --green: #B4FF2E; }
+    body { font-family: 'Inter', sans-serif; min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; padding: 28px 16px 60px;
+      background:
+        radial-gradient(900px 500px at 12% -5%, rgba(168,85,247,.22), transparent 60%),
+        radial-gradient(800px 600px at 100% 8%, rgba(192,38,211,.18), transparent 55%),
+        radial-gradient(700px 700px at 50% 110%, rgba(87,6,140,.22), transparent 60%),
+        #08040d;
+      background-attachment: fixed; }
+    .top-bar { width: 100%; max-width: 420px; display: flex; align-items: center;
+      justify-content: space-between; margin-bottom: 14px; }
+    .top-bar-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .top-bar-logo span { font-size: 15px; font-weight: 900; letter-spacing: .06em; color: #fff; }
+    .preview-badge { font-size: 11px; font-weight: 600; background: rgba(180,255,46,.12);
+      color: var(--green); border: 1px solid rgba(180,255,46,.25); padding: 4px 10px;
+      border-radius: 20px; letter-spacing: .04em; }
+    .phone { width: 390px; max-width: 100%; background: var(--bg); border-radius: 44px;
+      border: 1px solid #2a2a2a;
+      box-shadow: 0 0 0 6px #111, 0 0 0 7px #2a2a2a, 0 0 60px rgba(168,85,247,.16), 0 0 120px rgba(192,38,211,.12), 0 40px 100px rgba(0,0,0,.8);
+      overflow: hidden; position: relative; }
+    .status-bar { height: 48px; background: var(--bg); display: flex; align-items: center;
+      padding: 0 28px; justify-content: space-between; }
+    .status-time { font-size: 15px; font-weight: 700; color: #fff; }
+    .status-icons { display: flex; align-items: center; gap: 6px; }
+    .app-nav { background: var(--bg); padding: 4px 20px 12px; display: flex;
+      align-items: center; gap: 12px; border-bottom: 1px solid var(--border); }
+    .back-btn, .app-nav-more { width: 32px; height: 32px; border-radius: 50%;
+      background: var(--card); display: flex; align-items: center; justify-content: center; }
+    .app-nav-more { margin-left: auto; }
+    .app-nav-title { font-size: 17px; font-weight: 700; color: #fff; }
+    .hero-wrap { position: relative; }
+    .hero-img { width: 100%; height: 230px; object-fit: cover; object-position: center 40%; display: block; }
+    .hero-wrap::before { content: ''; position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(120deg, rgba(87,6,140,.45), rgba(168,85,247,.3) 50%, rgba(192,38,211,.35)); mix-blend-mode: overlay; }
+    .hero-wrap::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; z-index: 1;
+      height: 120px; background: linear-gradient(to top, var(--bg), transparent); }
+    .content { padding: 0 20px 32px; }
+    .club-header { display: flex; align-items: flex-start; gap: 14px; margin-top: -28px;
+      margin-bottom: 14px; position: relative; z-index: 2; }
+    .club-avatar { width: 68px; height: 68px; border-radius: 18px; padding: 2.5px;
+      background: linear-gradient(135deg, #C026D3, #A855F7, #57068C);
+      box-shadow: 0 0 24px rgba(168,85,247,.5), 0 0 40px rgba(192,38,211,.3);
+      flex-shrink: 0; }
+    .club-avatar > * { width: 100%; height: 100%; border-radius: 15px; overflow: hidden;
+      display: flex; align-items: center; justify-content: center; object-fit: cover; background: #57068C; }
+    .club-meta { flex: 1; padding-top: 32px; }
+    .club-name { font-size: 21px; font-weight: 900; line-height: 1.2;
+      background: linear-gradient(100deg, #fff 25%, #C4A5FF 65%, #C026D3);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .club-tagline { font-size: 12px; font-weight: 700; color: var(--purple); letter-spacing: .08em; margin-top: 2px; }
+    .club-location { display: flex; align-items: center; gap: 4px;
+      font-size: 13px; color: var(--muted); margin-top: 3px; }
+    .stats-row { display: flex; gap: 8px; margin-bottom: 16px; }
+    .stat-chip { flex: 1; background: linear-gradient(160deg, rgba(168,85,247,.14), rgba(192,38,211,.06));
+      border: 1px solid rgba(168,85,247,.22); border-radius: 14px; padding: 10px 8px; text-align: center; }
+    .stat-value { font-size: 17px; font-weight: 800; color: #fff; }
+    .stat-label { font-size: 10px; font-weight: 500; color: var(--muted); margin-top: 1px;
+      letter-spacing: .03em; text-transform: uppercase; }
+    .follow-btn { background: var(--card); color: #fff; font-size: 15px; font-weight: 700;
+      font-family: inherit; border: 1px solid var(--border); border-radius: 14px; padding: 13px;
+      cursor: pointer; transition: background .15s; flex: 1; }
+    .follow-btn:hover { background: #222; }
+    .follow-btn.following { color: var(--green); border-color: rgba(180,255,46,.3); }
+    .share-btn { background: var(--card); color: rgba(255,255,255,.7); border: 1px solid var(--border);
+      border-radius: 14px; padding: 13px 18px; cursor: pointer; font-family: inherit;
+      font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 7px;
+      transition: background .15s, color .15s; white-space: nowrap; flex-shrink: 0; }
+    .share-btn:hover { background: #222; color: #fff; }
+    .share-btn.copied { color: var(--green); border-color: rgba(180,255,46,.3); }
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    #events-list { margin-bottom: 20px; display: flex; flex-direction: column; gap: 10px; }
+    .event-card { background: linear-gradient(135deg, rgba(168,85,247,.12), rgba(192,38,211,.04));
+      border: 1px solid rgba(168,85,247,.25); border-radius: 16px; padding: 14px 16px; }
+    .event-top { display: flex; align-items: center; gap: 12px; }
+    .event-icon { width: 42px; height: 42px; background: rgba(168,85,247,.16); border-radius: 12px;
+      display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .event-info { flex: 1; min-width: 0; }
+    .event-day { font-size: 10px; font-weight: 700; color: var(--purple); text-transform: uppercase; letter-spacing: .08em; }
+    .event-title { font-size: 15px; font-weight: 700; color: #fff; margin-top: 1px; }
+    .event-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .rsvp-btn { background: var(--purple); color: #fff; font-size: 12px; font-weight: 800;
+      font-family: inherit; border: none; border-radius: 10px; padding: 9px 14px; cursor: pointer;
+      white-space: nowrap; flex-shrink: 0; transition: opacity .15s; }
+    .rsvp-btn.done { background: rgba(168,85,247,.2); color: var(--purple); }
+    .rsvp-form { margin-top: 10px; display: none; flex-direction: column; gap: 8px; }
+    .rsvp-form.open { display: flex; }
+    .rsvp-input { background: rgba(255,255,255,.06); border: 1px solid var(--border); border-radius: 10px;
+      padding: 10px 14px; font-size: 14px; font-family: inherit; color: #fff; outline: none;
+      transition: border-color .15s; }
+    .rsvp-input:focus { border-color: rgba(168,85,247,.5); }
+    .rsvp-input::placeholder { color: var(--dim); }
+    .rsvp-submit { background: var(--purple); color: #fff; font-size: 14px; font-weight: 800;
+      font-family: inherit; border: none; border-radius: 10px; padding: 12px; cursor: pointer; }
+    .rsvp-msg { font-size: 13px; font-weight: 600; text-align: center; padding: 4px 0; }
+    .rsvp-msg.success { color: var(--purple); }
+    .rsvp-msg.error { color: #ff6b6b; }
+    .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
+    .detail-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; }
+    .detail-icon { font-size: 18px; margin-bottom: 4px; }
+    .detail-title { font-size: 10px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 2px; }
+    .detail-value { font-size: 14px; font-weight: 700; color: #fff; }
+    .detail-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+    .bio-text { font-size: 14px; line-height: 1.65; color: rgba(255,255,255,.75); margin-bottom: 20px; white-space: pre-line; }
+    .photo-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px;
+      border-radius: 14px; overflow: hidden; margin-bottom: 4px; }
+    .photo-grid img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; cursor: pointer; transition: opacity .15s; }
+    .photo-grid img:hover { opacity: .85; }
+    .photo-grid img:first-child { grid-column: span 2; aspect-ratio: 2/1; }
+    .insta-link { display: flex; align-items: center; gap: 8px; color: var(--muted);
+      font-size: 13px; font-weight: 500; text-decoration: none; padding: 10px 0; margin-bottom: 10px; }
+    .insta-link:hover { color: #fff; }
+    .tab-bar { background: rgba(20,20,20,.95); border-top: 1px solid var(--border);
+      padding: 10px 0 24px; display: flex; justify-content: space-around; }
+    .tab-item { display: flex; flex-direction: column; align-items: center; gap: 3px; flex: 1; }
+    .tab-item span { font-size: 10px; font-weight: 500; color: var(--dim); }
+    .tab-item.active span { color: var(--green); }
+    .tab-icon { font-size: 22px; }
+    .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.92);
+      z-index: 999; align-items: center; justify-content: center; }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 92vw; max-height: 88vh; border-radius: 12px; object-fit: contain; }
+    .lightbox-close { position: absolute; top: 20px; right: 20px; font-size: 28px;
+      color: #fff; cursor: pointer; background: rgba(255,255,255,.1); border: none;
+      border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+    .footer-note { margin-top: 24px; text-align: center; font-size: 12px; color: var(--dim); max-width: 380px; }
+    .footer-note a { color: var(--green); text-decoration: none; font-weight: 600; }
+    @media (max-width: 430px) {
+      body { padding: 0 0 40px; }
+      .phone { border-radius: 0; border-left: none; border-right: none; box-shadow: none; }
+      .top-bar { padding: 16px 16px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-bar">
+  <a href="/" class="top-bar-logo">
+    <svg width="26" height="26" viewBox="0 0 34 34" fill="none">
+      <rect width="34" height="34" rx="8" fill="#B4FF2E"/>
+      <path d="M10 27V8h9c4.4 0 8 3.4 8 8s-3.6 8-8 8h-4.5" stroke="#0A0A0A" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span>PACEWAY</span>
+  </a>
+  <div class="preview-badge">PREVIEW</div>
+</div>
+
+<div class="phone">
+  <div class="status-bar">
+    <span class="status-time" id="clock">9:41</span>
+    <div class="status-icons">
+      <svg width="17" height="12" viewBox="0 0 17 12" fill="white"><rect x="0" y="3" width="3" height="9" rx="1"/><rect x="4.5" y="2" width="3" height="10" rx="1"/><rect x="9" y="0" width="3" height="12" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1" opacity=".3"/></svg>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="white"><path d="M8 2.4C5.6 2.4 3.5 3.4 2 5L0 3C2.1 1.1 4.9 0 8 0s5.9 1.1 8 3l-2 2C12.5 3.4 10.4 2.4 8 2.4z" opacity=".3"/><path d="M8 5.8c-1.4 0-2.7.6-3.6 1.5L2.6 5.5C4 4.3 5.9 3.5 8 3.5s4 .8 5.4 2l-1.8 1.8C10.7 6.4 9.4 5.8 8 5.8z"/><circle cx="8" cy="10" r="2"/></svg>
+      <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3.5" stroke="white" stroke-opacity=".35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="white"/><path d="M23 4.5v3a1.5 1.5 0 000-3z" fill="white" opacity=".4"/></svg>
+    </div>
+  </div>
+
+  <div class="app-nav">
+    <div class="back-btn">
+      <svg width="8" height="14" viewBox="0 0 8 14" fill="none">
+        <path d="M7 1L1 7l6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <span class="app-nav-title">Club Profile</span>
+    <div class="app-nav-more">
+      <svg width="4" height="16" viewBox="0 0 4 16" fill="white">
+        <circle cx="2" cy="2" r="1.5"/><circle cx="2" cy="8" r="1.5"/><circle cx="2" cy="14" r="1.5"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="hero-wrap">
+    <img class="hero-img" src="/nyu-hero.svg" alt="NYU Run Club"/>
+  </div>
+
+  <div class="content">
+    <div class="club-header">
+      <div class="club-avatar">
+        <div style="font-size:13px;font-weight:900;color:#fff;letter-spacing:-.5px;text-align:center;line-height:1.1">NYU<br/>RUN</div>
+      </div>
+      <div class="club-meta">
+        <div class="club-name">NYU Run Club</div>
+        <div class="club-tagline">ALL RUNNERS WELCOME</div>
+        <div class="club-location">
+          <svg width="11" height="13" viewBox="0 0 11 13" fill="none"><path d="M5.5 0C3.0 0 1 2.0 1 4.5c0 3.4 4.5 8.5 4.5 8.5S10 7.9 10 4.5C10 2.0 8.0 0 5.5 0zm0 6a1.5 1.5 0 110-3 1.5 1.5 0 010 3z" fill="#888"/></svg>
+          New York, NY · Washington Square
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-chip"><div class="stat-value">1,594</div><div class="stat-label">Followers</div></div>
+      <div class="stat-chip"><div class="stat-value">All</div><div class="stat-label">Paces</div></div>
+      <div class="stat-chip"><div class="stat-value">3x/wk</div><div class="stat-label">Schedule</div></div>
+      <div class="stat-chip"><div class="stat-value">Free</div><div class="stat-label">Entry</div></div>
+    </div>
+
+    <div style="display:flex;gap:8px;margin-bottom:20px">
+      <button class="follow-btn" id="followBtn" onclick="toggleFollow()">+ Follow Club</button>
+      <button class="share-btn" onclick="shareProfile()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        Share
+      </button>
+    </div>
+
+    <div class="section-label">Upcoming Runs</div>
+    <div id="events-list">
+      <div class="event-card">
+        <div class="event-top">
+          <div class="event-icon">🏃</div>
+          <div class="event-info">
+            <div class="event-day">Every Tuesday</div>
+            <div class="event-title">Tuesday Track Workout</div>
+            <div class="event-sub">McCarren Park Track · all paces</div>
+          </div>
+          <button class="rsvp-btn" id="btn-nyu-1" onclick="toggleRsvpForm('nyu-1')">RSVP</button>
+        </div>
+        <div class="rsvp-form" id="form-nyu-1">
+          <input class="rsvp-input" id="name-nyu-1" placeholder="Your name" type="text" autocomplete="given-name"/>
+          <input class="rsvp-input" id="email-nyu-1" placeholder="Your email" type="email" autocomplete="email"/>
+          <button class="rsvp-submit" onclick="fakeRsvp('nyu-1')">Confirm RSVP →</button>
+          <div class="rsvp-msg" id="msg-nyu-1"></div>
+        </div>
+      </div>
+      <div class="event-card">
+        <div class="event-top">
+          <div class="event-icon">💪</div>
+          <div class="event-info">
+            <div class="event-day">Every Wednesday</div>
+            <div class="event-title">Strength Training</div>
+            <div class="event-sub">8:00 AM · 404 Fitness</div>
+          </div>
+          <button class="rsvp-btn" id="btn-nyu-2" onclick="toggleRsvpForm('nyu-2')">RSVP</button>
+        </div>
+        <div class="rsvp-form" id="form-nyu-2">
+          <input class="rsvp-input" id="name-nyu-2" placeholder="Your name" type="text" autocomplete="given-name"/>
+          <input class="rsvp-input" id="email-nyu-2" placeholder="Your email" type="email" autocomplete="email"/>
+          <button class="rsvp-submit" onclick="fakeRsvp('nyu-2')">Confirm RSVP →</button>
+          <div class="rsvp-msg" id="msg-nyu-2"></div>
+        </div>
+      </div>
+      <div class="event-card">
+        <div class="event-top">
+          <div class="event-icon">🏃</div>
+          <div class="event-info">
+            <div class="event-day">Every Thursday</div>
+            <div class="event-title">Thursday Group Run</div>
+            <div class="event-sub">5:30 PM · all paces welcome</div>
+          </div>
+          <button class="rsvp-btn" id="btn-nyu-3" onclick="toggleRsvpForm('nyu-3')">RSVP</button>
+        </div>
+        <div class="rsvp-form" id="form-nyu-3">
+          <input class="rsvp-input" id="name-nyu-3" placeholder="Your name" type="text" autocomplete="given-name"/>
+          <input class="rsvp-input" id="email-nyu-3" placeholder="Your email" type="email" autocomplete="email"/>
+          <button class="rsvp-submit" onclick="fakeRsvp('nyu-3')">Confirm RSVP →</button>
+          <div class="rsvp-msg" id="msg-nyu-3"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">Details</div>
+    <div class="details-grid">
+      <div class="detail-card"><div class="detail-icon">📅</div><div class="detail-title">Schedule</div><div class="detail-value">Tue · Wed · Thu</div><div class="detail-sub">Runs & workouts</div></div>
+      <div class="detail-card"><div class="detail-icon">📍</div><div class="detail-title">Location</div><div class="detail-value">NYU Campus</div><div class="detail-sub">Washington Square, NYC</div></div>
+      <div class="detail-card"><div class="detail-icon">⚡</div><div class="detail-title">Pace</div><div class="detail-value">All paces</div><div class="detail-sub">All runners welcome</div></div>
+      <div class="detail-card"><div class="detail-icon">🎓</div><div class="detail-title">Community</div><div class="detail-value">1,594+</div><div class="detail-sub">Followers on IG</div></div>
+    </div>
+
+    <div class="section-label">About</div>
+    <div class="bio-text">The official run club of NYU. All runners welcome!
+
+Join us on runs, workouts, and more — from Tuesday track sessions to Wednesday strength training and Thursday group runs. Whether you're chasing a PR or just starting out, there's a spot for you here.</div>
+
+    <a href="https://instagram.com/nyurunclub" target="_blank" class="insta-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#888" stroke="none"/></svg>
+      @nyurunclub
+    </a>
+
+    <div class="section-label">Photos</div>
+    <div class="photo-grid">
+      <img src="https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=600&q=80" alt="NYU Run Club group" onclick="openLightbox('https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=1200&q=80')"/>
+      <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600&q=80" alt="NYU Run Club crew" onclick="openLightbox('https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1200&q=80')"/>
+      <img src="https://images.unsplash.com/photo-1461897104016-0b3b00cc81ee?w=600&q=80" alt="NYU Run Club" onclick="openLightbox('https://images.unsplash.com/photo-1461897104016-0b3b00cc81ee?w=1200&q=80')"/>
+    </div>
+
+  </div>
+
+  <div class="tab-bar">
+    <div class="tab-item"><span class="tab-icon">🗺️</span><span>Discover</span></div>
+    <div class="tab-item active"><span class="tab-icon" style="filter:drop-shadow(0 0 6px #B4FF2E)">🏃</span><span style="color:#B4FF2E">Clubs</span></div>
+    <div class="tab-item"><span class="tab-icon">📅</span><span>Events</span></div>
+    <div class="tab-item"><span class="tab-icon">👤</span><span>Profile</span></div>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <img id="lightbox-img" src="" alt=""/>
+</div>
+
+<p class="footer-note">
+  NYU Run Club on Paceway · <a href="https://joinpaceway.com">joinpaceway.com</a>
+</p>
+
+<script>
+  function updateClock() {
+    const now = new Date();
+    document.getElementById('clock').textContent = now.getHours() + ':' + String(now.getMinutes()).padStart(2,'0');
+  }
+  updateClock(); setInterval(updateClock, 10000);
+
+  let following = false;
+  function toggleFollow() {
+    following = !following;
+    const btn = document.getElementById('followBtn');
+    btn.textContent = following ? '✓ Following' : '+ Follow Club';
+    btn.classList.toggle('following', following);
+  }
+
+  function toggleRsvpForm(id) {
+    const form = document.getElementById('form-' + id);
+    form.classList.toggle('open');
+    if (form.classList.contains('open')) document.getElementById('name-' + id).focus();
+  }
+
+  function fakeRsvp(id) {
+    const name = document.getElementById('name-' + id).value.trim();
+    const email = document.getElementById('email-' + id).value.trim();
+    const msg = document.getElementById('msg-' + id);
+    if (!name) { msg.textContent = 'Enter your name'; msg.className = 'rsvp-msg error'; setTimeout(() => msg.textContent='',3000); return; }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { msg.textContent = "Enter a valid email"; msg.className = 'rsvp-msg error'; setTimeout(() => msg.textContent='',3000); return; }
+    msg.textContent = "You're in! See you out there 💜"; msg.className = 'rsvp-msg success';
+    document.getElementById('form-' + id).classList.remove('open');
+    const btn = document.getElementById('btn-' + id);
+    btn.textContent = "✓ You're in"; btn.classList.add('done'); btn.disabled = true;
+  }
+
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+  }
+  function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+
+  async function shareProfile() {
+    const url = 'https://joinpaceway.com/clubs/nyu';
+    const btn = document.querySelector('.share-btn');
+    if (navigator.share) {
+      try { await navigator.share({ title: 'NYU Run Club', text: 'Join us on Paceway!', url }); return; } catch {}
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Copied!`;
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Share`;
+        btn.classList.remove('copied');
+      }, 2500);
+    } catch {}
+  }
+</script>
+</body>
+</html>
